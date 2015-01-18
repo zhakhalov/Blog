@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+    
+    Blog.WebUI.Models.ArticleContentModel article = ViewBag.Article;
+    List<Blog.WebUI.Models.CommentModel> commentList = ViewBag.Comments;
+}
+
+
+<h2>Article #@ViewBag.Id</h2>
+
+<div>
+    @Html.Partial("Partial/Article", article)
+</div>
+<div>
+    @Html.Partial("Partial/CommentList", commentList)
+</div>

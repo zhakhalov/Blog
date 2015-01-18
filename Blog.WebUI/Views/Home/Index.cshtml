@@ -1,0 +1,15 @@
+﻿@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+@section LeftSide
+{
+    This is Left Menu
+}
+
+@for (int i = 0; i <  ViewBag.Articles.Count; ++i)
+{
+    <p>
+        <a href="@Url.Action("Index", "Article", new  { id = i })">@ViewBag.Articles[i].Title</a>
+    </p>
+}

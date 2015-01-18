@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.WebUI", "Blog.WebUI\Blog.WebUI.csproj", "{AEE31271-5CE8-4F25-AF86-A9D6A5659B7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Dal", "Blog.Dal\Blog.Dal.csproj", "{811CDF6F-63C6-4532-96F8-3035DE027103}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Entities", "Blog.Entities\Blog.Entities.csproj", "{C2595E6E-1FDF-4125-916F-EADF739C96CD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AEE31271-5CE8-4F25-AF86-A9D6A5659B7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEE31271-5CE8-4F25-AF86-A9D6A5659B7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEE31271-5CE8-4F25-AF86-A9D6A5659B7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEE31271-5CE8-4F25-AF86-A9D6A5659B7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{811CDF6F-63C6-4532-96F8-3035DE027103}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{811CDF6F-63C6-4532-96F8-3035DE027103}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{811CDF6F-63C6-4532-96F8-3035DE027103}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{811CDF6F-63C6-4532-96F8-3035DE027103}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2595E6E-1FDF-4125-916F-EADF739C96CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2595E6E-1FDF-4125-916F-EADF739C96CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2595E6E-1FDF-4125-916F-EADF739C96CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2595E6E-1FDF-4125-916F-EADF739C96CD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
