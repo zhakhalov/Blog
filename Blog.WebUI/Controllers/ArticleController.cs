@@ -42,17 +42,5 @@ namespace Blog.WebUI.Controllers
 
             return View();
         }
-
-
-        public class ArticleContent
-        {
-            public string Title { get; set; }
-            public string BodyHtml { get; set; }
-        }
-
-        public class Comment
-        {
-            public string BodyHtml { get; set; }
-        }
     }
 }
