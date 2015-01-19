@@ -13,10 +13,10 @@ namespace Blog.Entities
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class zhakhalovdemoEntities : DbContext
+    public partial class Blog : DbContext
     {
-        public zhakhalovdemoEntities()
-            : base("name=zhakhalovdemoEntities")
+        public Blog()
+            : base("name=Blog")
         {
         }
     
@@ -28,6 +28,7 @@ namespace Blog.Entities
         public DbSet<Article> Article { get; set; }
         public DbSet<ArticleTag> ArticleTag { get; set; }
         public DbSet<Comment> Comment { get; set; }
+        public DbSet<Mark> Mark { get; set; }
         public DbSet<Post> Post { get; set; }
         public DbSet<Role> Role { get; set; }
         public DbSet<Tag> Tag { get; set; }

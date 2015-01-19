@@ -9,6 +9,7 @@
           <EntitySet Name="Article" EntityType="BlogModel.Store.Article" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ArticleTag" EntityType="BlogModel.Store.ArticleTag" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Comment" EntityType="BlogModel.Store.Comment" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Mark" EntityType="BlogModel.Store.Mark" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Post" EntityType="BlogModel.Store.Post" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Role" EntityType="BlogModel.Store.Role" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tag" EntityType="BlogModel.Store.Tag" store:Type="Tables" Schema="dbo" />
@@ -30,6 +31,14 @@
             <End Role="Post" EntitySet="Post" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
+          <AssociationSet Name="fk_Mark_Post" Association="BlogModel.Store.fk_Mark_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Mark" EntitySet="Mark" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Mark_User" Association="BlogModel.Store.fk_Mark_User">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Mark" EntitySet="Mark" />
+          </AssociationSet>
           <AssociationSet Name="fk_Post_User" Association="BlogModel.Store.fk_Post_User">
             <End Role="User" EntitySet="User" />
             <End Role="Post" EntitySet="Post" />
@@ -48,6 +57,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="128" />
           <Property Name="PostId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ArticleTag">
@@ -65,14 +75,22 @@
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="PostId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Mark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="PostId" Type="int" Nullable="false" />
+          <Property Name="Direction" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Post">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="128" />
-          <Property Name="Content" Type="nvarchar" Nullable="false" MaxLength="1024" />
+          <Property Name="Content" Type="nvarchar" Nullable="false" MaxLength="2048" />
           <Property Name="Timestamp" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
@@ -156,6 +174,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_Mark_Post">
+          <End Role="Post" Type="BlogModel.Store.Post" Multiplicity="1" />
+          <End Role="Mark" Type="BlogModel.Store.Mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mark">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Mark_User">
+          <End Role="Post" Type="BlogModel.Store.Post" Multiplicity="1" />
+          <End Role="Mark" Type="BlogModel.Store.Mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mark">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_Post_User">
           <End Role="User" Type="BlogModel.Store.User" Multiplicity="1" />
           <End Role="Post" Type="BlogModel.Store.Post" Multiplicity="*" />
@@ -197,10 +239,11 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BlogModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="zhakhalovdemoEntities" p1:LazyLoadingEnabled="true">
+        <EntityContainer Name="Blog" p1:LazyLoadingEnabled="true">
           <EntitySet Name="Article" EntityType="BlogModel.Article" />
           <EntitySet Name="ArticleTag" EntityType="BlogModel.ArticleTag" />
           <EntitySet Name="Comment" EntityType="BlogModel.Comment" />
+          <EntitySet Name="Mark" EntityType="BlogModel.Mark" />
           <EntitySet Name="Post" EntityType="BlogModel.Post" />
           <EntitySet Name="Role" EntityType="BlogModel.Role" />
           <EntitySet Name="Tag" EntityType="BlogModel.Tag" />
@@ -222,6 +265,14 @@
             <End Role="Post" EntitySet="Post" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
+          <AssociationSet Name="fk_Mark_Post" Association="BlogModel.fk_Mark_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Mark" EntitySet="Mark" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Mark_User" Association="BlogModel.fk_Mark_User">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Mark" EntitySet="Mark" />
+          </AssociationSet>
           <AssociationSet Name="fk_Post_User" Association="BlogModel.fk_Post_User">
             <End Role="User" EntitySet="User" />
             <End Role="Post" EntitySet="Post" />
@@ -240,6 +291,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
           <Property Name="PostId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Post" Relationship="BlogModel.fk_Article_Post" FromRole="Article" ToRole="Post" />
           <NavigationProperty Name="ArticleTag" Relationship="BlogModel.fk_ArticleTag_Article" FromRole="Article" ToRole="ArticleTag" />
@@ -262,17 +314,29 @@
           <Property Name="PostId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Post" Relationship="BlogModel.fk_Comment_Post" FromRole="Comment" ToRole="Post" />
         </EntityType>
+        <EntityType Name="Mark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="PostId" Type="Int32" Nullable="false" />
+          <Property Name="Direction" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Post" Relationship="BlogModel.fk_Mark_Post" FromRole="Mark" ToRole="Post" />
+          <NavigationProperty Name="Post1" Relationship="BlogModel.fk_Mark_User" FromRole="Mark" ToRole="Post" />
+        </EntityType>
         <EntityType Name="Post">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
-          <Property Name="Content" Type="String" Nullable="false" MaxLength="1024" Unicode="true" FixedLength="false" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="2048" Unicode="true" FixedLength="false" />
           <Property Name="Timestamp" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Article" Relationship="BlogModel.fk_Article_Post" FromRole="Post" ToRole="Article" />
           <NavigationProperty Name="Comment" Relationship="BlogModel.fk_Comment_Post" FromRole="Post" ToRole="Comment" />
+          <NavigationProperty Name="Mark" Relationship="BlogModel.fk_Mark_Post" FromRole="Post" ToRole="Mark" />
+          <NavigationProperty Name="Mark1" Relationship="BlogModel.fk_Mark_User" FromRole="Post" ToRole="Mark" />
           <NavigationProperty Name="User" Relationship="BlogModel.fk_Post_User" FromRole="Post" ToRole="User" />
         </EntityType>
         <EntityType Name="Role">
@@ -362,6 +426,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_Mark_Post">
+          <End Role="Post" Type="BlogModel.Post" Multiplicity="1" />
+          <End Role="Mark" Type="BlogModel.Mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mark">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Mark_User">
+          <End Role="Post" Type="BlogModel.Post" Multiplicity="1" />
+          <End Role="Mark" Type="BlogModel.Mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mark">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_Post_User">
           <End Role="User" Type="BlogModel.User" Multiplicity="1" />
           <End Role="Post" Type="BlogModel.Post" Multiplicity="*" />
@@ -403,11 +491,12 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="BlogModelStoreContainer" CdmEntityContainer="zhakhalovdemoEntities">
+        <EntityContainerMapping StorageEntityContainer="BlogModelStoreContainer" CdmEntityContainer="Blog">
           <EntitySetMapping Name="Article">
             <EntityTypeMapping TypeName="BlogModel.Article">
               <MappingFragment StoreEntitySet="Article">
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="PostId" ColumnName="PostId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -429,12 +518,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Mark">
+            <EntityTypeMapping TypeName="BlogModel.Mark">
+              <MappingFragment StoreEntitySet="Mark">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
+                <ScalarProperty Name="Direction" ColumnName="Direction" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Post">
             <EntityTypeMapping TypeName="BlogModel.Post">
               <MappingFragment StoreEntitySet="Post">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
               </MappingFragment>

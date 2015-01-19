@@ -18,16 +18,19 @@ namespace Blog.Entities
         {
             this.Article = new HashSet<Article>();
             this.Comment = new HashSet<Comment>();
+            this.Mark = new HashSet<Mark>();
+            this.Mark1 = new HashSet<Mark>();
         }
     
         public int Id { get; set; }
         public int UserId { get; set; }
-        public string Title { get; set; }
         public string Content { get; set; }
         public System.DateTime Timestamp { get; set; }
     
         public virtual ICollection<Article> Article { get; set; }
         public virtual ICollection<Comment> Comment { get; set; }
+        public virtual ICollection<Mark> Mark { get; set; }
+        public virtual ICollection<Mark> Mark1 { get; set; }
         public virtual User User { get; set; }
     }
 }

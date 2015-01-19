@@ -1,0 +1,4 @@
+F:\VS2012_Projects\Blog\Blog.Dal\bin\Debug\Blog.Dal.dll
+F:\VS2012_Projects\Blog\Blog.Dal\bin\Debug\Blog.Dal.pdb
+F:\VS2012_Projects\Blog\Blog.Dal\obj\Debug\Blog.Dal.dll
+F:\VS2012_Projects\Blog\Blog.Dal\obj\Debug\Blog.Dal.pdb
