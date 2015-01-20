@@ -2,6 +2,7 @@ CREATE TABLE [User] (
 	[Id]		INT				NOT NULL IDENTITY(1,1),		
 	[Username]	NVARCHAR(32)	NOT NULL,		
 	[Email]		NVARCHAR(64)	NOT NULL,		
+	[Password]	NVARCHAR(32)	NOT NULL,	
 	[FullName]	NVARCHAR(256)	NOT NULL,		
 	[AvatarUrl]	NVARCHAR(128)	NOT NULL,		
 	[RegistrationDate] DATETIME	NOT NULL,		
@@ -72,6 +73,6 @@ CREATE TABLE [Mark] (
 	[PostId]	INT				NOT NULL,
 	[Direction]	INT				NOT NULL,
 	CONSTRAINT [pk_Mark]		PRIMARY KEY ([Id]),
-	CONSTRAINT [fk_Mark_User]	FOREIGN KEY ([UserId]) REFERENCES [Post]([Id]),
+	CONSTRAINT [fk_Mark_User]	FOREIGN KEY ([UserId]) REFERENCES [User]([Id]),
 	CONSTRAINT [fk_Mark_Post]	FOREIGN KEY ([PostId]) REFERENCES [Post]([Id])
 );

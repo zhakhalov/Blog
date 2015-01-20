@@ -11,6 +11,5 @@ namespace Blog.Dal.Repositories.Abstract
         void Add(T model);
         void Remove(T model);
         IEnumerable<T> GetAll();
-        T GetById(int id);
     }
 }

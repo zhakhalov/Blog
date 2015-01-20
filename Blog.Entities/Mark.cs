@@ -20,6 +20,6 @@ namespace Blog.Entities
         public int Direction { get; set; }
     
         public virtual Post Post { get; set; }
-        public virtual Post Post1 { get; set; }
+        public virtual User User { get; set; }
     }
 }

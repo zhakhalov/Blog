@@ -18,6 +18,7 @@ namespace Blog.Entities
         {
             this.Post = new HashSet<Post>();
             this.UserRole = new HashSet<UserRole>();
+            this.Mark = new HashSet<Mark>();
         }
     
         public int Id { get; set; }
@@ -26,8 +27,10 @@ namespace Blog.Entities
         public string FullName { get; set; }
         public string AvatarUrl { get; set; }
         public System.DateTime RegistrationDate { get; set; }
+        public string Password { get; set; }
     
         public virtual ICollection<Post> Post { get; set; }
         public virtual ICollection<UserRole> UserRole { get; set; }
+        public virtual ICollection<Mark> Mark { get; set; }
     }
 }
