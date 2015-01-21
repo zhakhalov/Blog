@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Blog.Dal.Repositories.Concrete
 {
-    class ArticleRepository : Repository<Article>
+    class TagRepository : Repository<Tag>
     {
     }
 }

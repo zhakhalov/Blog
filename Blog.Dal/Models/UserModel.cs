@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Blog.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,5 +17,10 @@ namespace Blog.Dal.Models
         public string AvatarUrl { get; set; }
         public List<string> Roles { get; set; }
         public DateTime RegistrationDate { get; set; }
+
+        public UserModel(User user)
+        {
+
+        }
     }
 }

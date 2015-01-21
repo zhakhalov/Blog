@@ -29,7 +29,7 @@ namespace Blog.Dal.Repositories.Concrete
                 AvatarUrl = userModel.AvatarUrl,
             };
 
-            using(DbContext context = CreateDBContext())
+            using(var context = CreateDBContext())
             {                              
                 context.Set<User>().Add(user);
                 context.SaveChanges();
@@ -52,7 +52,7 @@ namespace Blog.Dal.Repositories.Concrete
         public UserModel GetById(int id)
         {
             UserModel userModel = null;
-            using(DbContext context = CreateDBContext())
+            using (var context = CreateDBContext())
             {
                 User user = context.Set<User>()
                     .Include(u => u.UserRole)
@@ -71,7 +71,7 @@ namespace Blog.Dal.Repositories.Concrete
         {
             bool containts = false;
 
-            using(DbContext context = CreateDBContext())
+            using (var context = CreateDBContext())
             {
                 containts = null != context.Set<User>().Where(r => username == r.Username).FirstOrDefault();
             }
@@ -83,7 +83,7 @@ namespace Blog.Dal.Repositories.Concrete
         {
             bool containts = false;
 
-            using (DbContext context = CreateDBContext())
+            using (var context = CreateDBContext())
             {
                 containts = null != context.Set<User>().Where(r => email == r.Email).FirstOrDefault();
             }
@@ -94,7 +94,7 @@ namespace Blog.Dal.Repositories.Concrete
         public UserModel GetByLogin(string login)
         {
             UserModel userModel = null;
-            using (DbContext context = CreateDBContext())
+            using (var context = CreateDBContext())
             {
                 User user = context.Set<User>()
                     .Include(u => u.UserRole)
@@ -112,7 +112,7 @@ namespace Blog.Dal.Repositories.Concrete
         public List<UserModel> Search(string fragment)
         {
             List<UserModel> userModels = new List<UserModel>();
-            using (DbContext context = CreateDBContext())
+            using (var context = CreateDBContext())
             {
                 List<User> users = context.Set<User>()
                     .Include(u => u.UserRole)
