@@ -1,5 +1,4 @@
 ﻿using Blog.Dal.Models;
-using Blog.Dal.Repositories.Abstract;
 using Blog.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,13 +9,9 @@ using System.Threading.Tasks;
 
 namespace Blog.Dal.Repositories.Concrete
 {
-    class UserRepository : Repository<User>
+    class UserRepository : Repository
     {
-        public UserRepository(string connectionString)
-        {
-            ConnectionString = connectionString;
-        }
-
+        public UserRepository(string connectionString) : base(connectionString) { }
         public int Create(UserModel userModel)
         {
             userModel.RegistrationDate = DateTime.UtcNow;
@@ -29,13 +24,13 @@ namespace Blog.Dal.Repositories.Concrete
                 AvatarUrl = userModel.AvatarUrl,
             };
 
-            using(var context = CreateDBContext())
-            {                              
+            using (var context = CreateContext())
+            {
                 context.Set<User>().Add(user);
                 context.SaveChanges();
 
                 List<Role> roles = context.Set<Role>().Where(r => userModel.Roles.Contains(r.Name)).ToList();
-                foreach(var r in roles)
+                foreach (var r in roles)
                 {
                     context.Set<UserRole>().Add(new UserRole
                     {
@@ -52,7 +47,7 @@ namespace Blog.Dal.Repositories.Concrete
         public UserModel GetById(int id)
         {
             UserModel userModel = null;
-            using (var context = CreateDBContext())
+            using (var context = CreateContext())
             {
                 User user = context.Set<User>()
                     .Include(u => u.UserRole)
@@ -61,7 +56,7 @@ namespace Blog.Dal.Repositories.Concrete
                     .FirstOrDefault();
                 if (null != user)
                 {
-                    userModel = ComposeUser(user);
+                    userModel = new UserModel(user);
                 }
             }
             return userModel;
@@ -71,7 +66,7 @@ namespace Blog.Dal.Repositories.Concrete
         {
             bool containts = false;
 
-            using (var context = CreateDBContext())
+            using (var context = CreateContext())
             {
                 containts = null != context.Set<User>().Where(r => username == r.Username).FirstOrDefault();
             }
@@ -83,7 +78,7 @@ namespace Blog.Dal.Repositories.Concrete
         {
             bool containts = false;
 
-            using (var context = CreateDBContext())
+            using (var context = CreateContext())
             {
                 containts = null != context.Set<User>().Where(r => email == r.Email).FirstOrDefault();
             }
@@ -94,7 +89,7 @@ namespace Blog.Dal.Repositories.Concrete
         public UserModel GetByLogin(string login)
         {
             UserModel userModel = null;
-            using (var context = CreateDBContext())
+            using (var context = CreateContext())
             {
                 User user = context.Set<User>()
                     .Include(u => u.UserRole)
@@ -103,7 +98,7 @@ namespace Blog.Dal.Repositories.Concrete
                     .FirstOrDefault();
                 if (null != user)
                 {
-                    userModel = ComposeUser(user);
+                    userModel = new UserModel(user);
                 }
             }
             return userModel;
@@ -112,36 +107,22 @@ namespace Blog.Dal.Repositories.Concrete
         public List<UserModel> Search(string fragment)
         {
             List<UserModel> userModels = new List<UserModel>();
-            using (var context = CreateDBContext())
+            using (var context = CreateContext())
             {
                 List<User> users = context.Set<User>()
                     .Include(u => u.UserRole)
                     .Include(u => u.UserRole.Select(r => r.Role))
-                    .Where(r => 
+                    .Where(r =>
                         (r.Username.ToLower().Contains(fragment.ToLower())
                         || r.FullName.ToLower().Contains(fragment.ToLower())
                         || r.Email.ToLower().Contains(fragment.ToLower())))
                     .ToList();
-                foreach(var u in users)
+                foreach (var u in users)
                 {
-                    userModels.Add(ComposeUser(u));
+                    userModels.Add(new UserModel(u));
                 }
             }
             return userModels;
-        }
-
-        private UserModel ComposeUser(User user)
-        {
-            return new UserModel
-            {
-                Id = user.Id,
-                Username = user.Username,
-                FullName = user.FullName,
-                Email = user.Email,
-                AvatarUrl = user.AvatarUrl,
-                RegistrationDate = user.RegistrationDate,
-                Roles = user.UserRole.Select(r => r.Role.Name).ToList()
-            };
         }
     }
 }
