@@ -20,7 +20,7 @@ namespace Blog.Dal.Models
 
         public UserModel(User user)
         {
-
+                
         }
     }
 }
