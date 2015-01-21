@@ -16,7 +16,9 @@ namespace Blog.Entities
     {
         public int Id { get; set; }
         public int PostId { get; set; }
+        public int ArticleId { get; set; }
     
         public virtual Post Post { get; set; }
+        public virtual Article Article { get; set; }
     }
 }

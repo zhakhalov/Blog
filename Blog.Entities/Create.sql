@@ -29,11 +29,11 @@ CREATE TABLE [UserRole] (
 		
 CREATE TABLE [Post] (		
 	[Id]		INT				NOT NULL IDENTITY(1,1),		
-	[UserId]	INT				NOT NULL,				
+	[UserId]	INT				NOT NULL,	
 	[Content]	NVARCHAR(2048)	NOT NULL,		
 	[Timestamp] DATETIME		NOT NULL,		
 	CONSTRAINT [pk_Post]		PRIMARY KEY ([Id]),		
-	CONSTRAINT [fk_Post_User]	FOREIGN KEY ([UserId]) REFERENCES [User]([Id])		
+	CONSTRAINT [fk_Post_User]	FOREIGN KEY ([UserId]) REFERENCES [User]([Id]),
 );		
 		
 CREATE TABLE [Article] (		
@@ -62,9 +62,11 @@ CREATE TABLE [ArticleTag] (
 		
 CREATE TABLE [Comment] (		
 	[Id]		INT				NOT NULL IDENTITY(1,1),		
-	[PostId]	INT				NOT NULL,		
+	[PostId]	INT				NOT NULL,
+	[ArticleId]	INT				NOT NULL,		
 	CONSTRAINT [pk_Comment]		PRIMARY KEY ([Id]),		
-	CONSTRAINT [fk_Comment_Post] FOREIGN KEY ([PostId]) REFERENCES [Post]([Id])
+	CONSTRAINT [fk_Comment_Post] FOREIGN KEY ([PostId]) REFERENCES [Post]([Id]),
+	CONSTRAINT [fk_Comment_Article] FOREIGN KEY ([ArticleId]) REFERENCES [Article]([Id])
 );
 
 CREATE TABLE [Mark] (

@@ -17,6 +17,7 @@ namespace Blog.Entities
         public Article()
         {
             this.ArticleTag = new HashSet<ArticleTag>();
+            this.Comment = new HashSet<Comment>();
         }
     
         public int Id { get; set; }
@@ -25,5 +26,6 @@ namespace Blog.Entities
     
         public virtual Post Post { get; set; }
         public virtual ICollection<ArticleTag> ArticleTag { get; set; }
+        public virtual ICollection<Comment> Comment { get; set; }
     }
 }

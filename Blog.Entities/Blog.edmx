@@ -27,6 +27,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PostId" Type="int" Nullable="false" />
+          <Property Name="ArticleId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Mark">
           <Key>
@@ -113,6 +114,18 @@
             </Principal>
             <Dependent Role="ArticleTag">
               <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Comment_Article">
+          <End Role="Article" Type="Self.Article" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="ArticleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -210,6 +223,10 @@
             <End Role="Tag" EntitySet="Tag" />
             <End Role="ArticleTag" EntitySet="ArticleTag" />
           </AssociationSet>
+          <AssociationSet Name="fk_Comment_Article" Association="Self.fk_Comment_Article">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
           <AssociationSet Name="fk_Comment_Post" Association="Self.fk_Comment_Post">
             <End Role="Post" EntitySet="Post" />
             <End Role="Comment" EntitySet="Comment" />
@@ -285,6 +302,10 @@
             <End Role="User" EntitySet="User" />
             <End Role="Mark" EntitySet="Mark" />
           </AssociationSet>
+          <AssociationSet Name="fk_Comment_Article" Association="BlogModel.fk_Comment_Article">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Article">
           <Key>
@@ -295,6 +316,7 @@
           <Property Name="PostId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Post" Relationship="BlogModel.fk_Article_Post" FromRole="Article" ToRole="Post" />
           <NavigationProperty Name="ArticleTag" Relationship="BlogModel.fk_ArticleTag_Article" FromRole="Article" ToRole="ArticleTag" />
+          <NavigationProperty Name="Comment" Relationship="BlogModel.fk_Comment_Article" FromRole="Article" ToRole="Comment" />
         </EntityType>
         <EntityType Name="ArticleTag">
           <Key>
@@ -313,6 +335,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="PostId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Post" Relationship="BlogModel.fk_Comment_Post" FromRole="Comment" ToRole="Post" />
+          <Property Name="ArticleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Article" Relationship="BlogModel.fk_Comment_Article" FromRole="Comment" ToRole="Article" />
         </EntityType>
         <EntityType Name="Mark">
           <Key>
@@ -487,6 +511,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_Comment_Article">
+          <End Type="BlogModel.Article" Role="Article" Multiplicity="1" />
+          <End Type="BlogModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="ArticleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -514,6 +550,7 @@
           <EntitySetMapping Name="Comment">
             <EntityTypeMapping TypeName="BlogModel.Comment">
               <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="PostId" ColumnName="PostId" />
               </MappingFragment>

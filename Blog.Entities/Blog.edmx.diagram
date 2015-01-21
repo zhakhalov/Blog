@@ -23,6 +23,7 @@
         <AssociationConnector Association="BlogModel.fk_UserRole_Role" ManuallyRouted="false" />
         <AssociationConnector Association="BlogModel.fk_UserRole_User" ManuallyRouted="false" />
         <AssociationConnector Association="BlogModel.fk_Mark_User1" />
+        <AssociationConnector Association="BlogModel.fk_Comment_Article" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
