@@ -15,12 +15,19 @@ namespace Blog.Dal.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public string AvatarUrl { get; set; }
-        public List<string> Roles { get; set; }
+        public IEnumerable<string> Roles { get; set; }
         public DateTime RegistrationDate { get; set; }
 
         public UserModel(User user)
         {
-                
+            Id = user.Id;
+            FullName = user.FullName;
+            Username = user.Username;
+            Email = user.Email;
+            Password = user.Password;
+            AvatarUrl = user.AvatarUrl;
+            RegistrationDate = user.RegistrationDate;
+            Roles = user.UserRole.Select(r => r.Role.Name).ToList();
         }
     }
 }
