@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Blog.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,13 @@ namespace Blog.Dal.Models
         public DateTime Timestamp { get; set; }
         public int Mark { get; set; }
         public List<CommentModel> Comments { get; set; }
+
+        public CommentModel(Comment comment)
+        {
+            Id = comment.Id;
+            Author = new UserModel(comment.Post.User);
+            Timestamp = comment.Post.Timestamp;
+            Mark = comment.Post.Mark.Sum(m => m.Direction);
+        }
     }
 }

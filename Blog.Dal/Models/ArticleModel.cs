@@ -15,16 +15,21 @@ namespace Blog.Dal.Models
         public UserModel Author { get; set; }
         public DateTime Timestamp { get; set; }
         public int Mark { get; set; }
-        public IEnumerable<CommentModel> Comments { get; set; }
-        public IEnumerable<string> Tags { get; set; }
+        public List<CommentModel> Comments { get; set; }
+        public List<string> Tags { get; set; }
 
         public ArticleModel(Article article)
         {
             Id = article.Id;
             Title = article.Title;
             Content = article.Post.Content;
+            Timestamp = article.Post.Timestamp;
+            
             Author = new UserModel(article.Post.User);
-            Tags = article.ArticleTag.Select(t => t.Tag.Name).ToList();
+            
+            Tags = article.ArticleTag.OrderBy(a => a.Id).Select(t => t.Tag.Name).ToList();
+            Comments = article.Comment.Select(t => new CommentModel(t)).ToList();
+            Mark = article.Post.Mark.Sum(m => m.Direction);
         }
     }
 }
