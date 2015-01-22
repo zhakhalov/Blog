@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Blog.Dal.Repositories.Concrete
 {
-    class ArticleRepository : Repository
+    public class ArticleRepository : Repository
     {
         public ArticleRepository(string connectionString) : base(connectionString) { }
 
@@ -25,14 +25,26 @@ namespace Blog.Dal.Repositories.Concrete
             return articleModel;
         }
 
-        public IEnumerable<ArticleModel> GetByTag(string tagName)
+        public List<ArticleModel> GetNewest(int limit)
+        {
+            List<ArticleModel> articleModels = null;
+
+            using (var context = CreateContext())
+            {
+                context.Set<Article>()
+                    .Include(a => a.Post);
+            }
+            return articleModels;
+        }
+
+        public List<ArticleModel> GetByTag(string tagName)
         {
             return GetByTag(tagName, 0, int.MaxValue);
         }
 
-        public IEnumerable<ArticleModel> GetByTag(string tagName, int skip, int take)
+        public List<ArticleModel> GetByTag(string tagName, int skip, int limit)
         {
-            IEnumerable<ArticleModel> articleModels = new List<ArticleModel>();
+            List<ArticleModel> articleModels = null;
 
             using (var context = CreateContext())
             {
@@ -43,7 +55,7 @@ namespace Blog.Dal.Repositories.Concrete
                     .Where(a => tagName == a.Tag.Name)
                     .OrderBy(a => a.Article.Post.Timestamp)
                     .Skip(skip)
-                    .Take(take)
+                    .Take(limit)
                     .ToList();
                 if (null != articleTag)
                 {
@@ -54,9 +66,9 @@ namespace Blog.Dal.Repositories.Concrete
             return articleModels;
         }
 
-        public IEnumerable<ArticleModel> GetByUsername(string username)
+        public List<ArticleModel> GetByUsername(string username)
         {
-            IEnumerable<ArticleModel> articleModels = new List<ArticleModel>();
+            List<ArticleModel> articleModels = new List<ArticleModel>();
 
             using (var context = CreateContext())
             {
@@ -68,10 +80,16 @@ namespace Blog.Dal.Repositories.Concrete
                     .Include(a => a.Comment.Select(c => c.Post.User))
                     .Where(a => username == a.Post.User.Username)
                     .OrderBy(a => a.Post.Timestamp)
-                    .Select(a => new ArticleModel(a));
+                    .Select(a => new ArticleModel(a))
+                    .ToList();
             }
 
             return articleModels;
+        }
+
+        public int AddTag(ArticleModel article, string tagName)
+        {
+            return AddTags(article, new List<string>(){tagName}).First();
         }
 
         public List<int> AddTags(ArticleModel article, List<string> tagNames)

@@ -7,9 +7,21 @@ using System.Threading.Tasks;
 
 namespace Blog.Dal.Repositories.Concrete
 {
-    class TagRepository : Repository
+    public class TagRepository : Repository
     {
         public TagRepository(string connectionString) : base(connectionString) { }
+
+        public List<string> GetAll()
+        {
+            List<string> tags = null;
+
+            using(var context = CreateContext())
+            {
+                tags = context.Set<Tag>().Select(t => t.Name).ToList();
+            }
+
+            return tags;
+        }
 
         public int AddTag(string name)
         {

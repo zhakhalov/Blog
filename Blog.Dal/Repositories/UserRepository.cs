@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Blog.Dal.Repositories.Concrete
 {
-    class UserRepository : Repository
+    public class UserRepository : Repository
     {
         public UserRepository(string connectionString) : base(connectionString) { }
         public int Create(UserModel userModel)

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Blog.Dal.Repositories
 {
-    abstract class Repository
+    public abstract class Repository
     {
         private readonly string _connectionString;
         protected Repository(string connectionString)

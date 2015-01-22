@@ -109,12 +109,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ArticleController.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ArticleContentModel.cs" />
     <Compile Include="Models\CommentModel.cs" />
+    <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -122,6 +124,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="bower_components\font-awesome\.gitignore" />
+    <Content Include="bower_components\font-awesome\css\font-awesome.css" />
+    <Content Include="bower_components\font-awesome\css\font-awesome.min.css" />
     <Content Include="Global.asax" />
     <Content Include="bower_components\bootstrap\dist\css\bootstrap-theme.css" />
     <Content Include="bower_components\bootstrap\dist\css\bootstrap-theme.min.css" />
@@ -233,6 +238,7 @@
     <Content Include="bower_components\jquery\src\var\support.js" />
     <Content Include="bower_components\jquery\src\var\toString.js" />
     <Content Include="bower_components\jquery\src\wrap.js" />
+    <Content Include="Scripts\Register\register.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -244,7 +250,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Scripts\" />
+    <Folder Include="Content\Avatars\" />
+    <Folder Include="Styles\Register\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
@@ -373,6 +380,53 @@
     <Content Include="bower_components\jquery\bower.json" />
     <Content Include="bower_components\jquery\dist\jquery.min.map" />
     <Content Include="bower_components\jquery\src\sizzle\dist\sizzle.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bower_components\font-awesome\.bower.json" />
+    <Content Include="bower_components\font-awesome\.npmignore" />
+    <Content Include="bower_components\font-awesome\bower.json" />
+    <Content Include="bower_components\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="bower_components\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="bower_components\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="bower_components\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="bower_components\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="bower_components\font-awesome\less\bordered-pulled.less" />
+    <Content Include="bower_components\font-awesome\less\core.less" />
+    <Content Include="bower_components\font-awesome\less\extras.less" />
+    <Content Include="bower_components\font-awesome\less\fixed-width.less" />
+    <Content Include="bower_components\font-awesome\less\font-awesome.less" />
+    <Content Include="bower_components\font-awesome\less\icons.less" />
+    <Content Include="bower_components\font-awesome\less\larger.less" />
+    <Content Include="bower_components\font-awesome\less\list.less" />
+    <Content Include="bower_components\font-awesome\less\mixins.less" />
+    <Content Include="bower_components\font-awesome\less\path.less" />
+    <Content Include="bower_components\font-awesome\less\rotated-flipped.less" />
+    <Content Include="bower_components\font-awesome\less\spinning.less" />
+    <Content Include="bower_components\font-awesome\less\stacked.less" />
+    <Content Include="bower_components\font-awesome\less\variables.less" />
+    <Content Include="bower_components\font-awesome\scss\font-awesome.scss" />
+    <Content Include="bower_components\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="bower_components\font-awesome\scss\_core.scss" />
+    <Content Include="bower_components\font-awesome\scss\_extras.scss" />
+    <Content Include="bower_components\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="bower_components\font-awesome\scss\_icons.scss" />
+    <Content Include="bower_components\font-awesome\scss\_larger.scss" />
+    <Content Include="bower_components\font-awesome\scss\_list.scss" />
+    <Content Include="bower_components\font-awesome\scss\_mixins.scss" />
+    <Content Include="bower_components\font-awesome\scss\_path.scss" />
+    <Content Include="bower_components\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="bower_components\font-awesome\scss\_spinning.scss" />
+    <Content Include="bower_components\font-awesome\scss\_stacked.scss" />
+    <Content Include="bower_components\font-awesome\scss\_variables.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Auth\Register.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Bar\Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Bar\User.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

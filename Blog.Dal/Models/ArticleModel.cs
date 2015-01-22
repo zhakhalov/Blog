@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Blog.Dal.Models
 {
-    class ArticleModel
+    public class ArticleModel
     {
         public int Id { get; set; }
         public string Title { get; set; }

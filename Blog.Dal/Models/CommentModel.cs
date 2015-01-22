@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Blog.Dal.Models
 {
-    class CommentModel
+    public class CommentModel
     {
         public int Id { get; set; }
         public string Body { get; set; }
