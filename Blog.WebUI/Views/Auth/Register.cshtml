@@ -18,27 +18,29 @@
                         <h3 class="panel-title">Register</h3>
                     </div>
                     <div class="panel-body">
-                        <fieldset>
-                            <div class="form-group">
-                                @Html.ValidationMessageFor(model => model.Username)
-                                @Html.TextBoxFor(model => model.Username, new { @class = "form-control", @required = "reqiured", @placeholder = "Username" })
-                            </div>
-                            <div class="form-group">
-                                @Html.ValidationMessageFor(model => model.Email)
-                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @type = "email", @required = "reqiured", @placeholder = "Email" })
-                            </div>
-                            <div class="form-group">
-                                @Html.ValidationMessageFor(model => model.Password)
-                                @Html.PasswordFor(model => model.Password, new { @class = "form-control", @required = "reqiured", @placeholder = "Password" })
-                            </div>
-                            <div class="form-group">
-                                @Html.ValidationMessageFor(model => model.Username)
-                                @Html.PasswordFor(model => model.Username, new { @class = "form-control", @required = "reqiured", @placeholder = "Confirm password" })
-                            </div>
-                            <p>
-                                <input type="submit" value="Register" class="btn btn-primary btn-block" />
-                            </p>
-                        </fieldset>
+                        <form method="post">
+                            <fieldset>
+                                <div class="form-group">
+                                    @Html.ValidationMessageFor(model => model.Username)
+                                    @Html.TextBoxFor(model => model.Username, new { @class = "form-control", @required = "reqiured", @placeholder = "Username" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.ValidationMessageFor(model => model.Email)
+                                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @type = "email", @required = "reqiured", @placeholder = "Email" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.ValidationMessageFor(model => model.Password)
+                                    @Html.PasswordFor(model => model.Password, new { @class = "form-control", @required = "reqiured", @placeholder = "Password" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                                    @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control", @required = "reqiured", @placeholder = "Confirm password" })
+                                </div>
+                                <p>
+                                    <input type="submit" value="Register" class="btn btn-primary btn-block" />
+                                </p>
+                            </fieldset>
+                        </form>
                     </div>
                 </div>
             </div>
