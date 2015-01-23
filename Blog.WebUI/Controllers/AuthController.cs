@@ -24,6 +24,12 @@ namespace Blog.WebUI.Controllers
             return View("Register");
         }
 
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View("Login");
+        }
+
         [HttpPost]
         public ActionResult Login(RegisterModel user)
         {

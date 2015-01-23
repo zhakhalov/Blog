@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Blog.Dal.Repositories.Concrete
+namespace Blog.Dal.Repositories
 {
     public class ArticleRepository : Repository
     {

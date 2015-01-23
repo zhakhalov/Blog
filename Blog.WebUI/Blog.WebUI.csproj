@@ -108,6 +108,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\ValidationAttributes\UniqueEmailAttribute.cs" />
+    <Compile Include="Code\ValidationAttributes\UniqueUsernameAttribute.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -116,6 +118,7 @@
     </Compile>
     <Compile Include="Models\ArticleContentModel.cs" />
     <Compile Include="Models\CommentModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -239,6 +242,7 @@
     <Content Include="bower_components\jquery\src\var\toString.js" />
     <Content Include="bower_components\jquery\src\wrap.js" />
     <Content Include="Scripts\Register\register.js" />
+    <Content Include="Styles\Auth\styles.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -251,7 +255,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Avatars\" />
-    <Folder Include="Styles\Register\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
@@ -427,6 +430,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Bar\User.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Auth\Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\AuthLayout.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
