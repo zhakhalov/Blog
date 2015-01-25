@@ -18,6 +18,8 @@ namespace Blog.Dal.Models
         public List<CommentModel> Comments { get; set; }
         public List<string> Tags { get; set; }
 
+        public ArticleModel() { }
+
         public ArticleModel(Article article)
         {
             Id = article.Id;

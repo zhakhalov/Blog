@@ -33,7 +33,7 @@ namespace Blog.WebUI.Controllers
         [HttpPost]
         public ActionResult Login(RegisterModel user)
         {
-            return View("Register");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

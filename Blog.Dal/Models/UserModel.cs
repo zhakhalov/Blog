@@ -18,6 +18,8 @@ namespace Blog.Dal.Models
         public IEnumerable<string> Roles { get; set; }
         public DateTime RegistrationDate { get; set; }
 
+        public UserModel() { }
+
         public UserModel(User user)
         {
             Id = user.Id;

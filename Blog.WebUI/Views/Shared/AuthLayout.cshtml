@@ -1,7 +1,7 @@
 ﻿@model Blog.WebUI.Models.LoginModel
 
 @{
-    ViewBag.Title = "AuthLayout";
+    Layout = null;
 }
 
 <head>
@@ -11,4 +11,5 @@
     <link href="~/Styles/Auth/styles.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+    @RenderBody()
 </body>

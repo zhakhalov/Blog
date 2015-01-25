@@ -16,6 +16,8 @@ namespace Blog.Dal.Models
         public int Mark { get; set; }
         public List<CommentModel> Comments { get; set; }
 
+        public CommentModel() { }
+
         public CommentModel(Comment comment)
         {
             Id = comment.Id;
