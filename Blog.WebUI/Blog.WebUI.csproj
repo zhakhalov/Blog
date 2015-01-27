@@ -108,15 +108,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\Constants.cs" />
     <Compile Include="Code\ValidationAttributes\UniqueEmailAttribute.cs" />
     <Compile Include="Code\ValidationAttributes\UniqueUsernameAttribute.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\FakeArticleRepository.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -277,12 +278,6 @@
     <Content Include="Views\Shared\Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Blog.Dal\Blog.Dal.csproj">
-      <Project>{7c846861-fc25-4f36-8074-7670c3523b49}</Project>
-      <Name>Blog.Dal</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="bower_components\bootstrap\.bower.json" />
     <Content Include="bower_components\bootstrap\bower.json" />
     <Content Include="bower_components\bootstrap\dist\css\bootstrap-theme.css.map" />
@@ -434,6 +429,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Auth\Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Blog.Repository\Blog.Repository.csproj">
+      <Project>{c2c4925b-2fb5-404f-8fb8-bf1bfa98be27}</Project>
+      <Name>Blog.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

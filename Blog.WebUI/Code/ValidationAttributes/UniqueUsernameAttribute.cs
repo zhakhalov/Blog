@@ -1,4 +1,5 @@
-﻿using Blog.Dal.Repositories;
+﻿using Blog.Repository;
+using Blog.Repository.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,7 +12,7 @@ namespace Blog.WebUI.Code.ValidationAttributes
     {
         public override bool IsValid(object value)
         {
-            return !new UserRepository("Blog").ContainsUsername(value.ToString());
+            return !new UserRepository(Constants.BlogNoSQL).ContainsUsername(value.ToString());
         }
     }
 }
