@@ -16,19 +16,23 @@
                     <form method="post">
                         <fieldset>
                             <div class="form-group">
-                                @Html.ValidationMessageFor(model => model.Username)
+                                <span class="has-error">@Html.ValidationMessageFor(model => model.Username)</span>
                                 @Html.TextBoxFor(model => model.Username, new { @class = "form-control", @required = "reqiured", @placeholder = "Username" })
                             </div>
                             <div class="form-group">
-                                @Html.ValidationMessageFor(model => model.Email)
+                                <span class="has-error">@Html.ValidationMessageFor(model => model.FullName)</span>
+                                @Html.TextBoxFor(model => model.FullName, new { @class = "form-control", @required = "reqiured", @placeholder = "Full name" })
+                            </div>
+                            <div class="form-group">
+                                <span class="has-error">@Html.ValidationMessageFor(model => model.Email)</span>
                                 @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @type = "email", @required = "reqiured", @placeholder = "Email" })
                             </div>
                             <div class="form-group">
-                                @Html.ValidationMessageFor(model => model.Password)
+                                <span class="has-error">@Html.ValidationMessageFor(model => model.Password)</span>
                                 @Html.PasswordFor(model => model.Password, new { @class = "form-control", @required = "reqiured", @placeholder = "Password" })
                             </div>
                             <div class="form-group">
-                                @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                                <span class="has-error">@Html.ValidationMessageFor(model => model.ConfirmPassword)</span>
                                 @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control", @required = "reqiured", @placeholder = "Confirm password" })
                             </div>
                             <p>

@@ -22,7 +22,7 @@ namespace Blog.WebUI.Controllers
         public ActionResult CreateUser()
         {
             UserRepository userRepository = new UserRepository(Constants.BlogNoSQL);
-            userRepository.Insert(new UserModel
+            userRepository.Save(new UserModel
             {
                 FullName = "Admin",
                 Username = "admin",
@@ -36,7 +36,7 @@ namespace Blog.WebUI.Controllers
         public ActionResult CreateArticle()
         {
             ArticleRepository articleRepository = new ArticleRepository(Constants.BlogNoSQL);
-            articleRepository.Insert(new ArticleModel
+            articleRepository.Save(new ArticleModel
             {
                 Author = "admin",
                 Content = "Article content",

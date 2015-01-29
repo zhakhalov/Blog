@@ -1,8 +1,14 @@
-﻿@model Blog.WebUI.Models.LoginModel
+﻿@model Blog.Repository.Models.UserModel
 
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Login";    
     Layout = "~/Views/Shared/AuthLayout.cshtml";
+
+    bool incorrectLogin = ViewBag.IncorrectLogin ?? false;
+    bool incorrectPassword = ViewBag.IncorrectPassword ?? false;
+    
+    string loginClass = incorrectLogin ? "has-error" : "";
+    string passwordClass = incorrectPassword ? "has-error" : "";
 }
 
 <div class="container">
@@ -15,13 +21,19 @@
                 <div class="panel-body">
                     <form method="post">
                         <fieldset>
-                            <div class="form-group">
-                                @Html.ValidationMessageFor(model => model.Login)
-                                @Html.TextBoxFor(model => model.Login, new { @class = "form-control", @required = "reqiured", @placeholder = "Username" })
+                            <div class="form-group @loginClass">  
+                                @if (incorrectLogin)
+                                {
+                                    <label>Incorrect login</label>
+                                }                              
+                                @Html.TextBoxFor(model => model.Username, new { @class = "form-control", @required = "reqiured", @placeholder = "Login" })                                
                             </div>
-                            <div class="form-group">
-                                @Html.ValidationMessageFor(model => model.Password)
-                                @Html.PasswordFor(model => model.Password, new { @class = "form-control", @required = "reqiured", @placeholder = "Password" })
+                            <div class="form-group @passwordClass">
+                                @if (incorrectPassword)
+                                {
+                                    <label>Incorrect password</label>
+                                }
+                                @Html.PasswordFor(model => model.Password, new { @class = "form-control", @required = "reqiured", @placeholder = "Password" })                                
                             </div>
                             <p>
                                 <input type="submit" value="Sign In" class="btn btn-primary btn-block" />

@@ -1,4 +1,5 @@
 ﻿using Blog.Repository.Models;
+using MongoDB.Bson;
 using MongoDB.Driver.Builders;
 using System;
 using System.Collections.Generic;
@@ -12,21 +13,34 @@ namespace Blog.Repository.Repositories
     {
         public ArticleRepository(string connectionString) : base(connectionString, "blog", "articles") { }
 
-        public List<ArticleModel> GetByUser(string username, int skip, int take)
+        public List<ArticleModel> GetByUser(string username, int skip, int limit)
         {
-            return Get(Query<UserModel>.Where(u => username == u.Username), skip, take);
+            return Get(Query<UserModel>.Where(u => username == u.Username), skip, limit);
+        }
+
+        public ArticleModel GetById(ObjectId id)
+        {
+            return GetOne(Query<ArticleModel>.EQ(a => a._id, id));
         }
 
         public List<ArticleModel> GetByTag(string tag, int skip, int take)
         {
-            return Get(Query<List<string>>.Where(t => t.Contains(tag)), skip, take);
+            return Collection
+                .Find(Query<ArticleModel>.EQ(a => a.Tags, tag))
+                .SetFields(Fields.Exclude("Comments", "Content"))
+                .OrderBy(a => a.CreateDate)
+                .Skip(skip)
+                .Take(take)
+                .ToList();
         }
 
-        public List<ArticleModel> GetNewest(int take)
+        public List<ArticleModel> GetNewest(int skip, int take)
         {
             return Collection
                 .FindAll()
+                .SetFields(Fields.Exclude("Comments", "Content"))
                 .OrderBy(a => a.CreateDate)
+                .Skip(skip)
                 .Take(take)
                 .ToList();
         }

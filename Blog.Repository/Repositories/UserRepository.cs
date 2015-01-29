@@ -12,25 +12,26 @@ namespace Blog.Repository.Repositories
 {
     public class UserRepository : Repository<UserModel>
     {
-        public UserRepository(string connectionString) : base(connectionString, "blog", "users") { }
+        public UserRepository(string connectionString)
+            : base(connectionString, "blog", "users")
+        {
+            Collection.CreateIndex(new IndexKeysBuilder<UserModel>().Ascending(u => u.Username), IndexOptions.SetUnique(true));
+            Collection.CreateIndex(new IndexKeysBuilder<UserModel>().Ascending(u => u.Email), IndexOptions.SetUnique(true));
+        }
 
         public bool ContainsUsername(string username)
         {
-            return Get(Query<UserModel>.Where(u => username == u.Username), 0, 1).Count > 0;
+            return Get(Query<UserModel>.Where(u => u.Username == username), 0, 1).Count > 0;
         }
 
         public bool ContainsEmail(string email)
         {
-            return Get(Query<UserModel>.Where(u => email == u.Email), 0, 1).Count > 0;
+            return Get(Query<UserModel>.Where(u => u.Email == email), 0, 1).Count > 0;
         }
 
-        public override void Insert(UserModel model)
+        public UserModel GetByLogin(string login)
         {
-            if (ContainsUsername(model.Username) || ContainsEmail(model.Email))
-            {
-                throw new MongoDuplicateKeyException("username or email already used", new WriteConcernResult(new BsonDocument()));
-            }
-            base.Insert(model);
+            return Get(Query.Or(Query<UserModel>.EQ(u => u.Username, login), Query<UserModel>.EQ(u => u.Email, login)), 0, 1).FirstOrDefault();
         }
     }
 }

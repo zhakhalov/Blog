@@ -1,12 +1,18 @@
-﻿using Blog.WebUI.Models;
+﻿using Blog.Repository.Models;
+using Blog.Repository.Repositories;
+using Blog.WebUI.Code;
+using Blog.WebUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Blog.WebUI.Controllers
 {
+    [AllowAnonymous]
     public class AuthController : Controller
     {
         //
@@ -21,6 +27,20 @@ namespace Blog.WebUI.Controllers
         [HttpPost]
         public ActionResult Register(RegisterModel user)
         {
+            if (ModelState.IsValid)
+            {
+                UserModel userModel = new UserModel
+                {
+                    Username = user.Username,
+                    Email = user.Email,
+                    FullName = user.FullName,
+                    Password = user.Password,                    
+                    Roles = new List<string> { "user" }
+                };
+                new UserRepository(Constants.BlogNoSQL).Save(userModel);
+                LoginUser(userModel);
+                return RedirectToAction("Index", "Home");
+            }
             return View("Register");
         }
 
@@ -31,9 +51,39 @@ namespace Blog.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(RegisterModel user)
+        public ActionResult Login(UserModel user)
         {
+            var userModel = new UserRepository(Constants.BlogNoSQL).GetByLogin(user.Username);
+            bool incorrectLogin = null == userModel;
+            bool incorrectPassword = !incorrectLogin && user.Password != userModel.Password;
+            if (incorrectLogin || incorrectPassword)
+            {
+                ViewBag.IncorrectLogin = incorrectLogin;
+                ViewBag.IncorrectPassword = incorrectPassword;
+                return View("Login");
+            }
+            LoginUser(userModel);
+
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            HttpContext.Session["user"] = null;
+            return RedirectToAction("Index", "Home");
+        }
+
+        #region Private
+
+        private void LoginUser(UserModel user)
+        {
+            FormsAuthentication.SetAuthCookie(user.Username, true);
+            System.Web.HttpContext.Current.User = new GenericPrincipal(new GenericIdentity(user.Username), user.Roles.ToArray());
+            System.Web.HttpContext.Current.Session["user"] = user;
+        }
+
+        #endregion Private
     }
 }

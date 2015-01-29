@@ -1,0 +1,14 @@
+﻿@model Blog.Repository.Models.ArticleModel
+
+@functions
+{
+    string GetShortContent()
+    {
+        return Model.Content.Substring(0, 100) + ((Model.Content.Length > 100) ? "..." : "");
+    }
+}
+
+<a href="@Url.Action("Index", "Article", new  { id = Model._id.ToString() })">
+    <h5><strong>@Model.Title</strong></h5>
+    <small>@GetShortContent()</small>
+</a>

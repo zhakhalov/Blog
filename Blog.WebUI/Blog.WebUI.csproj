@@ -40,6 +40,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\packages\mongocsharpdriver.1.9.2\lib\net35\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\packages\mongocsharpdriver.1.9.2\lib\net35\MongoDB.Driver.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -109,16 +115,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Code\Constants.cs" />
+    <Compile Include="Code\Services\CacheService.cs" />
     <Compile Include="Code\ValidationAttributes\UniqueEmailAttribute.cs" />
     <Compile Include="Code\ValidationAttributes\UniqueUsernameAttribute.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
+    <Compile Include="Controllers\AsideController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\ArticleListModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -126,6 +134,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="bower_components\bootstrap\dist\css\slate.css" />
     <Content Include="bower_components\font-awesome\.gitignore" />
     <Content Include="bower_components\font-awesome\css\font-awesome.css" />
     <Content Include="bower_components\font-awesome\css\font-awesome.min.css" />
@@ -241,7 +250,7 @@
     <Content Include="bower_components\jquery\src\var\toString.js" />
     <Content Include="bower_components\jquery\src\wrap.js" />
     <Content Include="Scripts\Register\register.js" />
-    <Content Include="Styles\Auth\styles.css" />
+    <Content Include="Content\Styles\Auth\styles.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -435,6 +444,26 @@
       <Project>{c2c4925b-2fb5-404f-8fb8-bf1bfa98be27}</Project>
       <Name>Blog.Repository</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Partial\ArticleList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Partial\ArticleListItem.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Newest.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Article\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\zhakhalov-blog - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\zhakhalov-blog - Web Deploy.pubxml" />
+    <Content Include="Views\Aside\Index.cshtml" />
+    <Content Include="Views\Aside\Partial\Article.cshtml" />
+    <Content Include="Views\Aside\Partial\ArticleList.cshtml" />
+    <Content Include="Views\Aside\Partial\Tags.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

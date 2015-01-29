@@ -1,7 +1,9 @@
-﻿<ul class="nav navbar-right">
-    <li class="dropdown">
+﻿@model Blog.Repository.Models.UserModel
+
+<ul class="nav navbar-right">
+    <li class="dropdown">        
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-            <img src="~/Content/Avatars/Default.jpg" width="32" height="32"><strong> User</strong><i class="caret"></i>
+            <img src="@("Content/Avatars/" + (Model.AvatarUrl ?? "Default.jpg"))" width="32" height="32" />    <strong>@Model.FullName</strong><i class="caret"></i>
         </a>
         <ul class="dropdown-menu">
             <li>
@@ -9,7 +11,7 @@
             </li>
             <li class="divider"></li>
             <li>
-                <a href="#"><i class="glyphicon glyphicon-off"></i> Logout</a>
+                <a href="@Url.Action("Logout", "Auth")"><i class="glyphicon glyphicon-off"></i> Logout</a>
             </li>
         </ul>
     </li>
