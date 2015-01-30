@@ -1,2 +1,13 @@
 ﻿@model List<string>
 
+<section class="panel panel-default">
+    <div class="panel-heading text-center">
+        <h3 class="panel-title">Browse by Tag</h3>
+    </div>
+    <div class="panel-body">
+        @foreach (var t in Model)
+        {
+            <a href="@Url.Action("Tag", "Article", new  { tag = t })" class="label label-default">@t</a>
+        }        
+    </div>
+</section>

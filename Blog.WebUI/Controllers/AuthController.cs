@@ -51,7 +51,7 @@ namespace Blog.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(UserModel user)
+        public ActionResult Login(UserModel user, string ReturnUrl)
         {
             var userModel = new UserRepository(Constants.BlogNoSQL).GetByLogin(user.Username);
             bool incorrectLogin = null == userModel;
@@ -64,15 +64,15 @@ namespace Blog.WebUI.Controllers
             }
             LoginUser(userModel);
 
-            return RedirectToAction("Index", "Home");
+            return Redirect(ReturnUrl);
         }
 
         [HttpGet]
-        public ActionResult Logout()
+        public ActionResult Logout(string ReturnUrl)
         {
             FormsAuthentication.SignOut();
             HttpContext.Session["user"] = null;
-            return RedirectToAction("Index", "Home");
+            return Redirect(ReturnUrl);
         }
 
         #region Private

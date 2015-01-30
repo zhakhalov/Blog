@@ -16,13 +16,17 @@ namespace Blog.WebUI
             routes.MapRoute(
                 name: "Article",
                 url: "{controller}/id{id}",
-                defaults: new { controller = "Article", action = "Index" }
+                defaults: new { controller = "Article", action = "Article" }
             );
-
+            routes.MapRoute(
+                name: "Tags",
+                url: "{controller}/tag{tag}",
+                defaults: new { controller = "Article", action = "Tag" }
+            );
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Article", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

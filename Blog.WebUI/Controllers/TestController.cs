@@ -9,52 +9,74 @@ using System.Web.Mvc;
 
 namespace Blog.WebUI.Controllers
 {
+    [AllowAnonymous]
     public class TestController : Controller
     {
-        //
-        // GET: /Test/
-
-        public ActionResult Index()
+        public ActionResult ClearUsers()
         {
+            UserRepository repository = new UserRepository(Constants.BlogNoSQL);
+            repository.RemoveAll();
             return View();
         }
 
-        public ActionResult CreateUser()
+        public ActionResult ClearTags()
         {
-            UserRepository userRepository = new UserRepository(Constants.BlogNoSQL);
-            userRepository.Save(new UserModel
+            TagRepository repository = new TagRepository(Constants.BlogNoSQL);
+            repository.RemoveAll();
+            return View();
+        }
+
+        public ActionResult ClearArticles()
+        {
+            ArticleRepository repository = new ArticleRepository(Constants.BlogNoSQL);
+            repository.RemoveAll();
+            return View();
+        }
+
+        public ActionResult CreateTags()
+        {
+            TagRepository repository = new TagRepository(Constants.BlogNoSQL);
+            repository.InsertRange(new TagModel[]
             {
-                FullName = "Admin",
-                Username = "admin",
-                Email = "monolith1143@gmail.com",
-                Password = "zQ123456",
-                Roles = new List<string> {"user", "admin"}
-            });
-            return View();
-        }
-
-        public ActionResult CreateArticle()
-        {
-            ArticleRepository articleRepository = new ArticleRepository(Constants.BlogNoSQL);
-            articleRepository.Save(new ArticleModel
-            {
-                Author = "admin",
-                Content = "Article content",
-                Tags = new List<string> { "general", "test"}
-            });
-            return View();
-        }
-
-        public ActionResult AddComment()
-        {
-            ArticleRepository articleRepository = new ArticleRepository(Constants.BlogNoSQL);
-            articleRepository.GetByUser("admin", 0, 1)[0].Comments.Add(new CommentModel
+                new  TagModel
                 {
-                    Author = "admin",
-                    Content = "Comment content"
-                });
+                    Name = "Lorem"
+                },
+                new  TagModel
+                {
+                    Name = "Ipsum"
+                },
+                new  TagModel
+                {
+                    Name = "Dolor"
+                },
+                new  TagModel
+                {
+                    Name = "Sit"
+                },
+                new  TagModel
+                {
+                    Name = "Amet"
+                },
+                new  TagModel
+                {
+                    Name = "Consectetuer"
+                },
+                new  TagModel
+                {
+                    Name = "Adipiscing"
+                },
+                new  TagModel
+                {
+                    Name = "Elit"
+                },
+                new  TagModel
+                {
+                    Name = "Sed"
+                }
+            });
+
             return View();
         }
-
     }
 }

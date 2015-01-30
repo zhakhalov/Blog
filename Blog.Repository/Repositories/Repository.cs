@@ -61,6 +61,11 @@ namespace Blog.Repository.Repositories
             Collection.Save(model);
         }
 
+        public virtual void InsertRange(IEnumerable<T> models)
+        {
+            Collection.InsertBatch<T>(models);
+        }
+
         public virtual void RemoveAll()
         {
             Collection.RemoveAll();

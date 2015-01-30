@@ -20,6 +20,7 @@
                 </div>
                 <div class="panel-body">
                     <form method="post">
+                        <input type="text" name="ReturnUrl" hidden value="@Url.Action("Index", "Article")" />
                         <fieldset>
                             <div class="form-group @loginClass">  
                                 @if (incorrectLogin)

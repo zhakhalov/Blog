@@ -20,14 +20,14 @@ namespace Blog.Repository.Repositories
 
         public ArticleModel GetById(ObjectId id)
         {
-            return GetOne(Query<ArticleModel>.EQ(a => a._id, id));
+            return Collection.FindOneById(id);
         }
 
         public List<ArticleModel> GetByTag(string tag, int skip, int take)
         {
             return Collection
                 .Find(Query<ArticleModel>.EQ(a => a.Tags, tag))
-                .SetFields(Fields.Exclude("Comments", "Content"))
+                .SetFields(Fields.Exclude("Comments"))
                 .OrderBy(a => a.CreateDate)
                 .Skip(skip)
                 .Take(take)
@@ -38,7 +38,7 @@ namespace Blog.Repository.Repositories
         {
             return Collection
                 .FindAll()
-                .SetFields(Fields.Exclude("Comments", "Content"))
+                .SetFields(Fields.Exclude("Comments"))
                 .OrderBy(a => a.CreateDate)
                 .Skip(skip)
                 .Take(take)
@@ -52,6 +52,27 @@ namespace Blog.Repository.Repositories
                 .OrderBy(a => a.Rating)
                 .Take(take)
                 .ToList();
+        }
+
+        public List<ArticleModel> GetMostViewed(int take)
+        {
+            return Collection
+                .FindAll()
+                .OrderBy(a => a.Viewed)
+                .Take(take)
+                .ToList();
+        }
+
+        public void AddComment(CommentModel comment, string articleId)
+        {
+            ObjectId id = new ObjectId(articleId);
+            Collection.Update(Query<ArticleModel>.EQ(a => a._id, id), Update<ArticleModel>.AddToSet(a => a.Comments, comment));
+        }
+
+        public void IncreaseViewed(int count, string articleId)
+        {
+            ObjectId id = new ObjectId(articleId);
+            Collection.Update(Query<ArticleModel>.EQ(a => a._id, id), Update<ArticleModel>.Inc(a => a.Viewed, count));
         }
     }
 }

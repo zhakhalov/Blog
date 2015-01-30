@@ -15,10 +15,13 @@ namespace Blog.Repository.Models
         [BsonRequired]
         public string Title { get; set; }
         [BsonRequired]
+        public string Username { get; set; }
+        [BsonRequired]
         public string Author { get; set; }
         [BsonRequired]
         public string Content { get; set; }
         public int Rating { get; set; }
+        public int Viewed { get; set; }
         public DateTime CreateDate { get; set; }
         public List<RateModel> Raters { get; set; }
         public List<CommentModel> Comments { get; set; }
@@ -32,9 +35,9 @@ namespace Blog.Repository.Models
             CreateDate = DateTime.UtcNow;
         }
 
-        public bool CanRate(UserModel user)
+        public bool CanRate(string username)
         {
-            return (Author != user.Username) && (!Raters.Any(r => r.Username == user.Username));
+            return (Author != username) && (!Raters.Any(r => r.Username == username));
         }
     }
 }

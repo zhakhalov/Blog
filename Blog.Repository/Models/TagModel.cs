@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Blog.Repository.Models
 {
-    class TagModel
+    public class TagModel
     {
         [BsonId]
         public ObjectId _id { get; set; }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Blog.Repository.Repositories
 {
-    class TagRepository : Repository<TagModel>
+    public class TagRepository : Repository<TagModel>
     {
         public TagRepository(string connectionString) : base(connectionString, "blog", "tags")
         {

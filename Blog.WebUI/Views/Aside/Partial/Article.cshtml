@@ -8,7 +8,7 @@
     }
 }
 
-<a href="@Url.Action("Index", "Article", new  { id = Model._id.ToString() })">
+<a href="@Url.Action("Article", "Article", new { id = Model._id.ToString() })">
     <h5><strong>@Model.Title</strong></h5>
     <small>@GetShortContent()</small>
 </a>

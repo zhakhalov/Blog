@@ -1,10 +1,18 @@
-﻿@model Blog.WebUI.Models.ArticleContentModel
+﻿@model Blog.Repository.Models.ArticleModel
 
-@{
-    ViewBag.Title = "Article";
+@functions
+{
+    string GetShortContent()
+    {
+        return Model.Content.Substring(0, 250) + ((Model.Content.Length > 250) ? "..." : "");
+    }
 }
+<article class="well">
+    <h3>@Model.Title</h3>
+    @GetShortContent()
+    <div class="pull-right">
+        <strong>@Model.Author</strong> <small>@Model.CreateDate.ToString("MMMM dd, yyyy.", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))</small>
+    </div>      
+    <a href="@Url.Action("Article", "Article", new { id = Model._id.ToString() })" class="btn btn-link">More &rarr;</a>
+</article>
 
-<h3>@Model.Title + @ViewBag.Id</h3>
-<section>
-    @Model.Body
-</section>

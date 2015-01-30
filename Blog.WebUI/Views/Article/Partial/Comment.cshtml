@@ -1,6 +1,17 @@
-﻿@model Blog.WebUI.Models.CommentModel
+﻿@model Blog.Repository.Models.CommentModel
 
-<div>
-    @Model.Body;
+@functions
+{
+    string GetRating(List<Blog.Repository.Models.RateModel> raters)
+    {
+        int rating = raters.Count(r => r.Like) - raters.Count(r => !r.Like);
+        return (rating > 0 ? "+" : "") + rating.ToString();
+    }
+}
+
+<div class="well comment">
+    <article>
+        @Model.Content
+    </article>
+    <strong>@Model.Author</strong> <small>@Model.CreateDate.ToString("MMMM dd, yyyy.", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))</small>
 </div>
-

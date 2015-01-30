@@ -134,10 +134,50 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="bower_components\bootstrap-tagsinput\dist\bootstrap-tagsinput-angular.js" />
+    <Content Include="bower_components\bootstrap-tagsinput\dist\bootstrap-tagsinput-angular.min.js" />
+    <Content Include="bower_components\bootstrap-tagsinput\dist\bootstrap-tagsinput.css" />
+    <Content Include="bower_components\bootstrap-tagsinput\dist\bootstrap-tagsinput.js" />
+    <Content Include="bower_components\bootstrap-tagsinput\dist\bootstrap-tagsinput.min.js" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\assets\app.css" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\assets\app.js" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\assets\app_bs2.js" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\assets\app_bs3.js" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\bootstrap-2.3.2.html" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\google88e153e464391b3e.html" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\index.html" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\lib\angular\angular.min.js" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\lib\bootstrap-2.3.2\docs\assets\css\bootstrap.css" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\lib\bootstrap-2.3.2\docs\assets\css\docs.css" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\lib\bootstrap-2.3.2\docs\assets\js\bootstrap.min.js" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\lib\bootstrap-3\dist\css\bootstrap-theme.min.css" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\lib\bootstrap-3\dist\css\bootstrap.min.css" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\lib\bootstrap-3\dist\js\bootstrap.min.js" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\lib\bootstrap-tagsinput\bootstrap-tagsinput-angular.js" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\lib\bootstrap-tagsinput\bootstrap-tagsinput-angular.min.js" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\lib\bootstrap-tagsinput\bootstrap-tagsinput.css" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\lib\bootstrap-tagsinput\bootstrap-tagsinput.js" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\lib\bootstrap-tagsinput\bootstrap-tagsinput.min.js" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\lib\jquery\dist\jquery.min.js" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\lib\rainbow\js\language\generic.js" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\lib\rainbow\js\language\html.js" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\lib\rainbow\js\language\javascript.js" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\lib\rainbow\js\rainbow.min.js" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\lib\rainbow\themes\github.css" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\lib\typeahead.js\dist\typeahead.bundle.js" />
+    <Content Include="bower_components\bootstrap-tagsinput\Gruntfile.js" />
+    <Content Include="bower_components\bootstrap-tagsinput\karma.conf.js" />
+    <Content Include="bower_components\bootstrap-tagsinput\src\bootstrap-tagsinput-angular.js" />
+    <Content Include="bower_components\bootstrap-tagsinput\src\bootstrap-tagsinput.js" />
     <Content Include="bower_components\bootstrap\dist\css\slate.css" />
     <Content Include="bower_components\font-awesome\.gitignore" />
     <Content Include="bower_components\font-awesome\css\font-awesome.css" />
     <Content Include="bower_components\font-awesome\css\font-awesome.min.css" />
+    <Content Include="bower_components\jquery-autosize\demo.html" />
+    <Content Include="bower_components\jquery-autosize\jquery.autosize.js" />
+    <Content Include="bower_components\jquery-autosize\jquery.autosize.min.js" />
+    <Content Include="Content\Styles\Article\styles.css" />
+    <Content Include="Content\Styles\styles.css" />
     <Content Include="Global.asax" />
     <Content Include="bower_components\bootstrap\dist\css\bootstrap-theme.css" />
     <Content Include="bower_components\bootstrap\dist\css\bootstrap-theme.min.css" />
@@ -249,8 +289,10 @@
     <Content Include="bower_components\jquery\src\var\support.js" />
     <Content Include="bower_components\jquery\src\var\toString.js" />
     <Content Include="bower_components\jquery\src\wrap.js" />
-    <Content Include="Scripts\Register\register.js" />
     <Content Include="Content\Styles\Auth\styles.css" />
+    <Content Include="Scripts\article.js" />
+    <Content Include="Scripts\count-group.js" />
+    <Content Include="Scripts\create.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -273,12 +315,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Article\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Article\Partial\Article.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Article\Partial\CommentList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Article\Partial\Comment.cshtml" />
@@ -446,24 +482,38 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Partial\ArticleList.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\Partial\ArticleListItem.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\Newest.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Article\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bower_components\jquery-autosize\.bower.json" />
+    <Content Include="bower_components\jquery-autosize\bower.json" />
+    <Content Include="bower_components\jquery-autosize\package.json" />
+    <Content Include="bower_components\jquery-autosize\readme.md" />
+    <Content Include="bower_components\bootstrap-tagsinput\.bower.json" />
+    <Content Include="bower_components\bootstrap-tagsinput\bootstrap-tagsinput.jquery.json" />
+    <Content Include="bower_components\bootstrap-tagsinput\bower.json" />
+    <Content Include="bower_components\bootstrap-tagsinput\dist\bootstrap-tagsinput.less" />
+    <Content Include="bower_components\bootstrap-tagsinput\dist\bootstrap-tagsinput.min.js.map" />
+    <Content Include="bower_components\bootstrap-tagsinput\dist\bootstrap-tagsinput.zip" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\assets\cities.json" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\assets\citynames.json" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\lib\bootstrap-tagsinput\bootstrap-tagsinput.less" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\lib\bootstrap-tagsinput\bootstrap-tagsinput.min.js.map" />
+    <Content Include="bower_components\bootstrap-tagsinput\examples\lib\bootstrap-tagsinput\bootstrap-tagsinput.zip" />
+    <Content Include="bower_components\bootstrap-tagsinput\LICENSE" />
+    <Content Include="bower_components\bootstrap-tagsinput\package.json" />
+    <Content Include="bower_components\bootstrap-tagsinput\README.md" />
+    <Content Include="bower_components\bootstrap-tagsinput\src\bootstrap-tagsinput.less" />
     <None Include="Properties\PublishProfiles\zhakhalov-blog - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\zhakhalov-blog - Web Deploy.pubxml" />
     <Content Include="Views\Aside\Index.cshtml" />
     <Content Include="Views\Aside\Partial\Article.cshtml" />
     <Content Include="Views\Aside\Partial\ArticleList.cshtml" />
     <Content Include="Views\Aside\Partial\Tags.cshtml" />
+    <Content Include="Views\Article\Article.cshtml" />
+    <Content Include="Views\Article\Create.cshtml" />
+    <Content Include="Views\Article\Articles.cshtml" />
+    <Content Include="Views\Article\Partial\Article.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

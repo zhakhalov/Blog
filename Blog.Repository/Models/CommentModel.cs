@@ -9,16 +9,20 @@ namespace Blog.Repository.Models
 {
     public class CommentModel
     {
+        public string Username { get; set; }
         public string Author { get; set; }
         public string Content { get; set; }
         public DateTime CreateDate { get; set; }
         public List<RateModel> Raters { get; set; }
-        public List<CommentModel> Comments { get; set; }
 
         public CommentModel()
         {
-            Comments = new List<CommentModel>();
             CreateDate = DateTime.UtcNow;
+        }
+
+        public bool CanRate(string username)
+        {
+            return (Author != username) && (!Raters.Any(r => r.Username == username));
         }
     }
 }

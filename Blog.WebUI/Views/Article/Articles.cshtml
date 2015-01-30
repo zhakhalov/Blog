@@ -1,0 +1,9 @@
+﻿@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+    List<Blog.Repository.Models.ArticleModel> articles = ViewBag.Articles;
+}
+
+@foreach (var a in articles)
+{
+    @Html.Partial("Partial/Article", a)
+}

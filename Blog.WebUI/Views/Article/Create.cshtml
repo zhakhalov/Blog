@@ -1,0 +1,48 @@
+﻿@{
+    List<string> tags = ViewBag.Tags;
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+@section Header{
+    <link href="~/Content/Styles/Article/styles.css" rel="stylesheet" type="text/css" />
+    <script src="~/bower_components/jquery-autosize/jquery.autosize.js" type="text/javascript"></script>
+    <script src="~/Scripts/count-group.js" type="text/javascript"></script>
+    <script src="~/Scripts/create.js" type="text/javascript"></script>
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading text-center">
+        <h3 class="panel-title">Create new article</h3>
+    </div>
+    <div class="panel-body">
+        <form method="post">
+            <fieldset>
+                <div class="form-group" id="title">
+                    <input type="text" class = "form-control content" placeholder = "Title" required="required" name = "Title"/>
+                    <label>Remains characters: <span class="count"></span></label>
+                </div>
+                <div class="form-group" id="content">
+                    <textarea class="form-control content" placeholder="Your article starts here..." name="Content" required="required"></textarea>
+                    <label>Remains characters: <span class="count"></span></label>
+                </div>
+                <div class="form-group" id="tags">
+                    <input class="result" type="text" name="tags" hidden />                    
+                    <div class="add-tag">
+                        <label>Add tags:</label>
+                        @foreach (var t in tags)
+                        {
+                            <button type="button" class="btn btn-xs btn-default btn-tag">@t</button>
+                        }
+                    </div>
+                    <div class="remove-tag">
+                        <label>Tags:</label>
+                    </div>
+                </div>           
+                <button type="submit" class="btn btn-success">
+                    Save
+                </button>
+            </fieldset>
+        </form>
+    </div>
+</div>
