@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Blog.Repository.Repositories
 {
-    public abstract class Repository<T>
+    public abstract class Repository<T> : IRepository<T>
     {
         private readonly string _connectionString;
         private readonly string _database;
@@ -70,5 +70,7 @@ namespace Blog.Repository.Repositories
         {
             Collection.RemoveAll();
         }
+
+        public abstract void Remove(T model);
     }
 }

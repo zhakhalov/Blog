@@ -1,4 +1,5 @@
-﻿using Blog.Repository.Models;
+﻿using Blog.Repository.Managers;
+using Blog.Repository.Models;
 using Blog.Repository.Repositories;
 using Blog.WebUI.Code;
 using System;
@@ -28,7 +29,7 @@ namespace Blog.WebUI.Controllers
 
         public ActionResult ClearArticles()
         {
-            ArticleRepository repository = new ArticleRepository(Constants.BlogNoSQL);
+            ArticleManager repository = new ArticleManager(Constants.BlogNoSQL);
             repository.RemoveAll();
             return View();
         }

@@ -52,8 +52,14 @@
     <Compile Include="Models\TagModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Managers\ArticleManager.cs" />
+    <Compile Include="Managers\IArticleManager.cs" />
+    <Compile Include="Repositories\Abstract\IArticleRepository.cs" />
+    <Compile Include="Repositories\Abstract\IRepository.cs" />
+    <Compile Include="Repositories\Abstract\ITagRepository.cs" />
+    <Compile Include="Repositories\Abstract\IUserRepository.cs" />
+    <Compile Include="Repositories\Abstract\Repository.cs" />
     <Compile Include="Repositories\ArticleRepository.cs" />
-    <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\TagRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>

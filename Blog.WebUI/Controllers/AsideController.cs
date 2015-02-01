@@ -1,4 +1,5 @@
-﻿using Blog.Repository.Models;
+﻿using Blog.Repository.Managers;
+using Blog.Repository.Models;
 using Blog.Repository.Repositories;
 using Blog.WebUI.Code;
 using Blog.WebUI.Models;
@@ -16,7 +17,7 @@ namespace Blog.WebUI.Controllers
         public ActionResult Index()
         {
             int limit = 5;
-            ArticleRepository repository = new ArticleRepository(Constants.BlogNoSQL);
+            ArticleManager repository = new ArticleManager(Constants.BlogNoSQL);
             ViewBag.ArticleLists = new List<ArticleListModel>
             {                
                 new ArticleListModel

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Blog.Repository.Repositories
 {
-    public class UserRepository : Repository<UserModel>
+    public class UserRepository : Repository<UserModel>, IUserRepository
     {
         public UserRepository(string connectionString)
             : base(connectionString, "blog", "users")
@@ -32,6 +32,11 @@ namespace Blog.Repository.Repositories
         public UserModel GetByLogin(string login)
         {
             return Get(Query.Or(Query<UserModel>.EQ(u => u.Username, login), Query<UserModel>.EQ(u => u.Email, login)), 0, 1).FirstOrDefault();
+        }
+
+        public override void Remove(UserModel model)
+        {
+            Collection.Remove(Query<UserModel>.EQ(t => t._id, model._id), RemoveFlags.None);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Blog.Repository.Models;
+﻿using Blog.Repository.Managers;
+using Blog.Repository.Models;
 using Blog.Repository.Repositories;
 using Blog.WebUI.Code;
 using Blog.WebUI.Models;
@@ -12,10 +13,17 @@ namespace Blog.WebUI.Controllers
 {
     public class ArticleController : Controller
     {
+        private readonly ArticleManager _repository;
+
+        public ArticleController(ArticleManager repository)
+        {
+            _repository = repository;
+        }
+
         [AllowAnonymous]
         public ActionResult Index()
         {
-            ArticleRepository repository = new ArticleRepository(Constants.BlogNoSQL);
+            ArticleManager repository = new ArticleManager(Constants.BlogNoSQL);
             List<ArticleModel> articles = repository.GetNewest(0, int.MaxValue);
             ViewBag.Articles = articles;
             return View("Articles");
@@ -24,7 +32,7 @@ namespace Blog.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult Article(string id)
         {
-            ArticleRepository articleRepository = new ArticleRepository(Constants.BlogNoSQL);
+            ArticleManager articleRepository = new ArticleManager(Constants.BlogNoSQL);
             ArticleModel article = articleRepository.GetById(new MongoDB.Bson.ObjectId(id));
             articleRepository.IncreaseViewed(1, article._id.ToString());
 
@@ -38,7 +46,7 @@ namespace Blog.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult Tag(string tag)
         {
-            ArticleRepository repository = new ArticleRepository(Constants.BlogNoSQL);
+            ArticleManager repository = new ArticleManager(Constants.BlogNoSQL);
             List<ArticleModel> articles = repository.GetByTag(tag, 0, int.MaxValue);
             ViewBag.Title = "Article by tag " + tag;
             ViewBag.Articles = articles;
@@ -60,7 +68,7 @@ namespace Blog.WebUI.Controllers
             article.Author = ((UserModel)Session["user"]).FullName;
             article.Username = ((UserModel)Session["user"]).Username;
             article.Tags = tags.Split(',').ToList();
-            ArticleRepository repository = new ArticleRepository(Constants.BlogNoSQL);
+            ArticleManager repository = new ArticleManager(Constants.BlogNoSQL);
             repository.Save(article);
             return RedirectToAction("Index", "Home");
         }
@@ -73,7 +81,7 @@ namespace Blog.WebUI.Controllers
                 Author = ((UserModel)HttpContext.Session["user"]).FullName,
                 Content = comment
             };
-            ArticleRepository repository = new ArticleRepository(Constants.BlogNoSQL);
+            ArticleManager repository = new ArticleManager(Constants.BlogNoSQL);
             repository.AddComment(model, id);
             return View("Partial/Comment", model);
         }
