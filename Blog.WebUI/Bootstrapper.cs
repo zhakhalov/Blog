@@ -3,6 +3,7 @@ using Microsoft.Practices.Unity;
 using Unity.Mvc4;
 using Blog.Repository.Managers;
 using System.Configuration;
+using Blog.Repository.Repositories;
 
 namespace Blog.WebUI
 {
@@ -32,9 +33,11 @@ namespace Blog.WebUI
 
         public static void RegisterTypes(IUnityContainer container)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["Blog"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["BlogNoSQL"].ConnectionString;
 
             container.RegisterType<IArticleManager, ArticleManager>(new InjectionConstructor(connectionString));
+            container.RegisterType<IUserRepository, UserRepository>(new InjectionConstructor(connectionString));
+            container.RegisterType<ITagRepository, TagRepository>(new InjectionConstructor(connectionString));
         }
     }
 }

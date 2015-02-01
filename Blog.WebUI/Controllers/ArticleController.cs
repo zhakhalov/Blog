@@ -13,18 +13,19 @@ namespace Blog.WebUI.Controllers
 {
     public class ArticleController : Controller
     {
-        private readonly ArticleManager _repository;
+        private readonly IArticleManager _articleManager;
+        private readonly ITagRepository _tagRepository;
 
-        public ArticleController(ArticleManager repository)
+        public ArticleController(IArticleManager articleManager, ITagRepository tagRepository)
         {
-            _repository = repository;
+            _articleManager = articleManager;
+            _tagRepository = tagRepository;
         }
 
         [AllowAnonymous]
         public ActionResult Index()
         {
-            ArticleManager repository = new ArticleManager(Constants.BlogNoSQL);
-            List<ArticleModel> articles = repository.GetNewest(0, int.MaxValue);
+            List<ArticleModel> articles = _articleManager.GetNewest(0, int.MaxValue);
             ViewBag.Articles = articles;
             return View("Articles");
         }
@@ -32,9 +33,14 @@ namespace Blog.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult Article(string id)
         {
-            ArticleManager articleRepository = new ArticleManager(Constants.BlogNoSQL);
-            ArticleModel article = articleRepository.GetById(new MongoDB.Bson.ObjectId(id));
-            articleRepository.IncreaseViewed(1, article._id.ToString());
+            ArticleModel article = _articleManager.GetById(new MongoDB.Bson.ObjectId(id));
+
+            if (null == article)
+            {
+                return View("Error/404");
+            }
+
+            _articleManager.IncreaseViewed(1, article._id.ToString());
 
             article.Comments = article.Comments.OrderByDescending(c => c.CreateDate).ToList();
 
@@ -46,44 +52,56 @@ namespace Blog.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult Tag(string tag)
         {
-            ArticleManager repository = new ArticleManager(Constants.BlogNoSQL);
-            List<ArticleModel> articles = repository.GetByTag(tag, 0, int.MaxValue);
+            List<ArticleModel> articles = _articleManager.GetByTag(tag, 0, int.MaxValue);
             ViewBag.Title = "Article by tag " + tag;
             ViewBag.Articles = articles;
             return View("Articles");
         }
 
-        [Authorize]
+        [Authorize(Roles = "user")]
         [HttpGet]
         public ActionResult Create()
         {
-            ViewBag.Tags = new TagRepository(Constants.BlogNoSQL).GetAll().Select(t => t.Name).ToList();
+            ViewBag.Tags = _tagRepository.GetAll().Select(t => t.Name).ToList();
             return View("Create");
         }
 
-        [Authorize]
+        [Authorize(Roles = "user")]
         [HttpPost]
         public ActionResult Create(ArticleModel article, string tags)
         {
             article.Author = ((UserModel)Session["user"]).FullName;
             article.Username = ((UserModel)Session["user"]).Username;
             article.Tags = tags.Split(',').ToList();
-            ArticleManager repository = new ArticleManager(Constants.BlogNoSQL);
-            repository.Save(article);
-            return RedirectToAction("Index", "Home");
+            _articleManager.Save(article);
+            return RedirectToAction("Article", new { id = article._id.ToString() });
         }
 
-        [Authorize]
+        [Authorize(Roles = "user")]
         public ActionResult Comment(string id, string comment)
         {
             CommentModel model = new CommentModel
             {
                 Author = ((UserModel)HttpContext.Session["user"]).FullName,
                 Content = comment
-            };
-            ArticleManager repository = new ArticleManager(Constants.BlogNoSQL);
-            repository.AddComment(model, id);
+            };            
+            _articleManager.AddComment(
+                comment: model,
+                articleId: id);
             return View("Partial/Comment", model);
+        }
+
+        [Authorize(Roles = "user")]
+        public ActionResult Rate(string articleId, bool like)
+        {
+            _articleManager.RateArticle(
+                rate: new RateModel
+                {
+                    Like = like,
+                    Username = HttpContext.User.Identity.Name
+                },
+                articleId: articleId);
+            return Json(new { like = like });
         }
     }
 }

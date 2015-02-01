@@ -10,9 +10,11 @@ namespace Blog.WebUI.Code.ValidationAttributes
 {
     public class UniqueUsernameAttribute : ValidationAttribute
     {
+        public IUserRepository UserRepository { get; set; }
+
         public override bool IsValid(object value)
         {
-            return !new UserRepository(Constants.BlogNoSQL).ContainsUsername(value.ToString());
+            return !UserRepository.ContainsUsername(value.ToString());
         }
     }
 }

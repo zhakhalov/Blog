@@ -19,11 +19,6 @@ namespace Blog.Repository.Managers
             return Get(Query<UserModel>.Where(u => username == u.Username), skip, limit);
         }
 
-        public ArticleModel GetById(ObjectId id)
-        {
-            return Collection.FindOneById(id);
-        }
-
         public List<ArticleModel> GetByTag(string tag, int skip, int take)
         {
             return Collection

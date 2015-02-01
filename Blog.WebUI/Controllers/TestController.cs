@@ -13,31 +13,38 @@ namespace Blog.WebUI.Controllers
     [AllowAnonymous]
     public class TestController : Controller
     {
+        private readonly IUserRepository _userRepository;
+        private readonly IArticleManager _articleManager;
+        private readonly ITagRepository _tagRepository;
+
+        public TestController(IUserRepository userRepository, IArticleManager articleManager, ITagRepository tagRepository)
+        {
+            _userRepository = userRepository;
+            _articleManager = articleManager;
+            _tagRepository = tagRepository;
+        }
+
         public ActionResult ClearUsers()
         {
-            UserRepository repository = new UserRepository(Constants.BlogNoSQL);
-            repository.RemoveAll();
+            _userRepository.RemoveAll();
             return View();
         }
 
         public ActionResult ClearTags()
         {
-            TagRepository repository = new TagRepository(Constants.BlogNoSQL);
-            repository.RemoveAll();
+            _tagRepository.RemoveAll();
             return View();
         }
 
         public ActionResult ClearArticles()
         {
-            ArticleManager repository = new ArticleManager(Constants.BlogNoSQL);
-            repository.RemoveAll();
+            _articleManager.RemoveAll();
             return View();
         }
 
         public ActionResult CreateTags()
-        {
-            TagRepository repository = new TagRepository(Constants.BlogNoSQL);
-            repository.InsertRange(new TagModel[]
+        {            
+            _tagRepository.InsertRange(new TagModel[]
             {
                 new  TagModel
                 {

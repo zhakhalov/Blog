@@ -9,9 +9,11 @@ namespace Blog.WebUI.Code.ValidationAttributes
 {
     public class UniqueEmailAttribute : ValidationAttribute
     {
+        public IUserRepository UserRepository { get; set; }
+
         public override bool IsValid(object value)
         {
-            return !new UserRepository(Constants.BlogNoSQL).ContainsEmail(value.ToString());
+            return !UserRepository.ContainsEmail(value.ToString());
         }
     }
 }

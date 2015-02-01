@@ -15,7 +15,6 @@ namespace Blog.WebUI.Models
         public string Username { get; set; }
         [Required(ErrorMessage = "Username required")]
         [RegularExpression(@"[A-Za-z ]{3,64}", ErrorMessage = "Allowed only upper and lower cases letters and spaces")]
-        [UniqueUsername(ErrorMessage = "Username already used")]
         public string FullName { get; set; }
         [Required(ErrorMessage = "E-mail required")]
         [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4})(\]?)$", ErrorMessage = "Allowed only letters and numbers")]

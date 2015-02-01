@@ -15,8 +15,12 @@ namespace Blog.WebUI.Controllers
     [AllowAnonymous]
     public class AuthController : Controller
     {
-        //
-        // GET: /Auth/
+        private readonly IUserRepository _userRepository;
+
+        public AuthController(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
 
         [HttpGet]
         public ActionResult Register()
@@ -34,10 +38,10 @@ namespace Blog.WebUI.Controllers
                     Username = user.Username,
                     Email = user.Email,
                     FullName = user.FullName,
-                    Password = user.Password,                    
+                    Password = user.Password,
                     Roles = new List<string> { "user" }
                 };
-                new UserRepository(Constants.BlogNoSQL).Save(userModel);
+                _userRepository.Save(userModel);
                 LoginUser(userModel);
                 return RedirectToAction("Index", "Home");
             }
@@ -53,7 +57,7 @@ namespace Blog.WebUI.Controllers
         [HttpPost]
         public ActionResult Login(UserModel user, string ReturnUrl)
         {
-            var userModel = new UserRepository(Constants.BlogNoSQL).GetByLogin(user.Username);
+            var userModel = _userRepository.GetByLogin(user.Username);
             bool incorrectLogin = null == userModel;
             bool incorrectPassword = !incorrectLogin && user.Password != userModel.Password;
             if (incorrectLogin || incorrectPassword)

@@ -127,7 +127,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Code\Constants.cs" />
     <Compile Include="Code\Services\CacheService.cs" />
     <Compile Include="Code\ValidationAttributes\UniqueEmailAttribute.cs" />
     <Compile Include="Code\ValidationAttributes\UniqueUsernameAttribute.cs" />
@@ -319,7 +318,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Avatars\" />
-    <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -528,6 +526,8 @@
     <Content Include="Views\Article\Create.cshtml" />
     <Content Include="Views\Article\Articles.cshtml" />
     <Content Include="Views\Article\Partial\Article.cshtml" />
+    <Content Include="Views\Shared\Error\Layout.cshtml" />
+    <Content Include="Views\Shared\Error\404.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -14,24 +14,32 @@ namespace Blog.WebUI.Controllers
     [AllowAnonymous]
     public class AsideController : Controller
     {
+        private readonly IArticleManager _articleManager;
+        private readonly ITagRepository _tagRepository;
+
+        public AsideController(IArticleManager articleManager, ITagRepository tagRepository)
+        {
+            _articleManager = articleManager;
+            _tagRepository = tagRepository;
+        }
+
         public ActionResult Index()
         {
             int limit = 5;
-            ArticleManager repository = new ArticleManager(Constants.BlogNoSQL);
             ViewBag.ArticleLists = new List<ArticleListModel>
             {                
                 new ArticleListModel
                 {
                     Title = "Newest",
-                    Articles = repository.GetNewest(0,limit).OrderByDescending(a => a.CreateDate).ToList()
+                    Articles = _articleManager.GetNewest(0,limit).OrderByDescending(a => a.CreateDate).ToList()
                 },
                 new ArticleListModel
                 {
                     Title = "Most Viewed",
-                    Articles = repository.GetMostViewed(limit).OrderByDescending(a => a.Viewed).ToList()
+                    Articles = _articleManager.GetMostViewed(limit).OrderByDescending(a => a.Viewed).ToList()
                 }
             };
-            ViewBag.Tags = new TagRepository(Constants.BlogNoSQL).GetAll().Select(t => t.Name).ToList();
+            ViewBag.Tags = _tagRepository.GetAll().Select(t => t.Name).ToList();
             ViewBag.CanCteateArticle = HttpContext.User.Identity.IsAuthenticated;
             return View();
         }

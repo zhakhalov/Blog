@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace Blog.Repository.Repositories
 {
-    interface IUserRepository : IRepository<UserModel>
+    public interface IUserRepository : IRepository<UserModel>
     {
+        bool ContainsUsername(string username);
+        bool ContainsEmail(string email);
+        UserModel GetByLogin(string login);
     }
 }

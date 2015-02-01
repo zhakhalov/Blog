@@ -44,6 +44,11 @@ namespace Blog.Repository.Repositories
             return Collection.FindOne(query);
         }
 
+        public T GetById(ObjectId id)
+        {
+            return Collection.FindOneById(id);
+        }
+
         public virtual long Count(IMongoQuery query)
         {
             return Collection
