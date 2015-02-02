@@ -17,6 +17,7 @@ namespace Blog.Repository.Managers
         List<ArticleModel> GetMostViewed(int take);
         void AddComment(CommentModel comment, string articleId);
         void AddSubComment(CommentModel comment, string commentId);
+        void ClearComments(string articleId);
         void IncreaseViewed(int count, string articleId);
         void RateArticle(RateModel rate, string articleId);
         void RateComment(RateModel rate, string commentId);

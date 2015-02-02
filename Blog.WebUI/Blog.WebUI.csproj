@@ -188,6 +188,8 @@
     <Content Include="bower_components\jquery-autosize\demo.html" />
     <Content Include="bower_components\jquery-autosize\jquery.autosize.js" />
     <Content Include="bower_components\jquery-autosize\jquery.autosize.min.js" />
+    <Content Include="Code\tags.html" />
+    <Content Include="Code\tags.js" />
     <Content Include="Content\Styles\Article\styles.css" />
     <Content Include="Content\Styles\styles.css" />
     <Content Include="Global.asax" />

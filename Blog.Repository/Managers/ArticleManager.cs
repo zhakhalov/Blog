@@ -104,5 +104,11 @@ namespace Blog.Repository.Managers
                 Query.ElemMatch("Comments", Query<CommentModel>.EQ(c => c._id, id)),
                 Update.PushWrapped("Comments.$.Raters", comment));
         }
+
+
+        public void ClearComments(string articleId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

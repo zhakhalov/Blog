@@ -44,5 +44,10 @@ namespace Blog.WebUI.Controllers
             return View();
         }
 
+        private string GetShortContent(string content, int limit)
+        {
+
+        }
+
     }
 }
