@@ -134,6 +134,7 @@
     <Compile Include="Controllers\AsideController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -146,6 +147,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="bower_components\angular\angular-csp.css" />
+    <Content Include="bower_components\angular\angular.js" />
+    <Content Include="bower_components\angular\angular.min.js" />
     <Content Include="bower_components\bootstrap-tagsinput\dist\bootstrap-tagsinput-angular.js" />
     <Content Include="bower_components\bootstrap-tagsinput\dist\bootstrap-tagsinput-angular.min.js" />
     <Content Include="bower_components\bootstrap-tagsinput\dist\bootstrap-tagsinput.css" />
@@ -518,6 +522,12 @@
     <Content Include="bower_components\bootstrap-tagsinput\package.json" />
     <Content Include="bower_components\bootstrap-tagsinput\README.md" />
     <Content Include="bower_components\bootstrap-tagsinput\src\bootstrap-tagsinput.less" />
+    <Content Include="bower_components\angular\.bower.json" />
+    <Content Include="bower_components\angular\angular.min.js.gzip" />
+    <Content Include="bower_components\angular\angular.min.js.map" />
+    <Content Include="bower_components\angular\bower.json" />
+    <Content Include="bower_components\angular\package.json" />
+    <Content Include="bower_components\angular\README.md" />
     <None Include="Properties\PublishProfiles\zhakhalov-blog - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\zhakhalov-blog - Web Deploy.pubxml" />
     <Content Include="Views\Aside\Index.cshtml" />

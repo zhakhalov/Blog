@@ -46,8 +46,7 @@ namespace Blog.WebUI.Controllers
 
         private string GetShortContent(string content, int limit)
         {
-
+            return content.Substring(0, 250) + ((content.Length > 250) ? "..." : "");
         }
-
     }
 }

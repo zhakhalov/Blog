@@ -8,37 +8,42 @@
     <link href="~/Content/Styles/Article/styles.css" rel="stylesheet" type="text/css" />
     <script src="~/bower_components/jquery-autosize/jquery.autosize.js" type="text/javascript"></script>
     <script src="~/Scripts/count-group.js" type="text/javascript"></script>
+    <script src="~/bower_components/angular/angular.js"></script>
     <script src="~/Scripts/create.js" type="text/javascript"></script>
 }
 
-<div class="panel panel-default">
+<div class="panel panel-default" ng-app="app">
     <div class="panel-heading text-center">
         <h3 class="panel-title">Create new article</h3>
     </div>
     <div class="panel-body">
         <form method="post">
             <fieldset>
-                <div class="form-group" id="title">
-                    <input type="text" class = "form-control content" placeholder = "Title" required="required" name = "Title"/>
-                    <label>Remains characters: <span class="count"></span></label>
+                <div ng-controller="textController">
+                    <div class="form-group" id="title">
+                        <input type="text" class="form-control content" placeholder="Title" required="required" name="Title" ng-model="title" ng-maxlength="250" my-maxlength="250" />
+                        <label>Remains characters: {{250 - title.length}}</label>
+                    </div>
+                    <div class="form-group" id="content">
+                        <textarea class="form-control content" placeholder="Your article starts here..." name="Content" required="required" ng-model="content" ng-maxlength="5000" my-maxlength="5000"></textarea>
+                        <label>Remains characters: {{5000 - content.length}}</label>
+                    </div>
                 </div>
-                <div class="form-group" id="content">
-                    <textarea class="form-control content" placeholder="Your article starts here..." name="Content" required="required"></textarea>
-                    <label>Remains characters: <span class="count"></span></label>
-                </div>
-                <div class="form-group" id="tags">
-                    <input class="result" type="text" name="tags" hidden />                    
+                <div class="form-group" id="tags" ng-controller="tagController" ng-init="init('@string.Join(",", tags)', '@Url.Action("Create", "Tag")')">
+                    <input class="result" type="text" name="tags" value="{{result}}" />
                     <div class="add-tag">
                         <label>Add tags:</label>
-                        @foreach (var t in tags)
-                        {
-                            <button type="button" class="btn btn-xs btn-default btn-tag">@t</button>
-                        }
+                        <a href="" ng-repeat='a in available' class="label label-default" ng-click="add($index)" ng-disabled="pending">{{a}}</a>
+                        <span>
+                            <input ng-model="newTag" class="" />
+                            <button type="button" class="btn btn-sm btn-success" id="create-tag" ng-click="createTag()">Create new tag</button>
+                        </span>
                     </div>
                     <div class="remove-tag">
                         <label>Tags:</label>
+                        <a href="" ng-repeat='t in tags' class="label label-default" ng-click="remove($index)">{{t}}</a>
                     </div>
-                </div>           
+                </div>
                 <button type="submit" class="btn btn-success">
                     Save
                 </button>

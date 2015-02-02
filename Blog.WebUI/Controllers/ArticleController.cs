@@ -3,6 +3,7 @@ using Blog.Repository.Models;
 using Blog.Repository.Repositories;
 using Blog.WebUI.Code;
 using Blog.WebUI.Models;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,15 +34,14 @@ namespace Blog.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult Article(string id)
         {
-            ArticleModel article = _articleManager.GetById(new MongoDB.Bson.ObjectId(id));
+            ArticleModel article = null;
 
-            if (null == article)
-            {
-                return View("Error/404");
-            }
+            try { article = _articleManager.GetById(new ObjectId(id)); }
+            catch { } // invalid id
+
+            if (null == article) { return View("Error/404"); }
 
             _articleManager.IncreaseViewed(1, article._id.ToString());
-
             article.Comments = article.Comments.OrderByDescending(c => c.CreateDate).ToList();
 
             ViewBag.Article = article;
@@ -58,7 +58,7 @@ namespace Blog.WebUI.Controllers
             return View("Articles");
         }
 
-        [Authorize(Roles = "user")]
+        [Authorize]
         [HttpGet]
         public ActionResult Create()
         {
@@ -66,7 +66,7 @@ namespace Blog.WebUI.Controllers
             return View("Create");
         }
 
-        [Authorize(Roles = "user")]
+        [Authorize]
         [HttpPost]
         public ActionResult Create(ArticleModel article, string tags)
         {
@@ -77,7 +77,7 @@ namespace Blog.WebUI.Controllers
             return RedirectToAction("Article", new { id = article._id.ToString() });
         }
 
-        [Authorize(Roles = "user")]
+        [Authorize]
         public ActionResult Comment(string id, string comment)
         {
             CommentModel model = new CommentModel
@@ -91,7 +91,7 @@ namespace Blog.WebUI.Controllers
             return View("Partial/Comment", model);
         }
 
-        [Authorize(Roles = "user")]
+        [Authorize]
         public ActionResult Rate(string articleId, bool like)
         {
             _articleManager.RateArticle(
