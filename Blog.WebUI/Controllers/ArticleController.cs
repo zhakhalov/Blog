@@ -2,6 +2,7 @@
 using Blog.Repository.Models;
 using Blog.Repository.Repositories;
 using Blog.WebUI.Code;
+using Blog.WebUI.Code.Services;
 using Blog.WebUI.Models;
 using MongoDB.Bson;
 using System;
@@ -16,11 +17,13 @@ namespace Blog.WebUI.Controllers
     {
         private readonly IArticleManager _articleManager;
         private readonly ITagRepository _tagRepository;
+        private readonly ITransliterationService _transliterationService;
 
-        public ArticleController(IArticleManager articleManager, ITagRepository tagRepository)
+        public ArticleController(IArticleManager articleManager, ITagRepository tagRepository, ITransliterationService transliterationService)
         {
             _articleManager = articleManager;
             _tagRepository = tagRepository;
+            _transliterationService = transliterationService;
         }
 
         [AllowAnonymous]
@@ -81,6 +84,7 @@ namespace Blog.WebUI.Controllers
             article.Author = ((UserModel)Session["user"]).FullName;
             article.Username = ((UserModel)Session["user"]).Username;
             article.Tags = tags.Split(',').ToList();
+            article.Url = _transliterationService.ToFriendlyUrl(article.Title);
             _articleManager.Save(article);
             return RedirectToAction("Article", new { id = article._id.ToString() });
         }
@@ -97,6 +101,13 @@ namespace Blog.WebUI.Controllers
                 comment: model,
                 articleId: id);
             return View("Partial/Comment", model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Exists(string title)
+        {
+            return Json(new { exists = _articleManager.ExistsTitle(title) });
         }
 
         [Authorize]

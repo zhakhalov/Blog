@@ -10,6 +10,7 @@ namespace Blog.Repository.Managers
 {
     public interface IArticleManager : IArticleRepository
     {
+        ArticleModel GetByUrl(string url);
         List<ArticleModel> GetByUser(string username, int skip, int limit);
         List<ArticleModel> GetByTag(string tag, int skip, int take);
         List<ArticleModel> GetNewest(int skip, int take);
@@ -21,5 +22,6 @@ namespace Blog.Repository.Managers
         void IncreaseViewed(int count, string articleId);
         void RateArticle(RateModel rate, string articleId);
         void RateComment(RateModel rate, string commentId);
+        bool ExistsTitle(string title);
     }
 }

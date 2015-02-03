@@ -1,6 +1,5 @@
-﻿@model Blog.Repository.Models.UserModel
-@{
-    Blog.Repository.Models.UserModel user = Model ?? new Blog.Repository.Models.UserModel
+﻿@{
+    Blog.Repository.Models.UserModel user = ViewBag.User ?? new Blog.Repository.Models.UserModel
     {
         FullName = "John Doe",
         AvatarUrl = "Default.jpg"

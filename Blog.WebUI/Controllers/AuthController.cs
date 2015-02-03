@@ -43,7 +43,7 @@ namespace Blog.WebUI.Controllers
                 };
                 _userRepository.Save(userModel);
                 LoginUser(userModel);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Article");
             }
             return View("Register");
         }

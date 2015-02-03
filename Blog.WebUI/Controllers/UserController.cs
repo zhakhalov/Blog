@@ -24,7 +24,10 @@ namespace Blog.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult NavBar()
         {
-            return View("Partial/NavBar");
+            ViewBag.ReturnUrl = Request.Url.ToString();
+            ViewBag.User = Session["user"];
+            if (User.Identity.IsAuthenticated) { return View("Partial/User"); }
+            return View("Partial/Login");
         }
     }
 }

@@ -4,6 +4,7 @@ using Unity.Mvc4;
 using Blog.Repository.Managers;
 using System.Configuration;
 using Blog.Repository.Repositories;
+using Blog.WebUI.Code.Services;
 
 namespace Blog.WebUI
 {
@@ -38,6 +39,7 @@ namespace Blog.WebUI
             container.RegisterType<IArticleManager, ArticleManager>(new InjectionConstructor(connectionString));
             container.RegisterType<IUserRepository, UserRepository>(new InjectionConstructor(connectionString));
             container.RegisterType<ITagRepository, TagRepository>(new InjectionConstructor(connectionString));
+            container.RegisterType<ITransliterationService, TransliterationService>();
         }
     }
 }

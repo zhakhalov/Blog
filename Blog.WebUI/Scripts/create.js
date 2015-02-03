@@ -18,7 +18,17 @@
             }
         };
     })
-    .controller('textController', ['$scope', function ($scope) {
+    .controller('textController', ['$scope', '$http', function ($scope) {
+        var checkUrl = ';'
+        $scope.init = function (url) {
+            createUrl = url;
+        };
+        $scope.titleChange = function () {
+            $http.post(url, { title: $scope.title })
+            .success(function (data) {
+                $scope.titleExists = data.exists;
+            })
+        }
     }])
     .controller('tagController', ['$scope', '$http', function ($scope, $http) {
         var createUrl = '';

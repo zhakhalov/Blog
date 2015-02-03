@@ -38,7 +38,7 @@
             </div>
         </header>
         <article>
-            @article.Content
+            @Html.Raw(article.Content)
         </article>
         <hr />
         <section>
@@ -48,7 +48,7 @@
                 <a href="@Url.Action("Tag", "Article", new  { tag = t })" class="label label-default">@t</a>
             }
         </section>
-        <div class="pull-right" ng-controller="RateCtrl" ng-init="init('@string.Join(",", article.Raters.Select(r => r.Username))' , '@Context.User.Identity.Name', @Context.User.Identity.IsAuthenticated.ToString().ToLower(), @article.Rating, '@article._id.ToString()', '@Url.Action("Rate", "Article")')">
+        <div class="pull-right" ng-controller="RateCtrl" ng-init="init('@string.Join(",", article.Raters.Select(r => r.Username))', '@Context.User.Identity.Name', @Context.User.Identity.IsAuthenticated.ToString().ToLower(), @article.Rating, '@article._id.ToString()', '@Url.Action("Rate", "Article")')">
             <button class="btn btn-default btn-sm" ng-click="like(true)" ng-disabled="!canRate"><i class="glyphicon glyphicon-chevron-up" style="color:green"></i></button>
             <strong style="color:{{color}}">{{rating}}</strong>
             <button class="btn btn-default btn-sm" ng-click="like(false)" ng-disabled="!canRate"><i class="glyphicon glyphicon-chevron-down" style="color:red"></i></button>

@@ -127,13 +127,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Code\Services\ITransliterationService.cs" />
+    <Compile Include="Code\Services\TransliterationService.cs" />
     <Compile Include="Code\ValidationAttributes\UniqueEmailAttribute.cs" />
     <Compile Include="Code\ValidationAttributes\UniqueUsernameAttribute.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\AsideController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -330,6 +331,7 @@
     <Content Include="Scripts\article.js" />
     <Content Include="Scripts\count-group.js" />
     <Content Include="Scripts\create.js" />
+    <Content Include="Scripts\transliteration.js" />
     <Content Include="Unity.Mvc4.README.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -342,14 +344,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Code\Services\" />
     <Folder Include="Content\Avatars\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Article\Index.cshtml" />
@@ -569,10 +567,10 @@
     <Content Include="Views\Article\Partial\Article.cshtml" />
     <Content Include="Views\User\Public.cshtml" />
     <Content Include="Views\User\Private.cshtml" />
-    <Content Include="Views\User\Partial\NavBar.cshtml" />
     <Content Include="Views\Error\Internal.cshtml" />
     <Content Include="Views\Error\Layout.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

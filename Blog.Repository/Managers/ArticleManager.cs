@@ -14,6 +14,11 @@ namespace Blog.Repository.Managers
     {
         public ArticleManager(string connectionString) : base(connectionString) { }
 
+        public ArticleModel GetByUrl(string url)
+        {
+            return GetOne(Query<ArticleModel>.EQ(a => a.Url, url));
+        }
+
         public List<ArticleModel> GetByUser(string username, int skip, int limit)
         {
             return Get(Query<UserModel>.Where(u => username == u.Username), skip, limit);
@@ -109,6 +114,12 @@ namespace Blog.Repository.Managers
         public void ClearComments(string articleId)
         {
             throw new NotImplementedException();
+        }
+
+
+        public bool ExistsTitle(string title)
+        {
+            return Collection.Count(Query<ArticleModel>.EQ(a => a.Title, title)) > 0;
         }
     }
 }

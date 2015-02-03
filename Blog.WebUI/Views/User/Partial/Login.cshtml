@@ -1,7 +1,11 @@
 ﻿@model Blog.Repository.Models.UserModel
 
+@{
+    string returnUrl = ViewBag.ReturnUrl;
+}
+
 <form class="navbar-form navbar-right" method="post" action="@Url.Action("Login", "Auth")">
-    <input type="text" name="ReturnUrl" hidden value="@HttpContext.Current.Request.Url" />
+    <input type="text" name="ReturnUrl" hidden value="@returnUrl" />
     <div class="form-group">
         @Html.TextBoxFor(model => model.Username, new { @class = "form-control", placeholder = "Login" })
     </div>

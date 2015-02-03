@@ -15,6 +15,8 @@ namespace Blog.Repository.Models
         [BsonRequired]
         public string Title { get; set; }
         [BsonRequired]
+        public string Url { get; set; }
+        [BsonRequired]
         public string Username { get; set; }
         [BsonRequired]
         public string Author { get; set; }

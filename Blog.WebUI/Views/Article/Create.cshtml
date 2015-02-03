@@ -23,16 +23,26 @@
         <h3 class="panel-title">Create new article</h3>
     </div>
     <div class="panel-body">
-        <form method="post">
+        <form method="post" name="article">
             <fieldset>
-                <div ng-controller="textController">
+                <div ng-controller="textController" ng-init="init('@Url.Action("Exists", "Article")">
                     <div class="form-group" id="title">
-                        <input type="text" class="form-control content" placeholder="Title" required="required" name="Title" ng-model="title" ng-maxlength="250" my-maxlength="250" />
-                        <label>Remains characters: {{250 - title.length}}</label>
+                        <input type="text"
+                               class="form-control"
+                               placeholder="Title"
+                               required="required" 
+                               name="Title"
+                               ng-model="title" 
+                               mg-change ="titleChange()"
+                               ng-maxlength="100" 
+                               my-maxlength="100"
+                               ng-pattern='/^[A-Za-z0-9А-Яа-я,.!?;:]{0,100}$/' 
+                               ng-model-options="{ debounce: 1000 }" />
+                        <label>Remains characters: {{100 - title.length}}</label>
+                        <label ng-show="article.Title.$error.pattern">Article title has some invalid characters</label>
+                        <label ng-show="exists">Article title has some invalid characters</label>
                     </div>
                     <div class="form-group" id="content">
-                        @*<textarea msd-elastic class="form-control content" placeholder="Your article starts here..." name="Content" required="required" ng-model="content" ng-maxlength="5000" my-maxlength="5000"></textarea>
-                        <label>Remains characters: {{5000 - content.length}}</label>*@
                         <div text-angular ng-model="content"></div>
                     </div>
                 </div>
@@ -51,7 +61,7 @@
                         <a href="" ng-repeat='t in tags' class="label label-default" ng-click="remove($index)">{{t}}</a>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success">
+                <button type="submit" class="btn btn-success" ng-disabled="exists || article.Title.$error.pattern">
                     Save
                 </button>
             </fieldset>

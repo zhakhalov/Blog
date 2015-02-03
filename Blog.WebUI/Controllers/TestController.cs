@@ -2,6 +2,7 @@
 using Blog.Repository.Models;
 using Blog.Repository.Repositories;
 using Blog.WebUI.Code;
+using Blog.WebUI.Code.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,18 +17,26 @@ namespace Blog.WebUI.Controllers
         private readonly IUserRepository _userRepository;
         private readonly IArticleManager _articleManager;
         private readonly ITagRepository _tagRepository;
+        private readonly ITransliterationService _transliterationService;
 
-        public TestController(IUserRepository userRepository, IArticleManager articleManager, ITagRepository tagRepository)
+        public TestController(IUserRepository userRepository, IArticleManager articleManager, ITagRepository tagRepository, ITransliterationService transliterationService)
         {
             _userRepository = userRepository;
             _articleManager = articleManager;
             _tagRepository = tagRepository;
+            _transliterationService = transliterationService;
         }
 
         public ActionResult ClearUsers()
         {
             _userRepository.RemoveAll();
             return View();
+        }
+
+        public ActionResult FriendlyUrl(string source)
+        {
+            string friendly = _transliterationService.ToFriendlyUrl(source);
+            return View("Index", friendly);
         }
 
         public ActionResult ClearTags()
