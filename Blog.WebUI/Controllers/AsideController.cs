@@ -37,6 +37,11 @@ namespace Blog.WebUI.Controllers
                 {
                     Title = "Most Viewed",
                     Articles = _articleManager.GetMostViewed(limit).OrderByDescending(a => a.Viewed).ToList()
+                },
+                 new ArticleListModel
+                {
+                    Title = "Top Rated",
+                    Articles = _articleManager.GetTopRated(limit).OrderByDescending(a => a.Viewed).ToList()
                 }
             };
             ViewBag.Tags = _tagRepository.GetAll().Select(t => t.Name).ToList();

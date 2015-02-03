@@ -127,15 +127,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Code\Services\CacheService.cs" />
     <Compile Include="Code\ValidationAttributes\UniqueEmailAttribute.cs" />
     <Compile Include="Code\ValidationAttributes\UniqueUsernameAttribute.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\AsideController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -147,6 +148,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="bower_components\angular-elastic\elastic.js" />
+    <Content Include="bower_components\angular-elastic\index.html" />
+    <Content Include="bower_components\angular-elastic\LICENCE.txt" />
     <Content Include="bower_components\angular\angular-csp.css" />
     <Content Include="bower_components\angular\angular.js" />
     <Content Include="bower_components\angular\angular.min.js" />
@@ -192,6 +196,21 @@
     <Content Include="bower_components\jquery-autosize\demo.html" />
     <Content Include="bower_components\jquery-autosize\jquery.autosize.js" />
     <Content Include="bower_components\jquery-autosize\jquery.autosize.min.js" />
+    <Content Include="bower_components\textAngular\dist\textAngular-rangy.min.js" />
+    <Content Include="bower_components\textAngular\dist\textAngular-sanitize.min.js" />
+    <Content Include="bower_components\textAngular\dist\textAngular.min.js" />
+    <Content Include="bower_components\textAngular\karma-jqlite.conf.js" />
+    <Content Include="bower_components\textAngular\karma-jquery.conf.js" />
+    <Content Include="bower_components\textAngular\lib\DOM.js" />
+    <Content Include="bower_components\textAngular\lib\factories.js" />
+    <Content Include="bower_components\textAngular\lib\globals.js" />
+    <Content Include="bower_components\textAngular\lib\main.js" />
+    <Content Include="bower_components\textAngular\lib\taBind.js" />
+    <Content Include="bower_components\textAngular\lib\validators.js" />
+    <Content Include="bower_components\textAngular\src\textAngular-sanitize.js" />
+    <Content Include="bower_components\textAngular\src\textAngular.css" />
+    <Content Include="bower_components\textAngular\src\textAngular.js" />
+    <Content Include="bower_components\textAngular\src\textAngularSetup.js" />
     <Content Include="Code\tags.html" />
     <Content Include="Code\tags.js" />
     <Content Include="Content\Styles\Article\styles.css" />
@@ -323,6 +342,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Code\Services\" />
     <Folder Include="Content\Avatars\" />
   </ItemGroup>
   <ItemGroup>
@@ -482,10 +502,10 @@
     <Content Include="Views\Auth\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Bar\Login.cshtml" />
+    <Content Include="Views\User\Partial\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Bar\User.cshtml" />
+    <Content Include="Views\User\Partial\User.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\AuthLayout.cshtml" />
@@ -528,6 +548,15 @@
     <Content Include="bower_components\angular\bower.json" />
     <Content Include="bower_components\angular\package.json" />
     <Content Include="bower_components\angular\README.md" />
+    <Content Include="bower_components\angular-elastic\.bower.json" />
+    <Content Include="bower_components\angular-elastic\bower.json" />
+    <Content Include="bower_components\angular-elastic\package.json" />
+    <Content Include="bower_components\angular-elastic\README.md" />
+    <Content Include="bower_components\textAngular\.bower.json" />
+    <Content Include="bower_components\textAngular\bower.json" />
+    <Content Include="bower_components\textAngular\changelog.md" />
+    <Content Include="bower_components\textAngular\CONTRIBUTING.md" />
+    <Content Include="bower_components\textAngular\README.md" />
     <None Include="Properties\PublishProfiles\zhakhalov-blog - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\zhakhalov-blog - Web Deploy.pubxml" />
     <Content Include="Views\Aside\Index.cshtml" />
@@ -538,8 +567,12 @@
     <Content Include="Views\Article\Create.cshtml" />
     <Content Include="Views\Article\Articles.cshtml" />
     <Content Include="Views\Article\Partial\Article.cshtml" />
-    <Content Include="Views\Shared\Error\Layout.cshtml" />
-    <Content Include="Views\Shared\Error\404.cshtml" />
+    <Content Include="Views\User\Public.cshtml" />
+    <Content Include="Views\User\Private.cshtml" />
+    <Content Include="Views\User\Partial\NavBar.cshtml" />
+    <Content Include="Views\Error\Internal.cshtml" />
+    <Content Include="Views\Error\Layout.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

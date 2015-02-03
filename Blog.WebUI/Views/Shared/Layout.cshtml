@@ -36,14 +36,7 @@
                                     </div>
                                 </form>
                             </div>*@
-                        @if (!HttpContext.Current.User.Identity.IsAuthenticated)
-                        {
-                            @Html.Partial("Bar/Login")
-                        }
-                        else
-                        {
-                            @Html.Partial("Bar/User", HttpContext.Current.Session["user"])
-                        }
+                        @{Html.RenderAction("NavBar", "User");}
                     </div>
                 </div>
             </div>

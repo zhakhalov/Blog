@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Page not found";
+    Layout = "~/Views/Error/Layout.cshtml";
+}
+
+<div class="jumbotron">
+    <div class="container">
+        <h1>404!</h1>
+        <p>Page not found <a class="btn btn-success" href="@Url.Action("Index", "Article")">Home</a>
+    </div>
+</div>

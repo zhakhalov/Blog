@@ -1,0 +1,27 @@
+﻿<head>
+    <title>@(ViewBag.Title ?? "Error")</title>
+    <link href="~/Content/Styles/styles.css" rel="stylesheet" type="text/css" />
+    <link href="~/bower_components/bootstrap/dist/css/slate.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="wrap">
+        <header>
+            <div class="navbar navbar-default">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="@Url.Action("Index", "Article")">Blog</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        @RenderBody()
+    </div>
+    <footer class="panel-footer">
+        <div class="container">
+            <div class=" pull-right">
+                <p>Copyright © 2015 _monolith.
+                <p>All rights reserved.
+            </div>
+        </div>
+    </footer>
+</body>

@@ -1,29 +1,24 @@
-﻿(function ($, angular) {
-    new CountGroup($('#content'), 5000);
-    new CountGroup($('#title'), 100);
-    $('.content', $('#content')).autosize();
+﻿(function (angular) {
 
-    angular.module('app', [])
-    .directive('myMaxlength', function() {
+    angular.module('app', ['monospaced.elastic', 'textAngular'])
+    .directive('myMaxlength', function () {
         return {
             require: 'ngModel',
             link: function (scope, element, attrs, ngModelCtrl) {
                 var maxlength = Number(attrs.myMaxlength);
-                function fromUser(text) {
+                ngModelCtrl.$parsers.push(function (text) {
                     if (text.length > maxlength) {
                         var transformedInput = text.substring(0, maxlength);
                         ngModelCtrl.$setViewValue(transformedInput);
                         ngModelCtrl.$render();
                         return transformedInput;
-                    } 
+                    }
                     return text;
-                }
-                ngModelCtrl.$parsers.push(fromUser);
+                });
             }
-        }; 
+        };
     })
     .controller('textController', ['$scope', function ($scope) {
-
     }])
     .controller('tagController', ['$scope', '$http', function ($scope, $http) {
         var createUrl = '';
@@ -47,7 +42,10 @@
             $scope.result = $scope.tags.join(',');
         };
         $scope.createTag = function () {
-            if (!$scope.newTag.length || (-1 != $scope.tags.indexOf($scope.newTag)) || (-1 != $scope.available.indexOf($scope.newTag))) { return; }
+            if (!$scope.newTag.length
+                || (-1 != $scope.tags.indexOf($scope.newTag))
+                || (-1 != $scope.available.indexOf($scope.newTag)))
+            { return; }
             $scope.pending = true;
             $http.post(createUrl, { tag: $scope.newTag })
             .success(function () {
@@ -56,7 +54,7 @@
             });
         };
     }]);
-})(jQuery, angular);
+})(angular);
 
 //(function ($) {
 //    $(function () {

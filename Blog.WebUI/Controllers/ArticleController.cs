@@ -58,6 +58,14 @@ namespace Blog.WebUI.Controllers
             return View("Articles");
         }
 
+        [AllowAnonymous]
+        public ActionResult Author(string author)
+        {
+            List<ArticleModel> articles = _articleManager.GetByUser(author, 0, int.MaxValue);
+            ViewBag.Articles = articles;
+            return View("Articles");
+        }
+
         [Authorize]
         [HttpGet]
         public ActionResult Create()
