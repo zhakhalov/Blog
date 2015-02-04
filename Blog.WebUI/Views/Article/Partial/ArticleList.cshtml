@@ -1,0 +1,6 @@
+﻿@model List<Blog.Repository.Models.ArticleModel>
+
+@foreach (var a in Model)
+{
+    @Html.Partial("Partial/Article", a)
+}

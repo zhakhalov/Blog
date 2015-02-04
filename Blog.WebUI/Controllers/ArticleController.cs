@@ -18,24 +18,22 @@ namespace Blog.WebUI.Controllers
         private readonly IArticleManager _articleManager;
         private readonly ITagRepository _tagRepository;
         private readonly ITransliterationService _transliterationService;
+        private readonly IArticleConfigService _articleConfigService;
 
-        public ArticleController(IArticleManager articleManager, ITagRepository tagRepository, ITransliterationService transliterationService)
+        public ArticleController(
+            IArticleManager articleManager, 
+            ITagRepository tagRepository,
+            ITransliterationService transliterationService,
+            IArticleConfigService articleConfigService)
         {
             _articleManager = articleManager;
             _tagRepository = tagRepository;
             _transliterationService = transliterationService;
+            _articleConfigService = articleConfigService;
         }
 
         [AllowAnonymous]
-        public ActionResult Index()
-        {
-            List<ArticleModel> articles = _articleManager.GetNewest(0, int.MaxValue);
-            ViewBag.Articles = articles;
-            return View("Articles");
-        }
-
-        [AllowAnonymous]
-        public ActionResult Article(string url)
+        public ActionResult Read(string url)
         {
             ArticleModel article = null;
 
@@ -46,15 +44,26 @@ namespace Blog.WebUI.Controllers
             article.Comments = article.Comments.OrderByDescending(c => c.CreateDate).ToList();
 
             ViewBag.Article = article;
+            ViewBag.CommentLimit = _articleConfigService.CommentLimit;
             ViewBag.isCommentEnabled = HttpContext.User.Identity.IsAuthenticated;
-            return View("Article");
+            return View("Read");
         }
+
+        [AllowAnonymous]
+        public ActionResult Index()
+        {
+            //TODO Pagination needed
+            List<ArticleModel> articles = _articleManager.GetNewest(0, int.MaxValue);
+            ViewBag.Articles = articles;
+            return View("Articles");
+        }        
 
         [AllowAnonymous]
         public ActionResult Tag(string tag)
         {
+            //TODO Pagination need
             List<ArticleModel> articles = _articleManager.GetByTag(tag, 0, int.MaxValue);
-            ViewBag.Title = "Article by tag " + tag;
+            ViewBag.Title = "Articles by tag " + tag;
             ViewBag.Articles = articles;
             return View("Articles");
         }
@@ -62,9 +71,10 @@ namespace Blog.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult Author(string author)
         {
+            //TODO Pagination need
+            ViewBag.AllowEdit = User.Identity.IsAuthenticated && (author == User.Identity.Name);
             List<ArticleModel> articles = _articleManager.GetByUser(author, 0, int.MaxValue);
-            ViewBag.Articles = articles;
-            return View("Articles");
+            return View("Partial/ArticleList", articles);
         }
 
         [Authorize]
@@ -72,6 +82,7 @@ namespace Blog.WebUI.Controllers
         public ActionResult Create()
         {
             ViewBag.Tags = _tagRepository.GetAll().Select(t => t.Name).ToList();
+            ViewBag.TitleLimit = _articleConfigService.TitleLimit;
             return View("Create");
         }
 
@@ -85,7 +96,28 @@ namespace Blog.WebUI.Controllers
             article.Tags = tags.Split(',').ToList();
             article.Url = _transliterationService.ToFriendlyUrl(article.Title);
             _articleManager.Save(article);
-            return RedirectToAction("Article", new { url = article.Url });
+            return RedirectToAction("Read", new { url = article.Url });
+        }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult Edit(string info)
+        {
+            ViewBag.Article = _articleManager.GetByUrl(info);
+            ViewBag.Tags = _tagRepository.GetAll().Select(t => t.Name).ToList();
+            return View("Edit");
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Edit(string content, string articleId, string tags)
+        {
+            ArticleModel article = _articleManager.GetById(new ObjectId(articleId));
+            article.Content = content;
+            article.Tags = tags.Split(',').ToList();
+            _articleManager.Save(article);
+            return RedirectToAction("Read", new { url = article.Url });
         }
 
         [Authorize]

@@ -14,8 +14,8 @@ namespace Blog.Repository.Managers
         List<ArticleModel> GetByUser(string username, int skip, int limit);
         List<ArticleModel> GetByTag(string tag, int skip, int take);
         List<ArticleModel> GetNewest(int skip, int take);
-        List<ArticleModel> GetTopRated(int take);
-        List<ArticleModel> GetMostViewed(int take);
+        List<ArticleModel> GetTopRated(int skip, int take);
+        List<ArticleModel> GetMostViewed(int skip, int take);
         void AddComment(CommentModel comment, string articleId);
         void AddSubComment(CommentModel comment, string commentId);
         void ClearComments(string articleId);

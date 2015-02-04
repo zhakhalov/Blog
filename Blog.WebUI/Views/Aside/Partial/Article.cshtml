@@ -1,14 +1,5 @@
 ﻿@model Blog.Repository.Models.ArticleModel
 
-@functions
-{
-    string GetShortContent()
-    {
-        return Model.Content.Substring(0, 200) + ((Model.Content.Length > 200) ? "..." : "");
-    }
-}
-
-<a href="@Url.Action("Article", "Article", new { url = Model.Url })">
+<a href="@Url.Action("Read", "Article", new { url = Model.Url })">
     <h5><strong>@Model.Title</strong></h5>
-    <small>@Html.Raw(GetShortContent())</small>
 </a>

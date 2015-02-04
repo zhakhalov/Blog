@@ -3,7 +3,4 @@
     List<Blog.Repository.Models.ArticleModel> articles = ViewBag.Articles;
 }
 
-@foreach (var a in articles)
-{
-    @Html.Partial("Partial/Article", a)
-}
+@Html.Partial("Partial/ArticleList", articles)

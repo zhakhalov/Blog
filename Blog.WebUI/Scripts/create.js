@@ -1,15 +1,17 @@
 ﻿(function (angular) {
 
     angular.module('app', ['monospaced.elastic', 'textAngular', 'maxLength'])
-    .controller('textController', ['$scope', '$http', function ($scope) {
-        var checkUrl = ';'
-        $scope.init = function (url) {
-            createUrl = url;
+    .controller('textController', ['$scope', '$http', function ($scope, $http) {
+        var url = '';
+        $scope.init = function (checkUrl, limit) {
+            $scope.titleLimit = limit;
+            url = checkUrl;
         };
         $scope.titleChange = function () {
             $http.post(url, { title: $scope.title })
             .success(function (data) {
                 $scope.titleExists = data.exists;
+                $scope.$emit('titleChanged', !data.exists);
             })
         }
     }])
@@ -19,20 +21,26 @@
         $scope.available = [];
         $scope.tags = [];
         $scope.pending = false;
-        $scope.result = "";
+        $scope.result = '';
+        $scope.newTag = '';
+        $scope.existsTag = false;
         $scope.init = function (tags, url) {
             $scope.available = tags.split(',');
             createUrl = url;
         };
-        $scope.add = function (index) {
+        $scope.add = function (index) {            
             $scope.tags.push($scope.available[index]);
             $scope.available.splice(index, 1);
             $scope.result = $scope.tags.join(',');
         };
-        $scope.remove = function (index) {
+        $scope.remove = function (index) {            
             $scope.available.push($scope.tags[index]);
             $scope.tags.splice(index, 1);
-            $scope.result = $scope.tags.join(',');
+            $scope.result = $scope.tags.join(',');           
+        };
+        $scope.tagChange = function () {
+            $scope.existsTag = (-1 != $scope.tags.indexOf($scope.newTag))
+               || (-1 != $scope.available.indexOf($scope.newTag));
         };
         $scope.createTag = function () {
             if (!$scope.newTag.length
@@ -43,9 +51,15 @@
             $http.post(createUrl, { tag: $scope.newTag })
             .success(function () {
                 $scope.available.push($scope.newTag);
-                $scope.pending = false;
+                $scope.pending = false;                
             });
         };
+    }])
+    .controller('submitController', ['$scope', '$rootScope', function ($scope, $rootScope) {
+        $scope.allow = false;
+        $rootScope.$on('titleChanged', function (event, allow) {
+            $scope.allow = allow;
+        })
     }]);
 })(angular);
 

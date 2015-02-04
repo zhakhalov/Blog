@@ -2,7 +2,9 @@
     ViewBag.Title = "Private";
     Layout = "~/Views/Shared/Layout.cshtml";
     string avatarUrl = ViewBag.AvatarUrl;
+    int summaryLimit = ViewBag.SummaryLimit;
     Blog.Repository.Models.UserModel user = ViewBag.User;
+    List<Blog.Repository.Models.ArticleModel> articles = ViewBag.Articles;
 }
 
 @section Header{
@@ -22,36 +24,55 @@
                     <h3 class="panel-title text-center">Profile Image</h3>
                 </div>
                 <div class="panel-body text-center">
-                    <img src="@Url.Content(avatarUrl)" />
-                    <span class="btn btn-success btn-file">
-                        <i class="glyphicon glyphicon-upload"></i>Upload your avatar<input type="file">
-                    </span>
-                    <div class="btn btn-lg btn-link btn-block btn-drop text-center text-muted">
-                        Or drop here
+                    <div class="well">
+                        <img src="@Url.Content(avatarUrl)" width="100" height="100" />
                     </div>
-                    <div class="progress progress-striped">
-                        <div class="progress-bar progress-bar-success" style="width: 60%;"></div>
+                    <div>
+                        <span class="btn btn-success btn-file btn-block">
+                            <i class="glyphicon glyphicon-upload"></i>Upload photo<input type="file">
+                        </span>
+                        <div class="btn btn-lg btn-link btn-block btn-drop text-center text-muted">
+                            Or drop here
+                        </div>
+                        <div ng-show="uploading">
+                            <hr />
+                            <div class="progress progress-striped">
+                                <div class="progress-bar progress-bar-success" style="width: 60%;"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="main col-md-9">
-            <div class="panel panel-default" ng-controller="summaryCtrl" ng-init="init('@Url.Action("Summary", "User")')">
+            <div class="panel panel-default" ng-controller="summaryCtrl" ng-init="init('@Url.Action("Summary", "User")', @summaryLimit)">
                 <div class="panel-heading">
                     <h3 class="panel-title text-center">About yourself:</h3>
                 </div>
                 <div class="panel-body">
-                    <textarea ng-maxlength="1000"
-                                my-maxlength="1000"
-                                ng-model="summary">
+                    <textarea class="form-control"
+                              placeholder="Tell about yourself..."
+                              ng-maxlength="@summaryLimit"
+                              my-maxlength="@summaryLimit"
+                              msd-elastic
+                              ng-change="change()"
+                              ng-model="summary">
                         @user.Summary
                     </textarea>
-                    <label>Caracters remains:{{1000 - summary.length}}</label>
-                    <div class="text-center">
+                    <label>Caracters remains:{{limit - summary.length}}</label>
+                    <div>
                         <button class="btn btn-success" ng-click="update()" ng-disabled="!allowSubmit">Save</button>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading text-center">
+            <h3 class="panel-title">Your Articles</h3>
+        </div>
+        <div class="panel-body">
+            @{Html.RenderAction("Author", "Article", new { author = user.Username });}
         </div>
     </div>
 </div>

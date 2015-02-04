@@ -21,7 +21,7 @@ namespace Blog.Repository.Managers
 
         public List<ArticleModel> GetByUser(string username, int skip, int limit)
         {
-            return Get(Query<UserModel>.Where(u => username == u.Username), skip, limit);
+            return Get(Query<UserModel>.EQ(u => u.Username, username), skip, limit);
         }
 
         public List<ArticleModel> GetByTag(string tag, int skip, int take)
@@ -46,20 +46,22 @@ namespace Blog.Repository.Managers
                 .ToList();
         }
 
-        public List<ArticleModel> GetTopRated(int take)
+        public List<ArticleModel> GetTopRated(int skip, int take)
         {
             return Collection
                 .FindAll()
                 .OrderBy(a => a.Rating)
+                .Skip(skip)
                 .Take(take)
                 .ToList();
         }
 
-        public List<ArticleModel> GetMostViewed(int take)
+        public List<ArticleModel> GetMostViewed(int skip, int take)
         {
             return Collection
                 .FindAll()
                 .OrderBy(a => a.Viewed)
+                .Skip(skip)
                 .Take(take)
                 .ToList();
         }

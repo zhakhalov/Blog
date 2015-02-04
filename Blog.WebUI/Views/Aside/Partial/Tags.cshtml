@@ -7,7 +7,7 @@
     <div class="panel-body">
         @foreach (var t in Model)
         {
-            <a href="@Url.Action("Tag", "Article", new  { tag = t })" class="label label-default">@t</a>
+            @Html.Partial("Partial/TagLabel", t)
         }        
     </div>
 </section>

@@ -136,8 +136,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Code\Services\AvatarService.cs" />
-    <Compile Include="Code\Services\IAvatarService.cs" />
+    <Compile Include="Code\Services\ArticleConfigService.cs" />
+    <Compile Include="Code\Services\UserConfigService.cs" />
+    <Compile Include="Code\Services\IArticleConfigService.cs" />
+    <Compile Include="Code\Services\IUserConfigService.cs" />
     <Compile Include="Mailers\IUserMailer.cs" />
     <Compile Include="Mailers\UserMailer.cs" />
     <Compile Include="Code\Services\ITransliterationService.cs" />
@@ -350,9 +352,10 @@
     <Content Include="bower_components\jquery\src\var\toString.js" />
     <Content Include="bower_components\jquery\src\wrap.js" />
     <Content Include="Content\Styles\Auth\styles.css" />
-    <Content Include="Scripts\article.js" />
+    <Content Include="Scripts\read.js" />
     <Content Include="Scripts\count-group.js" />
     <Content Include="Scripts\create.js" />
+    <Content Include="Scripts\edit.js" />
     <Content Include="Scripts\mymaxlength.js" />
     <Content Include="Scripts\private.js" />
     <Content Include="Scripts\transliteration.js" />
@@ -592,7 +595,7 @@
     <Content Include="Views\Aside\Partial\Article.cshtml" />
     <Content Include="Views\Aside\Partial\ArticleList.cshtml" />
     <Content Include="Views\Aside\Partial\Tags.cshtml" />
-    <Content Include="Views\Article\Article.cshtml" />
+    <Content Include="Views\Article\Read.cshtml" />
     <Content Include="Views\Article\Create.cshtml" />
     <Content Include="Views\Article\Articles.cshtml" />
     <Content Include="Views\Article\Partial\Article.cshtml" />
@@ -605,6 +608,8 @@
     <Content Include="Views\UserMailer\Welcome.cshtml" />
     <Content Include="Views\UserMailer\_Layout.cshtml" />
     <Content Include="Views\UserMailer\PasswordReset.cshtml" />
+    <Content Include="Views\Shared\Partial\TagLabel.cshtml" />
+    <Content Include="Views\Article\Partial\ArticleList.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

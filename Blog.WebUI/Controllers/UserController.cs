@@ -1,4 +1,6 @@
-﻿using Blog.Repository.Repositories;
+﻿using Blog.Repository.Managers;
+using Blog.Repository.Models;
+using Blog.Repository.Repositories;
 using Blog.WebUI.Code.Services;
 using MongoDB.Bson;
 using System;
@@ -13,12 +15,17 @@ namespace Blog.WebUI.Controllers
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;
-        private readonly IAvatarService _avatarService;
+        private readonly IArticleManager _articleManager;
+        private readonly IUserConfigService _userConfigService;
 
-        public UserController(IUserRepository userRepository, IAvatarService avatarService)
+        public UserController(
+            IUserRepository userRepository,
+            IArticleManager articleManager,
+            IUserConfigService userConfigService)
         {
             _userRepository = userRepository;
-            _avatarService = avatarService;
+            _articleManager = articleManager;
+            _userConfigService = userConfigService;
         }
 
         [AllowAnonymous]
@@ -30,24 +37,34 @@ namespace Blog.WebUI.Controllers
         [Authorize]
         public ActionResult Private()
         {
-            ViewBag.User = Session["user"];
-            ViewBag.AvatarUrl =_avatarService.ResolveUrl("Default.png");
+            var user = (UserModel)Session["user"];
+            ViewBag.User = user;
+            ViewBag.SummaryLimit = _userConfigService.SummaryLimit;
+            ViewBag.AvatarUrl =_userConfigService.ResolveAvatarUrl("Default.png");
+            ViewBag.Articles = _articleManager.GetByUser(user.Username, 0, int.MaxValue);
             return View("Private");
         }
 
+        [Authorize]
         public ActionResult UploadAvatar(string file)
         {
             string extension = Path.GetExtension(Request.Files["avatar"].FileName);
             string filename = User.Identity.Name + extension;
-            Request.Files["avatar"].SaveAs(_avatarService.ResolvePath(filename));
-            return Json(new { url = "" });
+            Request.Files["avatar"].SaveAs(_userConfigService.ResolveAvatarPath(filename));
+            return Json(new { url = _userConfigService.ResolveAvatarUrl(filename) });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult Summary(string summary)
+        {
+            return Json(new { ok = true });
         }
 
         [AllowAnonymous]
         public ActionResult NavBar()
         {
-            ViewBag.ReturnUrl = Request.Url.ToString();
-            
+            ViewBag.ReturnUrl = Request.Url.ToString();    
             
             if (User.Identity.IsAuthenticated)
             {

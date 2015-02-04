@@ -2,6 +2,7 @@
     List<string> tags = ViewBag.Tags;
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/Layout.cshtml";
+    int titleLimit = ViewBag.TitleLimit;
 }
 
 @section Header{
@@ -26,7 +27,7 @@
     <div class="panel-body">
         <form method="post" action="@Url.Action("Create", "Article")">
             <fieldset>
-                <div ng-controller="textController" ng-init="init('@Url.Action("Exists", "Article")')">
+                <div ng-controller="textController" ng-init="init('@Url.Action("Exists", "Article")', @titleLimit)">
                     <div class="form-group" id="title">
                         <input type="text"
                                class="form-control"
@@ -34,39 +35,41 @@
                                required="required"
                                name="Title"
                                ng-model="title"
-                               mg-change="titleChange()"
-                               ng-maxlength="100"
-                               my-maxlength="100"
-                               ng-model-options="{ debounce: 1000 }" />
-                        <label>Remains characters: {{100 - title.length}}</label>
-                        <label class="has-error" ng-show="article.Title.$error.pattern">Article title has some invalid characters</label>
-                        <label class="has-error" ng-show="exists">Article title has some invalid characters</label>
+                               ng-change="titleChange()"
+                               ng-maxlength="@titleLimit"
+                               my-maxlength="@titleLimit"
+                               ng-model-options="{ debounce: 500 }" />
+                        <label>Remains characters: {{titleLimit - title.length}}</label>
+                        <label class="has-error" ng-show="titleExists">Article title has some invalid characters</label>
                     </div>
                     <div class="form-group" id="content">
-                        <div text-angular ng-model="content"></div>
-                    </div>
-                    <input type="text" name="Content" value="{{content}}" hidden />
+                        <div text-angular ng-model="content">
+                        </div>
+                    </div>     
+                    <input type="text" name="Content" value="{{content}}" hidden />               
                 </div>
-                <div class="form-group" id="tags" ng-controller="tagController" ng-init="init('@string.Join(",", tags)', '@Url.Action("Create", "Tag")')">
-                    <input class="result" type="text" name="tags" value="{{result}}" hidden />
-                    <div class="add-tag">
+                <div class="form-group" id="tags" ng-controller="tagController" ng-init="init('@string.Join(",", tags)', '@Url.Action("Create", "Tag")')">                    
+                    <div>
                         <label>Add tags:</label>
-                        <a href="" ng-repeat='a in available' class="label label-default" ng-click="add($index)" ng-disabled="pending">{{a}}</a>
-                        <div class="form-group navbar-form">
-                            <div class="input-group">
-                                <input ng-model="newTag" class="form-control" />
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-success" id="create-tag" ng-click="createTag()">Create new tag</button>
-                                </span>
-                            </div>
-                         </div>
+                        <a href="" ng-repeat='a in available' class="label label-success" ng-click="add($index)">{{a}}</a>                        
                     </div>
-                    <div class="remove-tag">
+                    <div>
                         <label>Tags:</label>
-                        <a href="" ng-repeat='t in tags' class="label label-default" ng-click="remove($index)">{{t}}</a>
+                        <a href="" ng-repeat='t in tags' class="label label-success" ng-click="remove($index)">{{t}}</a>
                     </div>
-                </div>
-                <input type="submit" class="btn btn-success" ng-disabled="exists" value="Save" />
+                    <div class="form-group navbar-form">
+                        <div class="input-group">
+                            <span class="input-group-addon">New Tag:</span>
+                            <input ng-model="newTag" class="form-control" ng-change="tagChange()" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-success" id="create-tag" ng-click="createTag()" ng-disabled="existsTag || pending || 0 == newTag.length">Create</button>
+                            </span>
+                        </div>
+                    </div>
+                    <input type="text" name="tags" value="{{result}}" hidden />
+                </div>    
+                <div ng-controller="submitController"></div>                   
+                <input type="submit" class="btn btn-success" ng-disabled="allow == false" value="Save" />
             </fieldset>
         </form>
     </div>

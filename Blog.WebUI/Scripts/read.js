@@ -6,7 +6,7 @@
         $scope.init = function (users, username, isAuthenticated, rating, articleId, rateUrl) {
             $scope.canRate = (isAuthenticated && (-1 == users.indexOf(username)));
             $scope.rating = rating;
-            $scope.color = $scope.rating >= 0 ? 'lightgreen' : 'lightcoral';
+            $scope.positive = $scope.rating >= 0;
             id = articleId;
             url = rateUrl;
         };
@@ -15,15 +15,16 @@
             $http.post(url, { articleId: id, like: isLike })
             .success(function (date) {
                 $scope.rating += (date.like) ? 1 : -1;
-                $scope.color = $scope.rating >= 0 ? 'lightgreen' : 'lightcoral';
+                $scope.color = $scope.rating >= 0 ? 'green' : 'coral';
             })
         };
     }])
     .controller('CommentCtrl', ['$scope', '$http', function ($scope, $http) {
         var url = '';
         var id = '';
-        $scope.init = function (canComment, articleId, commentUrl) {
+        $scope.init = function (canComment, articleId, commentUrl, limit) {
             $scope.canComment = canComment;
+            $scope.limit = limit;
             id = articleId;
             url = commentUrl;
         };
@@ -37,27 +38,3 @@
         }
     }]);
 })(window.jQuery, window.angular);
-
-//(function () {
-//    $(function () {
-//        var _private = {
-//            $comment: $('#comment'),
-//            commentCount: new CountGroup($('#comment'), 320)
-//        };
-//        $('.content', _private.$comment).autosize();
-
-//        $('.btn-comment').click(function () {
-//            $.ajax({
-//                type: 'POST',
-//                url: $('.action', _private.$comment).val(),
-//                data: {
-//                    comment: $('.content', _private.$comment).val(),
-//                    id: $('.id', _private.$comment).val()
-//                },
-//                success: function (data) {
-//                    _private.$comment.after(data);
-//                }
-//            })
-//        })
-//    });
-//})(jQuery);

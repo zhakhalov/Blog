@@ -1,18 +1,18 @@
 ﻿@model Blog.Repository.Models.ArticleModel
-
-@functions
-{
-    string GetShortContent()
-    {
-        return Model.Content.Substring(0, 250) + ((Model.Content.Length > 250) ? "..." : "");
-    }
+@{
+    bool allowEdit = ViewBag.AllowEdit ?? false;
 }
+
 <article class="well">
     <h3>@Model.Title</h3>
-    @Html.Raw(GetShortContent())
-    <div class="pull-right">
+    @Html.Raw(Model.Content)
+    <div class="text-right">
         <strong>@Model.Author</strong> <small>@Model.CreateDate.ToString("MMMM dd, yyyy.", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))</small>
     </div>      
-    <a href="@Url.Action("Article", "Article", new { url = Model.Url })" class="btn btn-link">More &rarr;</a>
+    <a href="@Url.Action("Read", "Article", new { url = Model.Url })" class="btn btn-default btn-link">More &rarr;</a>
+    @if (allowEdit)
+    {
+        <a href="@Url.Action("Edit", "Article", new { info = Model.Url })" class="btn btn-success">Edit</a>
+    }    
 </article>
 

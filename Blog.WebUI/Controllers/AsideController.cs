@@ -2,6 +2,7 @@
 using Blog.Repository.Models;
 using Blog.Repository.Repositories;
 using Blog.WebUI.Code;
+using Blog.WebUI.Code.Services;
 using Blog.WebUI.Models;
 using System;
 using System.Collections.Generic;
@@ -16,42 +17,41 @@ namespace Blog.WebUI.Controllers
     {
         private readonly IArticleManager _articleManager;
         private readonly ITagRepository _tagRepository;
+        private readonly IArticleConfigService _articleConfigService;
 
-        public AsideController(IArticleManager articleManager, ITagRepository tagRepository)
+        public AsideController(
+            IArticleManager articleManager,
+            ITagRepository tagRepository,
+            IArticleConfigService articleConfigService)
         {
             _articleManager = articleManager;
             _tagRepository = tagRepository;
+            _articleConfigService = articleConfigService;
         }
 
         public ActionResult Index()
         {
-            int limit = 5;
             ViewBag.ArticleLists = new List<ArticleListModel>
             {                
                 new ArticleListModel
                 {
                     Title = "Newest",
-                    Articles = _articleManager.GetNewest(0,limit).OrderByDescending(a => a.CreateDate).ToList()
+                    Articles = _articleManager.GetNewest(0, _articleConfigService.AsideLimit).OrderByDescending(a => a.CreateDate).ToList()
                 },
                 new ArticleListModel
                 {
                     Title = "Most Viewed",
-                    Articles = _articleManager.GetMostViewed(limit).OrderByDescending(a => a.Viewed).ToList()
+                    Articles = _articleManager.GetMostViewed(0, _articleConfigService.AsideLimit).OrderByDescending(a => a.Viewed).ToList()
                 },
                  new ArticleListModel
                 {
                     Title = "Top Rated",
-                    Articles = _articleManager.GetTopRated(limit).OrderByDescending(a => a.Viewed).ToList()
+                    Articles = _articleManager.GetTopRated(0, _articleConfigService.AsideLimit).OrderByDescending(a => a.Viewed).ToList()
                 }
             };
             ViewBag.Tags = _tagRepository.GetAll().Select(t => t.Name).ToList();
             ViewBag.CanCteateArticle = HttpContext.User.Identity.IsAuthenticated;
             return View();
-        }
-
-        private string GetShortContent(string content, int limit)
-        {
-            return content.Substring(0, 250) + ((content.Length > 250) ? "..." : "");
         }
     }
 }

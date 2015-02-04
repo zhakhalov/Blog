@@ -14,9 +14,9 @@ namespace Blog.WebUI
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Article",
+                name: "Read",
                 url: "read/{url}",
-                defaults: new { controller = "Article", action = "Article" }
+                defaults: new { controller = "Article", action = "Read" }
             );
             routes.MapRoute(
                 name: "Tags",
@@ -26,12 +26,12 @@ namespace Blog.WebUI
             routes.MapRoute(
                 name: "Profile",
                 url: "profile/{username}",
-                defaults: new { controller = "Article", action = "Tag" }
+                defaults: new { controller = "User", action = "Public" }
             );
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Article", action = "Index", id = UrlParameter.Optional }
+                url: "{controller}/{action}/{info}",
+                defaults: new { controller = "Article", action = "Index", info = UrlParameter.Optional }
             );
         }
     }

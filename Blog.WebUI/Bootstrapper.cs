@@ -34,14 +34,31 @@ namespace Blog.WebUI
 
         public static void RegisterTypes(IUnityContainer container)
         {
+            // repository config
             string connectionString = ConfigurationManager.ConnectionStrings["BlogNoSQL"].ConnectionString;
+            // user config
             string avatarPath = ConfigurationManager.AppSettings["avatarPath"];
+            int summaryLimit = int.Parse(ConfigurationManager.AppSettings["summaryLimit"]);
+            // article config
+            int titleLimit = int.Parse(ConfigurationManager.AppSettings["titleLimit"]);
+            int pageLimit = int.Parse(ConfigurationManager.AppSettings["pageLimit"]);
+            int commentLimit = int.Parse(ConfigurationManager.AppSettings["commentLimit"]);
+            int shortContentLimit = int.Parse(ConfigurationManager.AppSettings["shortContentLimit"]);
+            int asideLimit = int.Parse(ConfigurationManager.AppSettings["asideLimit"]);
 
             container.RegisterType<IArticleManager, ArticleManager>(new InjectionConstructor(connectionString));
             container.RegisterType<IUserRepository, UserRepository>(new InjectionConstructor(connectionString));
             container.RegisterType<ITagRepository, TagRepository>(new InjectionConstructor(connectionString));
             container.RegisterType<ITransliterationService, TransliterationService>();
-            container.RegisterType<IAvatarService, AvatarService>(new InjectionConstructor(avatarPath));
+            container.RegisterType<IUserConfigService, UserConfigService>(new InjectionConstructor(
+                new InjectionParameter(avatarPath),
+                new InjectionParameter(summaryLimit)));
+            container.RegisterType<IArticleConfigService, ArticleConfigService>(new InjectionConstructor(
+                new InjectionParameter(titleLimit),
+                new InjectionParameter(pageLimit),
+                new InjectionParameter(commentLimit),
+                new InjectionParameter(shortContentLimit),
+                new InjectionParameter(asideLimit)));
         }
     }
 }

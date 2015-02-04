@@ -38,5 +38,13 @@ namespace Blog.Repository.Repositories
         {
             Collection.Remove(Query<UserModel>.EQ(t => t._id, model._id), RemoveFlags.None);
         }
+
+
+        public void UpdateSummary(string username, string summary)
+        {
+            Collection.Update(
+                Query<UserModel>.EQ(u => u.Username, username),
+                Update<UserModel>.Set(u => u.Summary, summary));
+        }
     }
 }

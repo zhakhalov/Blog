@@ -12,5 +12,6 @@ namespace Blog.Repository.Repositories
         bool ContainsUsername(string username);
         bool ContainsEmail(string email);
         UserModel GetByLogin(string login);
+        void UpdateSummary(string username, string summary);
     }
 }
