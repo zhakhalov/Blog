@@ -22,6 +22,6 @@ namespace Blog.Repository.Managers
         void IncreaseViewed(int count, string articleId);
         void RateArticle(RateModel rate, string articleId);
         void RateComment(RateModel rate, string commentId);
-        bool ExistsTitle(string title);
+        bool ExistsTitleOrUrl(string title, string url);
     }
 }

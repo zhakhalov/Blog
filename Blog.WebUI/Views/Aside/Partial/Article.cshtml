@@ -4,11 +4,11 @@
 {
     string GetShortContent()
     {
-        return Model.Content.Substring(0, 100) + ((Model.Content.Length > 100) ? "..." : "");
+        return Model.Content.Substring(0, 200) + ((Model.Content.Length > 200) ? "..." : "");
     }
 }
 
-<a href="@Url.Action("Article", "Article", new { id = Model._id.ToString() })">
+<a href="@Url.Action("Article", "Article", new { url = Model.Url })">
     <h5><strong>@Model.Title</strong></h5>
-    <small>@GetShortContent()</small>
+    <small>@Html.Raw(GetShortContent())</small>
 </a>

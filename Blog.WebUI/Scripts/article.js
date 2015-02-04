@@ -1,22 +1,5 @@
 ﻿(function ($, angular) {
-    angular.module('app', ['monospaced.elastic'])
-    .directive('myMaxlength', function () {
-        return {
-            require: 'ngModel',
-            link: function (scope, element, attrs, ngModelCtrl) {
-                var maxlength = Number(attrs.myMaxlength);
-                ngModelCtrl.$parsers.push( function (text) {
-                    if (text.length > maxlength) {
-                        var transformedInput = text.substring(0, maxlength);
-                        ngModelCtrl.$setViewValue(transformedInput);
-                        ngModelCtrl.$render();
-                        return transformedInput;
-                    }
-                    return text;
-                });
-            }
-        };
-    })
+    angular.module('app', ['monospaced.elastic', 'maxLength'])
     .controller('RateCtrl', ['$scope', '$http', function ($scope, $http) {
         var id = '';
         var url = '';

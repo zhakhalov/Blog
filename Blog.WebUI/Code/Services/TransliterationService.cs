@@ -24,14 +24,7 @@ namespace Blog.WebUI.Code.Services
             // Special symbols
             {"©" , "c"},
             {"-" , "-"},
-            {"," , ""},
-            {"?" , ""},
-            {"!" , ""},
-            {"." , ""},
-            {":" , ""},
-            {";" , ""},
-            {"\'" , ""},
-            {"\"" , ""},
+            {" " , "-"},
 
             // Greek
             {"Α" , "A"}, {"Β" , "B"}, {"Γ" , "G"}, {"Δ" , "D"}, {"Ε" , "E"}, {"Ζ" , "Z"}, {"Η" , "H"}, {"Θ" , "8"},
@@ -78,6 +71,8 @@ namespace Blog.WebUI.Code.Services
             {"ā" , "a"}, {"ē" , "e"}, {"ģ" , "g"}, {"ī" , "i"}, {"ķ" , "k"}, {"ļ" , "l"}, {"ņ" , "n"}, {"ū" , "u"}
         };
 
+        private readonly string ignone = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
         public string ToFriendlyUrl(string text)
         {
             return string
@@ -86,7 +81,7 @@ namespace Blog.WebUI.Code.Services
                     .ToLower()
                     .ToCharArray()
                     .Select(r => r.ToString())
-                    .Select(s => dictionary.Keys.Contains(s) ? dictionary[s] : s)
+                    .Select(s => ignone.Contains(s) ? s : dictionary.Keys.Contains(s) ? dictionary[s] : "")
                         .ToList());
         }
     }

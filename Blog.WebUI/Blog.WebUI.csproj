@@ -39,6 +39,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.4.1.10311.0\lib\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
@@ -55,8 +59,13 @@
     <Reference Include="MongoDB.Driver">
       <HintPath>..\packages\mongocsharpdriver.1.9.2\lib\net35\MongoDB.Driver.dll</HintPath>
     </Reference>
+    <Reference Include="Mvc.Mailer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MvcMailer-vs2013.4.5.1-pre\lib\45\Mvc.Mailer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -127,6 +136,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Code\Services\AvatarService.cs" />
+    <Compile Include="Code\Services\IAvatarService.cs" />
+    <Compile Include="Mailers\IUserMailer.cs" />
+    <Compile Include="Mailers\UserMailer.cs" />
     <Compile Include="Code\Services\ITransliterationService.cs" />
     <Compile Include="Code\Services\TransliterationService.cs" />
     <Compile Include="Code\ValidationAttributes\UniqueEmailAttribute.cs" />
@@ -152,6 +165,13 @@
     <Content Include="bower_components\angular-elastic\elastic.js" />
     <Content Include="bower_components\angular-elastic\index.html" />
     <Content Include="bower_components\angular-elastic\LICENCE.txt" />
+    <Content Include="bower_components\angular-file-upload\.gitignore" />
+    <Content Include="bower_components\angular-file-upload\angular-file-upload.js" />
+    <Content Include="bower_components\angular-file-upload\angular-file-upload.min.js" />
+    <Content Include="bower_components\angular-file-upload\license.txt" />
+    <Content Include="bower_components\angular-file-upload\src\intro.js" />
+    <Content Include="bower_components\angular-file-upload\src\module.js" />
+    <Content Include="bower_components\angular-file-upload\src\outro.js" />
     <Content Include="bower_components\angular\angular-csp.css" />
     <Content Include="bower_components\angular\angular.js" />
     <Content Include="bower_components\angular\angular.min.js" />
@@ -190,6 +210,7 @@
     <Content Include="bower_components\bootstrap-tagsinput\karma.conf.js" />
     <Content Include="bower_components\bootstrap-tagsinput\src\bootstrap-tagsinput-angular.js" />
     <Content Include="bower_components\bootstrap-tagsinput\src\bootstrap-tagsinput.js" />
+    <Content Include="bower_components\bootstrap\dist\css\paper.css" />
     <Content Include="bower_components\bootstrap\dist\css\slate.css" />
     <Content Include="bower_components\font-awesome\.gitignore" />
     <Content Include="bower_components\font-awesome\css\font-awesome.css" />
@@ -216,6 +237,7 @@
     <Content Include="Code\tags.js" />
     <Content Include="Content\Styles\Article\styles.css" />
     <Content Include="Content\Styles\styles.css" />
+    <Content Include="Content\Styles\User\styles.css" />
     <Content Include="Global.asax" />
     <Content Include="bower_components\bootstrap\dist\css\bootstrap-theme.css" />
     <Content Include="bower_components\bootstrap\dist\css\bootstrap-theme.min.css" />
@@ -331,6 +353,8 @@
     <Content Include="Scripts\article.js" />
     <Content Include="Scripts\count-group.js" />
     <Content Include="Scripts\create.js" />
+    <Content Include="Scripts\mymaxlength.js" />
+    <Content Include="Scripts\private.js" />
     <Content Include="Scripts\transliteration.js" />
     <Content Include="Unity.Mvc4.README.txt" />
     <Content Include="Web.config" />
@@ -521,10 +545,6 @@
     <Content Include="Views\Article\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bower_components\jquery-autosize\.bower.json" />
-    <Content Include="bower_components\jquery-autosize\bower.json" />
-    <Content Include="bower_components\jquery-autosize\package.json" />
-    <Content Include="bower_components\jquery-autosize\readme.md" />
     <Content Include="bower_components\bootstrap-tagsinput\.bower.json" />
     <Content Include="bower_components\bootstrap-tagsinput\bootstrap-tagsinput.jquery.json" />
     <Content Include="bower_components\bootstrap-tagsinput\bower.json" />
@@ -555,6 +575,17 @@
     <Content Include="bower_components\textAngular\changelog.md" />
     <Content Include="bower_components\textAngular\CONTRIBUTING.md" />
     <Content Include="bower_components\textAngular\README.md" />
+    <Content Include="bower_components\jquery-autosize\.bower.json" />
+    <Content Include="bower_components\jquery-autosize\bower.json" />
+    <Content Include="bower_components\jquery-autosize\package.json" />
+    <Content Include="bower_components\jquery-autosize\readme.md" />
+    <Content Include="bower_components\angular-file-upload\.bower.json" />
+    <Content Include="bower_components\angular-file-upload\.jshintrc" />
+    <Content Include="bower_components\angular-file-upload\angular-file-upload.min.map" />
+    <Content Include="bower_components\angular-file-upload\bower.json" />
+    <Content Include="bower_components\angular-file-upload\Gruntfile.coffee" />
+    <Content Include="bower_components\angular-file-upload\package.json" />
+    <Content Include="bower_components\angular-file-upload\README.md" />
     <None Include="Properties\PublishProfiles\zhakhalov-blog - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\zhakhalov-blog - Web Deploy.pubxml" />
     <Content Include="Views\Aside\Index.cshtml" />
@@ -571,6 +602,9 @@
     <Content Include="Views\Error\Layout.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\UserMailer\Welcome.cshtml" />
+    <Content Include="Views\UserMailer\_Layout.cshtml" />
+    <Content Include="Views\UserMailer\PasswordReset.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

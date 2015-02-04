@@ -117,9 +117,12 @@ namespace Blog.Repository.Managers
         }
 
 
-        public bool ExistsTitle(string title)
+        public bool ExistsTitleOrUrl(string title, string url)
         {
-            return Collection.Count(Query<ArticleModel>.EQ(a => a.Title, title)) > 0;
+            return Collection
+                .Count(Query.Or(
+                    Query<ArticleModel>.EQ(a => a.Title, title),
+                    Query<ArticleModel>.EQ(a => a.Url, url))) > 0;
         }
     }
 }

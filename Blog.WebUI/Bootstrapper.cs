@@ -35,11 +35,13 @@ namespace Blog.WebUI
         public static void RegisterTypes(IUnityContainer container)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["BlogNoSQL"].ConnectionString;
+            string avatarPath = ConfigurationManager.AppSettings["avatarPath"];
 
             container.RegisterType<IArticleManager, ArticleManager>(new InjectionConstructor(connectionString));
             container.RegisterType<IUserRepository, UserRepository>(new InjectionConstructor(connectionString));
             container.RegisterType<ITagRepository, TagRepository>(new InjectionConstructor(connectionString));
             container.RegisterType<ITransliterationService, TransliterationService>();
+            container.RegisterType<IAvatarService, AvatarService>(new InjectionConstructor(avatarPath));
         }
     }
 }

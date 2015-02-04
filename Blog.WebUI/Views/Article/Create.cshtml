@@ -12,6 +12,7 @@
     <script src="~/Scripts/count-group.js" type="text/javascript"></script>
     <script src="~/bower_components/angular/angular.js"></script>
     <script src="~/bower_components/angular-elastic/elastic.js"></script>
+    <script src="~/Scripts/mymaxlength.js"></script>
     <script src="~/bower_components/textAngular/dist/textAngular-rangy.min.js"></script>
     <script src="~/bower_components/textAngular/dist/textAngular-sanitize.min.js"></script>
     <script src="~/bower_components/textAngular/dist/textAngular.min.js"></script>
@@ -23,47 +24,49 @@
         <h3 class="panel-title">Create new article</h3>
     </div>
     <div class="panel-body">
-        <form method="post" name="article">
+        <form method="post" action="@Url.Action("Create", "Article")">
             <fieldset>
-                <div ng-controller="textController" ng-init="init('@Url.Action("Exists", "Article")">
+                <div ng-controller="textController" ng-init="init('@Url.Action("Exists", "Article")')">
                     <div class="form-group" id="title">
                         <input type="text"
                                class="form-control"
                                placeholder="Title"
-                               required="required" 
+                               required="required"
                                name="Title"
-                               ng-model="title" 
-                               mg-change ="titleChange()"
-                               ng-maxlength="100" 
+                               ng-model="title"
+                               mg-change="titleChange()"
+                               ng-maxlength="100"
                                my-maxlength="100"
-                               ng-pattern='/^[A-Za-z0-9А-Яа-я,.!?;:]{0,100}$/' 
                                ng-model-options="{ debounce: 1000 }" />
                         <label>Remains characters: {{100 - title.length}}</label>
-                        <label ng-show="article.Title.$error.pattern">Article title has some invalid characters</label>
-                        <label ng-show="exists">Article title has some invalid characters</label>
+                        <label class="has-error" ng-show="article.Title.$error.pattern">Article title has some invalid characters</label>
+                        <label class="has-error" ng-show="exists">Article title has some invalid characters</label>
                     </div>
                     <div class="form-group" id="content">
                         <div text-angular ng-model="content"></div>
                     </div>
+                    <input type="text" name="Content" value="{{content}}" hidden />
                 </div>
                 <div class="form-group" id="tags" ng-controller="tagController" ng-init="init('@string.Join(",", tags)', '@Url.Action("Create", "Tag")')">
                     <input class="result" type="text" name="tags" value="{{result}}" hidden />
                     <div class="add-tag">
                         <label>Add tags:</label>
                         <a href="" ng-repeat='a in available' class="label label-default" ng-click="add($index)" ng-disabled="pending">{{a}}</a>
-                        <span>
-                            <input ng-model="newTag" class="" />
-                            <button type="button" class="btn btn-sm btn-success" id="create-tag" ng-click="createTag()">Create new tag</button>
-                        </span>
+                        <div class="form-group navbar-form">
+                            <div class="input-group">
+                                <input ng-model="newTag" class="form-control" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-success" id="create-tag" ng-click="createTag()">Create new tag</button>
+                                </span>
+                            </div>
+                         </div>
                     </div>
                     <div class="remove-tag">
                         <label>Tags:</label>
                         <a href="" ng-repeat='t in tags' class="label label-default" ng-click="remove($index)">{{t}}</a>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success" ng-disabled="exists || article.Title.$error.pattern">
-                    Save
-                </button>
+                <input type="submit" class="btn btn-success" ng-disabled="exists" value="Save" />
             </fieldset>
         </form>
     </div>

@@ -35,14 +35,12 @@ namespace Blog.WebUI.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Article(string id)
+        public ActionResult Article(string url)
         {
             ArticleModel article = null;
 
-            try { article = _articleManager.GetById(new ObjectId(id)); }
-            catch { } // invalid id
-
-            if (null == article) { return View("Error/404"); }
+            article = _articleManager.GetByUrl(url);
+            if (null == article) { throw new HttpException(404, "Not found"); }
 
             _articleManager.IncreaseViewed(1, article._id.ToString());
             article.Comments = article.Comments.OrderByDescending(c => c.CreateDate).ToList();
@@ -79,6 +77,7 @@ namespace Blog.WebUI.Controllers
 
         [Authorize]
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Create(ArticleModel article, string tags)
         {
             article.Author = ((UserModel)Session["user"]).FullName;
@@ -86,7 +85,7 @@ namespace Blog.WebUI.Controllers
             article.Tags = tags.Split(',').ToList();
             article.Url = _transliterationService.ToFriendlyUrl(article.Title);
             _articleManager.Save(article);
-            return RedirectToAction("Article", new { id = article._id.ToString() });
+            return RedirectToAction("Article", new { url = article.Url });
         }
 
         [Authorize]
@@ -107,7 +106,7 @@ namespace Blog.WebUI.Controllers
         [HttpPost]
         public ActionResult Exists(string title)
         {
-            return Json(new { exists = _articleManager.ExistsTitle(title) });
+            return Json(new { exists = _articleManager.ExistsTitleOrUrl(title, _transliterationService.ToFriendlyUrl(title)) });
         }
 
         [Authorize]

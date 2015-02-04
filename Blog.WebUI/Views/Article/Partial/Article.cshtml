@@ -9,10 +9,10 @@
 }
 <article class="well">
     <h3>@Model.Title</h3>
-    @GetShortContent()
+    @Html.Raw(GetShortContent())
     <div class="pull-right">
         <strong>@Model.Author</strong> <small>@Model.CreateDate.ToString("MMMM dd, yyyy.", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))</small>
     </div>      
-    <a href="@Url.Action("Article", "Article", new { id = Model._id.ToString() })" class="btn btn-link">More &rarr;</a>
+    <a href="@Url.Action("Article", "Article", new { url = Model.Url })" class="btn btn-link">More &rarr;</a>
 </article>
 

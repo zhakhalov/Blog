@@ -1,6 +1,57 @@
 ﻿@{
     ViewBag.Title = "Private";
     Layout = "~/Views/Shared/Layout.cshtml";
+    string avatarUrl = ViewBag.AvatarUrl;
+    Blog.Repository.Models.UserModel user = ViewBag.User;
 }
 
-<h2>Private</h2>
+@section Header{
+    <link href="~/Content/Styles/User/styles.css" rel="stylesheet" />
+    <script src="~/bower_components/angular/angular.js"></script>
+    <script src="~/bower_components/angular-elastic/elastic.js"></script>
+    <script src="~/Scripts/mymaxlength.js"></script>
+    <script src="~/bower_components/angular-file-upload/angular-file-upload.js"></script>
+    <script src="~/Scripts/private.js"></script>
+}
+
+<div ng-app="app">
+    <div class="row">
+        <div ng-controller="avatarCtrl" class="sidebar col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title text-center">Profile Image</h3>
+                </div>
+                <div class="panel-body text-center">
+                    <img src="@Url.Content(avatarUrl)" />
+                    <span class="btn btn-success btn-file">
+                        <i class="glyphicon glyphicon-upload"></i>Upload your avatar<input type="file">
+                    </span>
+                    <div class="btn btn-lg btn-link btn-block btn-drop text-center text-muted">
+                        Or drop here
+                    </div>
+                    <div class="progress progress-striped">
+                        <div class="progress-bar progress-bar-success" style="width: 60%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main col-md-9">
+            <div class="panel panel-default" ng-controller="summaryCtrl" ng-init="init('@Url.Action("Summary", "User")')">
+                <div class="panel-heading">
+                    <h3 class="panel-title text-center">About yourself:</h3>
+                </div>
+                <div class="panel-body">
+                    <textarea ng-maxlength="1000"
+                                my-maxlength="1000"
+                                ng-model="summary">
+                        @user.Summary
+                    </textarea>
+                    <label>Caracters remains:{{1000 - summary.length}}</label>
+                    <div class="text-center">
+                        <button class="btn btn-success" ng-click="update()" ng-disabled="!allowSubmit">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
