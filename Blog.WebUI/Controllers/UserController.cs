@@ -53,14 +53,28 @@ namespace Blog.WebUI.Controllers
         }
 
         [Authorize]
+        [HttpPost]
         public ActionResult UploadAvatar(string file)
         {
-            string extension = Path.GetExtension(Request.Files["avatar"].FileName);
+            string extension = Path.GetExtension(Request.Files["file"].FileName);
             string filename = User.Identity.Name + extension;
-            Request.Files["avatar"].SaveAs(_userConfigService.ResolveAvatarPath(filename));
+            Request.Files["file"].SaveAs(_userConfigService.ResolveAvatarPath(filename));
             _userRepository.UpdateAvatar(User.Identity.Name, filename);
             Session["user"] = _userRepository.GetByLogin(User.Identity.Name);
             return Json(new { url = _userConfigService.ResolveAvatarUrl(filename) });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult ChangePassword(string oldPassword, string newPassword)
+        {
+            var user = (UserModel)Session["user"];
+            var ok = user.Password == oldPassword;
+            if (ok)
+            {
+                _userRepository.ChangePassword(User.Identity.Name, newPassword);
+            }           
+            return Json(new { ok = ok });
         }
 
         [HttpPost]

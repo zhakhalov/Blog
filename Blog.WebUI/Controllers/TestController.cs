@@ -45,6 +45,12 @@ namespace Blog.WebUI.Controllers
             return View();
         }
 
+        public ActionResult RemoveTag(string tag)
+        {
+            _tagRepository.Remove(new TagModel { Name = tag });
+            return View();
+        }
+
         public ActionResult ClearArticles()
         {
             _articleManager.RemoveAll();

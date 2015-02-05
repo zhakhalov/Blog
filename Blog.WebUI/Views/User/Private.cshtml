@@ -13,6 +13,7 @@
     <script src="~/bower_components/angular-elastic/elastic.js"></script>
     <script src="~/Scripts/mymaxlength.js"></script>
     <script src="~/bower_components/angular-file-upload/angular-file-upload.js"></script>
+    <script src="~/bower_components/angular-input-match/dist/angular-input-match.js"></script>
     <script src="~/Scripts/private.js"></script>
 }
 
@@ -43,11 +44,16 @@
                              nv-file-over>
                             Or drop here
                         </div>
-                        <div ng-show="uploading">
+                        <div ng-repeat="item in uploader.queue">
                             <hr />
-                            <button class="btn btn-block btn-success btn-sm"><i class="glyphicon glyphicon-upload"></i>Upload</button>
+                            <span class="text-center text-capitalize text-muted">{{item.file.name}}</span>
+                            <button class="btn btn-block btn-success btn-sm"
+                                    ng-click="item.upload()"
+                                    ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                <i class="glyphicon glyphicon-upload"></i>Upload
+                            </button>
                             <div class="progress progress-striped">
-                                <div class="progress-bar progress-bar-success" ng-style="{width: progress + '%'};"></div>
+                                <div class="progress-bar progress-bar-success" ng-style="{width: item.progress + '%'};"></div>
                             </div>
                         </div>
                     </div>
@@ -56,7 +62,7 @@
         </div>
         <div class="col-md-9">
             <div class="panel panel-default"
-                 ng-controller="summaryCtrl" 
+                 ng-controller="summaryCtrl"
                  ng-init="init('@Url.Action("Summary", "User")', @summaryLimit, '@user.Summary')">
                 <div class="panel-heading">
                     <h3 class="panel-title text-center">About yourself:</h3>
@@ -72,8 +78,44 @@
                               ng-model="summary"></textarea>
                     <label>Caracters remains:{{summaryLimit - summary.length}}</label>
                     <div>
-                        <button class="btn btn-success" ng-click="update()" ng-disabled="!allowSubmit">Save</button>
+                        <button class="btn btn-success" ng-click="submit()" ng-disabled="!allowSubmit">Submit</button>
+                        <label class="text-success" ng-show="submited">Summary successfuly changed</label>
                     </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title text-center">Settings:</h3>
+                </div>
+                <div class="panel-body">
+                    <form name="passForm"
+                          class="form-horizontal"
+                          ng-controller="passCtrl"
+                          ng-init="init('@Url.Action("ChangePassword", "User")')">
+                        <fieldset>
+                            <legend>Change password:</legend>
+                            <label class="control-label col-md-4">Old password:</label>
+                            <div class="col-md-8">
+                                <input type="password" class="form-control" name="oldPassword" ng-model="oldPassword" required />
+                            </div>
+                            <div>
+                                <label class="control-label col-md-4">New password:</label>
+                                <div class="col-md-8">
+                                    <input type="password" class="form-control col-md-10" name="newPassword" ng-model="newPassword" required />
+                                </div>
+                            </div>
+                            <div>
+                                <label class="control-label col-md-4">Repeat new password:</label>
+                                <div class="col-md-8">
+                                    <input type="password" class="form-control col-md-10" name="confirmPassword" ng-model="confirmPassword" match="newPassword" required />
+                                    <label class="text-danger" ng-show="passForm.confirmPassword.$error.match">New password does not match confirmation</label>
+                                </div>
+                            </div>
+                            <button class="btn btn-success" ng-disabled="passForm.$invalid" ng-click="submit()">Confirm</button>
+                            <label class="text-success" ng-show="submited && changed">Password successfuly changed</label>
+                            <label class="text-danger" ng-show="submited && !changed">Old password is incorrect</label>
+                        </fieldset>
+                    </form>
                 </div>
             </div>
         </div>

@@ -12,6 +12,7 @@ namespace Blog.Repository.Repositories
         bool ContainsUsername(string username);
         bool ContainsEmail(string email);
         UserModel GetByLogin(string login);
+        void ChangePassword(string username, string passowrd);
         void UpdateSummary(string username, string summary);
         void UpdateAvatar(string username, string avatarUrl);
     }

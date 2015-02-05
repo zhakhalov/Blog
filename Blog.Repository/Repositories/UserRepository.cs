@@ -52,5 +52,13 @@ namespace Blog.Repository.Repositories
                 Query<UserModel>.EQ(u => u.Username, username),
                 Update<UserModel>.Set(u => u.AvatarUrl, avatarUrl));
         }
+
+
+        public void ChangePassword(string username, string passowrd)
+        {
+            Collection.Update(
+                Query<UserModel>.EQ(u => u.Username, username),
+                Update<UserModel>.Set(u => u.Password, passowrd));
+        }
     }
 }

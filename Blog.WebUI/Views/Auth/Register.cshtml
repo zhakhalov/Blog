@@ -15,25 +15,25 @@
                 <div class="panel-body">
                     <form method="post">
                         <fieldset>
-                            <div class="form-group">
-                                <span class="has-error">@Html.ValidationMessageFor(model => model.Username)</span>
+                            <div class="form-group">                                
                                 @Html.TextBoxFor(model => model.Username, new { @class = "form-control", @required = "reqiured", @placeholder = "Username" })
+                                <span class="text-danger">@Html.ValidationMessageFor(model => model.Username)</span>
                             </div>
-                            <div class="form-group">
-                                <span class="has-error">@Html.ValidationMessageFor(model => model.FullName)</span>
+                            <div class="form-group">                                
                                 @Html.TextBoxFor(model => model.FullName, new { @class = "form-control", @required = "reqiured", @placeholder = "Full name" })
+                                <span class="has-error">@Html.ValidationMessageFor(model => model.FullName)</span>
                             </div>
-                            <div class="form-group">
-                                <span class="has-error">@Html.ValidationMessageFor(model => model.Email)</span>
+                            <div class="form-group">                                
                                 @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @type = "email", @required = "reqiured", @placeholder = "Email" })
+                                <span class="text-danger">@Html.ValidationMessageFor(model => model.Email)</span>
                             </div>
-                            <div class="form-group">
-                                <span class="has-error">@Html.ValidationMessageFor(model => model.Password)</span>
+                            <div class="form-group">                                
                                 @Html.PasswordFor(model => model.Password, new { @class = "form-control", @required = "reqiured", @placeholder = "Password" })
+                                <span class="text-danger">@Html.ValidationMessageFor(model => model.Password)</span>
                             </div>
-                            <div class="form-group">
-                                <span class="has-error">@Html.ValidationMessageFor(model => model.ConfirmPassword)</span>
+                            <div class="form-group">                                
                                 @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control", @required = "reqiured", @placeholder = "Confirm password" })
+                                <span class="text-danger">@Html.ValidationMessageFor(model => model.ConfirmPassword)</span>
                             </div>
                             <p>
                                 <input type="submit" value="Sign Up" class="btn btn-success btn-block" />

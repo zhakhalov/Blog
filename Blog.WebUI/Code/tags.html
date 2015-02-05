@@ -9,8 +9,10 @@
 <body ng-app='app'>
     <div ng-controller='list' ng-init="init('tag#1,tag#2,tag#3,tag#4,tag#5')">
         <div>
-            Available:<a href="" ng-repeat='a in available' ng-click="add($index)">{{a}}</a>
-            <input ng-model="newTag" /><button ng-click="createTag()">
+            Available:
+            <a href="" ng-repeat='a in available' ng-click="add($index)">{{a}}</a>
+            <input ng-model="newTag" />
+            <button ng-click="createTag()">
                 Create
             </button>
         </div>
@@ -22,5 +24,78 @@
 </html>
 
 <article>
-    <h5>Features</h5><ul><li><span style="background-color: transparent;">Article creation by&nbsp;</span><b style="background-color: transparent;"><i>Create Article </i></b><span style="background-color: transparent;">button at sidebar</span><ul style="color: rgb(102, 102, 102);background-color: rgb(255, 255, 255);"><li><span style="background-color: transparent;">Limited title characters count to prevent too long titles</span></li><li><span style="background-color: transparent;">Unique title</span></li><li><span style="background-color: transparent;">AngularJS rich test editor</span></li><li><span style="background-color: transparent;">Tag adding / removing</span></li><li><span style="background-color: transparent;">Tag creation</span></li></ul></li><li>Article editing by <b><i>Edit </i></b>button below article at private <b><i>User Profile </i></b>page</li><li>Commenting article (only for signed users)</li><li>Rating article (only once for signed user)</li><li>SEO-friendly links (include transliteration)</li><li>Selecting <i>Newest</i>, <i>Most Viewed </i>and <i>Top Rated&nbsp;</i>articles at sidebar</li><li>Selecting articles by <i>Tag</i></li></ul><h5>Change Log</h5><ul><li>migrating to AngularJS except 1 row</li><li><span style="color: rgb(102, 102, 102);text-align: left;float: none;background-color: rgb(255, 255, 255);">Rich test editor added</span></li><li><span style="background-color: transparent;">Tag creation added</span></li><li><span style="background-color: transparent;">Article editing added</span></li><li><span style="background-color: transparent;">Error pages added (for 404 and 500 errors)</span></li><li><span style="background-color: transparent;">Style changed</span></li></ul><h5>Dependencies</h5><ul><li>Server</li><ul style="color: rgb(102, 102, 102);background-color: rgb(255, 255, 255);"><li>Mvc 4</li><li>MongoDB C# Driver</li></ul><li>Client</li><ul style="color: rgb(102, 102, 102);background-color: rgb(255, 255, 255);"><li>Bootstrap</li><li>jQuery</li><li>AngularJS</li><li>TextAngular</li><li>Angular File Upload</li><li>Angular Elastic</li></ul></ul><h5>Source Code</h5><ul><li><a href="https://github.com/zhakhalov/Blog">https://github.com/zhakhalov/Blog</a><br></li></ul>
+    <p>                            </p>
+    <p>                            </p>
+    <article>
+        <h5>Features</h5>
+        <ul>
+            <li>
+                <span style="background-color: transparent;">Click <b><i>Create Article </i></b></span>
+                <span style="background-color: transparent;">button at sidebar to start writing your own article (signed in users only)</span>
+                <ul style="color: rgb(102, 102, 102);background-color: rgb(255, 255, 255);">
+                    <li><span style="background-color: transparent;">Limited title characters count to prevent too long titles</span></li>
+                    <li><span style="background-color: transparent;">Unique title</span></li>
+                    <li><span style="background-color: transparent;">AngularJS rich test editor</span></li>
+                    <li><span style="background-color: transparent;">Tag adding / removing</span></li>
+                    <li><span style="background-color: transparent;">Tag creation</span></li>
+                </ul>
+            </li>
+            <li>
+                <i>Click <b>Edit </b></i>button below article at private
+                <b><i>User Profile </i></b>page to edit your existing article&nbsp;
+                <span style="color: rgb(102, 102, 102);text-align: left;float: none;background-color: rgb(255, 255, 255);"><span class="Apple-converted-space">&nbsp;</span>(signed in users only)</span>
+            </li>
+            <li>Comment article <span style="color: rgb(102, 102, 102);text-align: left;float: none;background-color: rgb(255, 255, 255);">(signed in users only)</span></li>
+            <li>Rating article (only once for signed user)</li>
+            <li>SEO-friendly links (include transliteration)</li>
+            <li>
+                Selecting
+                <i>By tag,</i>&nbsp;
+                <i>Newest</i>,
+                <i>Most Viewed </i>and
+                <i>Top Rated&nbsp;</i>articles at sidebar
+            </li>
+        </ul>
+        <h5>Change Log</h5>
+        <ul>
+            <li>Migrating to AngularJS except 1 row</li>
+            <li>displaying &lt;html&gt; articles</li>
+            <li><span style="color: rgb(102, 102, 102);text-align: left;float: none;background-color: rgb(255, 255, 255);">Rich test editor added</span></li>
+            <li><span style="background-color: transparent;">Tag creation added</span></li>
+            <li><span style="background-color: transparent;">Article rating added</span></li>
+            <li><span style="background-color: transparent;">"Top Rated" sidebar panel added</span></li>
+            <li><span style="background-color: transparent;">Article editing added</span></li>
+            <li><span style="background-color: transparent;">User profile public page added</span></li>
+            <li><span style="background-color: transparent;">User profile editing added</span></li>
+            <li><span style="background-color: transparent;">Error pages added (for 404 and 500 errors)</span></li>
+            <li><span style="background-color: transparent;">Style changed</span></li>
+        </ul>
+        <h5>Dependencies</h5>
+        <ul>
+            <li>Server</li>
+            <ul style="color: rgb(102, 102, 102);background-color: rgb(255, 255, 255);">
+                <li>Mvc 4</li>
+                <li>MongoDB C# Driver</li>
+                <li>Html Agility Pack</li>
+            </ul>
+            <li>Client</li>
+            <ul style="color: rgb(102, 102, 102);background-color: rgb(255, 255, 255);">
+                <li>Bootstrap</li>
+                <li>jQuery</li>
+                <li>AngularJS</li>
+                <li>TextAngular</li>
+                <li>Angular File Upload</li>
+                <li>Angular Elastic</li>
+            </ul>
+        </ul>
+        <h5>Source Code</h5>
+        <ul>
+            <li>
+                <a href="https://github.com/zhakhalov/Blog">https://github.com/zhakhalov/Blog</a>
+                <br>
+            </li>
+        </ul>
+    </article>
+    <p></p>
+    <p></p>
 </article>

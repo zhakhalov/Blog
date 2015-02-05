@@ -1,8 +1,8 @@
 ﻿(function (angular) {
-    angular.module('app', ['monospaced.elastic', 'maxLength', 'angularFileUpload'])
-    .controller('avatarCtrl', ['$scope', '$http', 'FileUploader', function ($scope, $http, FileUploader) {
+    angular.module('app', ['monospaced.elastic', 'maxLength', 'angularFileUpload', 'directives.inputMatch'])
+    .controller('avatarCtrl', ['$scope', 'FileUploader', function ($scope, FileUploader) {
         $scope.allowUpload = false;
-        $scope.uploader = new FileUploader();
+        $scope.uploader = new FileUploader({ queueLimit: 1 });
         $scope.init = function (avatarUrl, uploadUrl) {
             $scope.avatarUrl = avatarUrl;
             $scope.uploader.url = uploadUrl;
@@ -14,11 +14,10 @@
                 return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
             }
         });
-        $scope.uploader.onAfterAddingFile = function () {
-            console.log($scope.uploader);
+        $scope.uploader.onSuccessItem = function (fileItem, response, status, headers) {
+            $scope.avatarUrl = response.url.replace('~', '');
+            $scope.uploader.clearQueue();
         };
-        $scope.uploading = true;
-        $scope.progress = 55;
     }])
     .controller('summaryCtrl', ['$scope', '$http', function ($scope, $http) {
         var url = '';
@@ -32,12 +31,27 @@
         $scope.change = function () {
             $scope.allowSubmit = $scope.summary !== initial;
         };
-        $scope.update = function () {
+        $scope.submit = function () {
+            $scope.submited = false;
+            initial = $scope.summary;
+            $scope.allowSubmit = $scope.summary !== initial;
             $http.post(url, { summary: $scope.summary })
             .success(function () {
-                initial = $scope.summary;
-                $scope.allowSubmit = $scope.summary !== initial;
-            })
-        }
+                $scope.submited = true;                
+            });
+        };
     }])
+    .controller('passCtrl', ['$scope', '$http', function ($scope, $http) {
+        var url = '';
+        $scope.init = function (changePassUrl) {
+            url = changePassUrl;
+        };
+        $scope.submit = function () {
+            $http.post(url, { oldPassword: $scope.oldPassword, newPassword: $scope.newPassword })
+            .success(function () {
+                $scope.changed = true;
+                $scope.submited = true;
+            });
+        };
+    }]);
 })(angular);

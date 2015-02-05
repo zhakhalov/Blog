@@ -22,19 +22,19 @@
                     <form method="post">
                         <input type="text" name="ReturnUrl" hidden value="@Url.Action("Index", "Article")" />
                         <fieldset>
-                            <div class="form-group @loginClass">  
+                            <div class="form-group @loginClass">                                                          
+                                @Html.TextBoxFor(model => model.Username, new { @class = "form-control", @required = "reqiured", @placeholder = "Login" })     
                                 @if (incorrectLogin)
                                 {
-                                    <label>Incorrect login</label>
-                                }                              
-                                @Html.TextBoxFor(model => model.Username, new { @class = "form-control", @required = "reqiured", @placeholder = "Login" })                                
+                                    <label class="text-danger">Incorrect login</label>
+                                }                                 
                             </div>
-                            <div class="form-group @passwordClass">
+                            <div class="form-group @passwordClass">                                
+                                @Html.PasswordFor(model => model.Password, new { @class = "form-control", @required = "reqiured", @placeholder = "Password" })                                
                                 @if (incorrectPassword)
                                 {
-                                    <label>Incorrect password</label>
+                                    <label class="text-danger">Incorrect password</label>
                                 }
-                                @Html.PasswordFor(model => model.Password, new { @class = "form-control", @required = "reqiured", @placeholder = "Password" })                                
                             </div>
                             <p>
                                 <input type="submit" value="Sign In" class="btn btn-success btn-block" />
