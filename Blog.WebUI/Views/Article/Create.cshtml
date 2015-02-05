@@ -40,7 +40,7 @@
                                my-maxlength="@titleLimit"
                                ng-model-options="{ debounce: 500 }" />
                         <label>Remains characters: {{titleLimit - title.length}}</label>
-                        <label class="has-error" ng-show="titleExists">Article title has some invalid characters</label>
+                        <label class="text-danger" ng-show="titleExists">Article title already exists</label>
                     </div>
                     <div class="form-group" id="content">
                         <div text-angular ng-model="content">
@@ -48,7 +48,7 @@
                     </div>     
                     <input type="text" name="Content" value="{{content}}" hidden />               
                 </div>
-                <div class="form-group" id="tags" ng-controller="tagController" ng-init="init('@string.Join(",", tags)', '@Url.Action("Create", "Tag")')">                    
+                <div class="form-group" id="tags" ng-controller="tagController" ng-init="init('@string.Join(",", tags)', '@Url.Action("CreateTag", "Article")')">                    
                     <div>
                         <label>Add tags:</label>
                         <a href="" ng-repeat='a in available' class="label label-success" ng-click="add($index)">{{a}}</a>                        

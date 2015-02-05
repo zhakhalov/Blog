@@ -54,6 +54,7 @@ namespace Blog.WebUI.Controllers
         {
             //TODO Pagination needed
             List<ArticleModel> articles = _articleManager.GetNewest(0, int.MaxValue);
+            articles.ForEach(a => a.Content = _articleConfigService.ShortifyContent(a.Content));
             ViewBag.Articles = articles;
             return View("Articles");
         }        
@@ -63,6 +64,7 @@ namespace Blog.WebUI.Controllers
         {
             //TODO Pagination need
             List<ArticleModel> articles = _articleManager.GetByTag(tag, 0, int.MaxValue);
+            articles.ForEach(a => a.Content = _articleConfigService.ShortifyContent(a.Content));
             ViewBag.Title = "Articles by tag " + tag;
             ViewBag.Articles = articles;
             return View("Articles");
@@ -74,6 +76,7 @@ namespace Blog.WebUI.Controllers
             //TODO Pagination need
             ViewBag.AllowEdit = User.Identity.IsAuthenticated && (author == User.Identity.Name);
             List<ArticleModel> articles = _articleManager.GetByUser(author, 0, int.MaxValue);
+            articles.ForEach(a => a.Content = _articleConfigService.ShortifyContent(a.Content));
             return View("Partial/ArticleList", articles);
         }
 
@@ -94,6 +97,7 @@ namespace Blog.WebUI.Controllers
             article.Author = ((UserModel)Session["user"]).FullName;
             article.Username = ((UserModel)Session["user"]).Username;
             article.Tags = tags.Split(',').ToList();
+            article.Raters = new List<RateModel> { new RateModel { Username = article.Username } };
             article.Url = _transliterationService.ToFriendlyUrl(article.Title);
             _articleManager.Save(article);
             return RedirectToAction("Read", new { url = article.Url });
@@ -121,10 +125,28 @@ namespace Blog.WebUI.Controllers
         }
 
         [Authorize]
+        [HttpPost]
+        public ActionResult CreateTag(string tag)
+        {
+            dynamic a = new { tag = tag };
+            try
+            {
+                _tagRepository.Save(new TagModel { Name = tag });
+            }
+            catch
+            {
+                a.message = string.Format("tag {0} already exists", tag);
+                Response.StatusCode = 409;
+            }
+            return Json(a);
+        }
+
+        [Authorize]
         public ActionResult Comment(string id, string comment)
         {
             CommentModel model = new CommentModel
             {
+                Username = User.Identity.Name,
                 Author = ((UserModel)HttpContext.Session["user"]).FullName,
                 Content = comment
             };            

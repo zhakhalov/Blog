@@ -38,7 +38,7 @@
                         <input type="text" name="content" value="{{content}}" hidden />
                     </div>
                 </div>
-                <div class="form-group" id="tags" ng-controller="tagController" ng-init="init('@string.Join(",", available)', '@string.Join(",", article.Tags)', '@Url.Action("Create", "Tag")')">
+                <div class="form-group" id="tags" ng-controller="tagController" ng-init="init('@string.Join(",", available)', '@string.Join(",", article.Tags)', '@Url.Action("CreateTag", "Article")')">
                     <div>
                         <label>Add tags:</label>
                         <a href="" ng-repeat='a in available' class="label label-success" ng-click="add($index)">{{a}}</a>

@@ -5,10 +5,14 @@
 
 <article class="well">
     <h3>@Model.Title</h3>
-    @Html.Raw(Model.Content)
+    <section>
+        @Html.Raw(Model.Content)
+    </section>   
+    <br />
     <div class="text-right">
-        <strong>@Model.Author</strong> <small>@Model.CreateDate.ToString("MMMM dd, yyyy.", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))</small>
-    </div>      
+        <a href="@Url.Action("Public", "User", new { username = Model.Username })" class="btn-link">@Model.Author</a>
+         <small>@Model.CreateDate.ToString("MMMM dd, yyyy.", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))</small>
+    </div>       
     <a href="@Url.Action("Read", "Article", new { url = Model.Url })" class="btn btn-default btn-link">More &rarr;</a>
     @if (allowEdit)
     {

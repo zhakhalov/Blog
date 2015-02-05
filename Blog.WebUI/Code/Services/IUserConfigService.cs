@@ -9,6 +9,7 @@ namespace Blog.WebUI.Code.Services
     public interface IUserConfigService
     {
         int SummaryLimit { get; }
+        string DefaultAvatar { get; }
         string ResolveAvatarPath(string filename);
         string ResolveAvatarUrl(string filename);
     }

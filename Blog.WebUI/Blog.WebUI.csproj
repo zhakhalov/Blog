@@ -43,6 +43,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.4.1.10311.0\lib\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
@@ -174,6 +177,11 @@
     <Content Include="bower_components\angular-file-upload\src\intro.js" />
     <Content Include="bower_components\angular-file-upload\src\module.js" />
     <Content Include="bower_components\angular-file-upload\src\outro.js" />
+    <Content Include="bower_components\angular-initial-value\conf.js" />
+    <Content Include="bower_components\angular-initial-value\dist\angular-initial-value.js" />
+    <Content Include="bower_components\angular-initial-value\dist\angular-initial-value.min.js" />
+    <Content Include="bower_components\angular-initial-value\gulpfile.js" />
+    <Content Include="bower_components\angular-initial-value\src\angular-initial-value.js" />
     <Content Include="bower_components\angular\angular-csp.css" />
     <Content Include="bower_components\angular\angular.js" />
     <Content Include="bower_components\angular\angular.min.js" />
@@ -220,6 +228,16 @@
     <Content Include="bower_components\jquery-autosize\demo.html" />
     <Content Include="bower_components\jquery-autosize\jquery.autosize.js" />
     <Content Include="bower_components\jquery-autosize\jquery.autosize.min.js" />
+    <Content Include="bower_components\ng-file-upload\angular-file-upload-all.js" />
+    <Content Include="bower_components\ng-file-upload\angular-file-upload-all.min.js" />
+    <Content Include="bower_components\ng-file-upload\angular-file-upload-shim.js" />
+    <Content Include="bower_components\ng-file-upload\angular-file-upload-shim.min.js" />
+    <Content Include="bower_components\ng-file-upload\angular-file-upload.js" />
+    <Content Include="bower_components\ng-file-upload\angular-file-upload.min.js" />
+    <Content Include="bower_components\ng-file-upload\FileAPI.flash.swf" />
+    <Content Include="bower_components\ng-file-upload\FileAPI.min.js" />
+    <Content Include="bower_components\ng-file-upload\ng-file-upload-all.js" />
+    <Content Include="bower_components\ng-file-upload\ng-file-upload-all.min.js" />
     <Content Include="bower_components\textAngular\dist\textAngular-rangy.min.js" />
     <Content Include="bower_components\textAngular\dist\textAngular-sanitize.min.js" />
     <Content Include="bower_components\textAngular\dist\textAngular.min.js" />
@@ -589,7 +607,20 @@
     <Content Include="bower_components\angular-file-upload\Gruntfile.coffee" />
     <Content Include="bower_components\angular-file-upload\package.json" />
     <Content Include="bower_components\angular-file-upload\README.md" />
+    <Content Include="bower_components\angular-initial-value\.bower.json" />
+    <Content Include="bower_components\angular-initial-value\bower.json" />
+    <Content Include="bower_components\angular-initial-value\CONTRIBUTING.md" />
+    <Content Include="bower_components\angular-initial-value\LICENSE" />
+    <Content Include="bower_components\angular-initial-value\package.json" />
+    <Content Include="bower_components\angular-initial-value\README.md" />
+    <Content Include="bower_components\ng-file-upload\.bower.json" />
+    <Content Include="bower_components\ng-file-upload\bower.json" />
+    <Content Include="bower_components\ng-file-upload\LICENSE" />
+    <Content Include="bower_components\ng-file-upload\npm-debug.log" />
+    <Content Include="bower_components\ng-file-upload\README.md" />
+    <None Include="Properties\PublishProfiles\zhakhalov-blog - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\zhakhalov-blog - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\zhakhalov-blog - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\zhakhalov-blog - Web Deploy.pubxml" />
     <Content Include="Views\Aside\Index.cshtml" />
     <Content Include="Views\Aside\Partial\Article.cshtml" />

@@ -51,7 +51,7 @@
         </section>
         <div class="text-right" ng-controller="RateCtrl" ng-init="init('@string.Join(",", article.Raters.Select(r => r.Username))', '@Context.User.Identity.Name', @Context.User.Identity.IsAuthenticated.ToString().ToLower(), @article.Rating, '@article._id.ToString()', '@Url.Action("Rate", "Article")')">
             <button class="btn btn-default btn-sm" ng-click="like(true)" ng-disabled="!canRate"><i class="glyphicon glyphicon-chevron-up" style="color:green"></i></button>
-            <b ng-class="{'has-error': !positive, 'has-success': positive}">{{rating}}</b>
+            <b ng-class="{'text-danger': !positive, 'text-success': positive}">{{rating}}</b>
             <button class="btn btn-default btn-sm" ng-click="like(false)" ng-disabled="!canRate"><i class="glyphicon glyphicon-chevron-down" style="color:red"></i></button>
         </div>        
     </div>

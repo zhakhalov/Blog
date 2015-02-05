@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -29,7 +30,16 @@ namespace Blog.WebUI.Code.Services
 
         public string ShortifyContent(string content)
         {
-            return content.Substring(0, ShortContentLimit) + ((content.Length > ShortContentLimit) ? "..." : "");
+            if (string.IsNullOrEmpty(content))
+            {
+                return "";
+            }
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(content.Substring(0, ShortContentLimit) + "...");
+            System.IO.StringWriter sw = new System.IO.StringWriter();
+            System.Xml.XmlTextWriter xw = new System.Xml.XmlTextWriter(sw);
+            doc.Save(xw);
+            return sw.ToString();
         }
     }
 }

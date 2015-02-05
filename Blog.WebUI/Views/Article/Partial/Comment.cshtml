@@ -1,17 +1,6 @@
 ﻿@model Blog.Repository.Models.CommentModel
 
-@functions
-{
-    string GetRating(List<Blog.Repository.Models.RateModel> raters)
-    {
-        int rating = raters.Count(r => r.Like) - raters.Count(r => !r.Like);
-        return (rating > 0 ? "+" : "") + rating.ToString();
-    }
-}
-
-<div class="well well-sm">
-    <article>
-        @Model.Content
-    </article>
-    <strong>@Model.Author</strong> <small>@Model.CreateDate.ToString("MMMM dd, yyyy.", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))</small>
-</div>
+<blockquote>
+    <p>@Model.Content
+    <small><a href="@Url.Action("Public", "User", new { username = Model.Username })" class="btn-link">@Model.Author</a> @Model.CreateDate.ToString("MMMM dd, yyyy.", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))</small>
+</blockquote>

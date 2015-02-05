@@ -38,6 +38,7 @@ namespace Blog.WebUI
             string connectionString = ConfigurationManager.ConnectionStrings["BlogNoSQL"].ConnectionString;
             // user config
             string avatarPath = ConfigurationManager.AppSettings["avatarPath"];
+            string defaultAvatar = ConfigurationManager.AppSettings["defaultAvatar"];
             int summaryLimit = int.Parse(ConfigurationManager.AppSettings["summaryLimit"]);
             // article config
             int titleLimit = int.Parse(ConfigurationManager.AppSettings["titleLimit"]);
@@ -52,6 +53,7 @@ namespace Blog.WebUI
             container.RegisterType<ITransliterationService, TransliterationService>();
             container.RegisterType<IUserConfigService, UserConfigService>(new InjectionConstructor(
                 new InjectionParameter(avatarPath),
+                new InjectionParameter(defaultAvatar),
                 new InjectionParameter(summaryLimit)));
             container.RegisterType<IArticleConfigService, ArticleConfigService>(new InjectionConstructor(
                 new InjectionParameter(titleLimit),

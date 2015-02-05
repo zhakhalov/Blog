@@ -29,18 +29,25 @@ namespace Blog.WebUI.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Public()
+        public ActionResult Public(string username)
         {
-            return View("Private");
+            var user = _userRepository.GetByLogin(username);
+            ViewBag.User = user;
+            ViewBag.AvatarUrl = _userConfigService.ResolveAvatarUrl(
+                string.IsNullOrWhiteSpace(user.AvatarUrl) ? _userConfigService.DefaultAvatar : user.AvatarUrl);
+            ViewBag.Articles = _articleManager.GetByUser(user.Username, 0, int.MaxValue);
+            return View("Public");
         }
 
         [Authorize]
         public ActionResult Private()
         {
+            Session["user"] = _userRepository.GetByLogin(User.Identity.Name);
             var user = (UserModel)Session["user"];
             ViewBag.User = user;
             ViewBag.SummaryLimit = _userConfigService.SummaryLimit;
-            ViewBag.AvatarUrl =_userConfigService.ResolveAvatarUrl("Default.png");
+            ViewBag.AvatarUrl =_userConfigService.ResolveAvatarUrl(
+                string.IsNullOrWhiteSpace(user.AvatarUrl) ? _userConfigService.DefaultAvatar : user.AvatarUrl);
             ViewBag.Articles = _articleManager.GetByUser(user.Username, 0, int.MaxValue);
             return View("Private");
         }
@@ -51,6 +58,8 @@ namespace Blog.WebUI.Controllers
             string extension = Path.GetExtension(Request.Files["avatar"].FileName);
             string filename = User.Identity.Name + extension;
             Request.Files["avatar"].SaveAs(_userConfigService.ResolveAvatarPath(filename));
+            _userRepository.UpdateAvatar(User.Identity.Name, filename);
+            Session["user"] = _userRepository.GetByLogin(User.Identity.Name);
             return Json(new { url = _userConfigService.ResolveAvatarUrl(filename) });
         }
 
@@ -58,6 +67,8 @@ namespace Blog.WebUI.Controllers
         [Authorize]
         public ActionResult Summary(string summary)
         {
+            _userRepository.UpdateSummary(User.Identity.Name, summary);
+            Session["user"] = _userRepository.GetByLogin(User.Identity.Name);
             return Json(new { ok = true });
         }
 

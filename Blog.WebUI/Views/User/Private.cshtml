@@ -18,34 +18,46 @@
 
 <div ng-app="app">
     <div class="row">
-        <div ng-controller="avatarCtrl" class="sidebar col-md-3">
+        <div class="col-md-3"
+             ng-controller="avatarCtrl"
+             ng-init="init('@Url.Content(avatarUrl)', '@Url.Action("UploadAvatar", "User")')"
+             nv-file-drop
+             uploader="uploader">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title text-center">Profile Image</h3>
                 </div>
                 <div class="panel-body text-center">
                     <div class="well">
-                        <img src="@Url.Content(avatarUrl)" width="100" height="100" />
+                        <img ng-src="{{avatarUrl}}" width="100" height="100" />
                     </div>
                     <div>
                         <span class="btn btn-success btn-file btn-block">
-                            <i class="glyphicon glyphicon-upload"></i>Upload photo<input type="file">
+                            Select photo
+                            <input type="file"
+                                   nv-file-select
+                                   uploader="uploader">
                         </span>
-                        <div class="btn btn-lg btn-link btn-block btn-drop text-center text-muted">
+                        <div class="btn btn-lg btn-link btn-block btn-drop text-center text-muted"
+                             uploader="uploader"
+                             nv-file-over>
                             Or drop here
                         </div>
                         <div ng-show="uploading">
                             <hr />
+                            <button class="btn btn-block btn-success btn-sm"><i class="glyphicon glyphicon-upload"></i>Upload</button>
                             <div class="progress progress-striped">
-                                <div class="progress-bar progress-bar-success" style="width: 60%;"></div>
+                                <div class="progress-bar progress-bar-success" ng-style="{width: progress + '%'};"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="main col-md-9">
-            <div class="panel panel-default" ng-controller="summaryCtrl" ng-init="init('@Url.Action("Summary", "User")', @summaryLimit)">
+        <div class="col-md-9">
+            <div class="panel panel-default"
+                 ng-controller="summaryCtrl" 
+                 ng-init="init('@Url.Action("Summary", "User")', @summaryLimit, '@user.Summary')">
                 <div class="panel-heading">
                     <h3 class="panel-title text-center">About yourself:</h3>
                 </div>
@@ -54,12 +66,11 @@
                               placeholder="Tell about yourself..."
                               ng-maxlength="@summaryLimit"
                               my-maxlength="@summaryLimit"
+                              initial-value="@user.Summary"
                               msd-elastic
                               ng-change="change()"
-                              ng-model="summary">
-                        @user.Summary
-                    </textarea>
-                    <label>Caracters remains:{{limit - summary.length}}</label>
+                              ng-model="summary"></textarea>
+                    <label>Caracters remains:{{summaryLimit - summary.length}}</label>
                     <div>
                         <button class="btn btn-success" ng-click="update()" ng-disabled="!allowSubmit">Save</button>
                     </div>
