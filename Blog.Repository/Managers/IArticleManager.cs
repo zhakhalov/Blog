@@ -11,7 +11,7 @@ namespace Blog.Repository.Managers
     public interface IArticleManager : IArticleRepository
     {
         ArticleModel GetByUrl(string url);
-        List<ArticleModel> GetByUser(string username, int skip, int limit);
+        List<ArticleModel> GetByUser(string username, int skip, int take);
         List<ArticleModel> GetByTag(string tag, int skip, int take);
         List<ArticleModel> GetNewest(int skip, int take);
         List<ArticleModel> GetTopRated(int skip, int take);

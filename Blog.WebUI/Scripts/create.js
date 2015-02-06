@@ -51,7 +51,8 @@
             $http.post(createUrl, { tag: $scope.newTag })
             .success(function () {
                 $scope.available.push($scope.newTag);
-                $scope.pending = false;                
+                $scope.pending = false;
+                $scope.existsTag = true;
             });
         };
     }])

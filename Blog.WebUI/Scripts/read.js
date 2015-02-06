@@ -1,4 +1,4 @@
-﻿(function ($, angular) {
+﻿(function (angular) {
     angular.module('app', ['monospaced.elastic', 'maxLength'])
     .controller('RateCtrl', ['$scope', '$http', function ($scope, $http) {
         var id = '';
@@ -33,8 +33,8 @@
             $http.post(url, { comment: $scope.comment, id: id })
             .success(function (data) {
                 $scope.pending = false;
-                $('#comment').after(data);
+                angular.element('#comment').after(data);
             });
         }
     }]);
-})(window.jQuery, window.angular);
+})(window.angular);

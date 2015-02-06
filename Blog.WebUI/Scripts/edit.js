@@ -50,6 +50,7 @@
             .success(function () {
                 $scope.available.push($scope.newTag);
                 $scope.pending = false;
+                $scope.existsTag = true;
             });
         };
     }]);

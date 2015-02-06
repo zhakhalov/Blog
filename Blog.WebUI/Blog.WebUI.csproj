@@ -160,6 +160,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ArticleListModel.cs" />
+    <Compile Include="Models\PaginationModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -184,6 +185,11 @@
     <Content Include="bower_components\angular-initial-value\src\angular-initial-value.js" />
     <Content Include="bower_components\angular-input-match\dist\angular-input-match.js" />
     <Content Include="bower_components\angular-input-match\dist\angular-input-match.min.js" />
+    <Content Include="bower_components\angular-pagination\.gitignore" />
+    <Content Include="bower_components\angular-pagination\angular-pagination.js" />
+    <Content Include="bower_components\angular-pagination\angular-pagination.spec.js" />
+    <Content Include="bower_components\angular-pagination\karma.conf.js" />
+    <Content Include="bower_components\angular-pagination\LICENSE.txt" />
     <Content Include="bower_components\angular\angular-csp.css" />
     <Content Include="bower_components\angular\angular.js" />
     <Content Include="bower_components\angular\angular.min.js" />
@@ -346,6 +352,7 @@
     <Content Include="bower_components\jquery\src\var\toString.js" />
     <Content Include="bower_components\jquery\src\wrap.js" />
     <Content Include="Content\Styles\Auth\styles.css" />
+    <Content Include="Scripts\pagination.js" />
     <Content Include="Scripts\read.js" />
     <Content Include="Scripts\count-group.js" />
     <Content Include="Scripts\create.js" />
@@ -595,9 +602,13 @@
     <Content Include="bower_components\rangy\bower.json" />
     <Content Include="bower_components\rangy\LICENSE" />
     <Content Include="bower_components\rangy\README.md" />
-    <None Include="Properties\PublishProfiles\zhakhalov-blog - FTP %282%29.pubxml" />
+    <Content Include="bower_components\angular-pagination\.bower.json" />
+    <Content Include="bower_components\angular-pagination\.jshintrc" />
+    <Content Include="bower_components\angular-pagination\.travis.yml" />
+    <Content Include="bower_components\angular-pagination\bower.json" />
+    <Content Include="bower_components\angular-pagination\package.json" />
+    <Content Include="bower_components\angular-pagination\README.md" />
     <None Include="Properties\PublishProfiles\zhakhalov-blog - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\zhakhalov-blog - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\zhakhalov-blog - Web Deploy.pubxml" />
     <Content Include="Views\Aside\Index.cshtml" />
     <Content Include="Views\Aside\Partial\Article.cshtml" />

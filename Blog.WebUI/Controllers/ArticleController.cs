@@ -52,7 +52,7 @@ namespace Blog.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            return All(0);
+            return All(1);
         }
 
         [AllowAnonymous]
@@ -60,32 +60,73 @@ namespace Blog.WebUI.Controllers
         {
             long count = _articleManager.Count();
             List<ArticleModel> articles = _articleManager.GetNewest(
-                page - 1 * _articleConfigService.PageLimit,
-                _articleConfigService.PageLimit);
+                skip: (page - 1) * _articleConfigService.ItemsPerPage,
+                take: _articleConfigService.ItemsPerPage);
             articles.ForEach(a => a.Content = _articleConfigService.ShortifyContent(a.Content));
-            ViewBag.Articles = articles;
+            ViewBag.Articles = new ArticleListModel
+            {
+                Articles = articles,
+                Pagination = new PaginationModel
+                {
+                    Action = Url.Action("All", "Article", new { page = "" }),
+                    ItemsCount = (int)count,
+                    ItemsPerPage = _articleConfigService.ItemsPerPage,
+                    MaxNumbers = _articleConfigService.MaxNumbers,
+                    StartPage = page
+                }
+            };
             return View("Articles");
         }
 
         [AllowAnonymous]
         public ActionResult Tag(string tag, int page = 1)
         {
-            //TODO Pagination need
-            List<ArticleModel> articles = _articleManager.GetByTag(tag, 0, int.MaxValue);
+            long count = _articleManager.CountByTag(tag);
+            List<ArticleModel> articles = _articleManager.GetByTag(
+                tag: tag,
+                skip: (page - 1) * _articleConfigService.ItemsPerPage,
+                take: _articleConfigService.ItemsPerPage);
             articles.ForEach(a => a.Content = _articleConfigService.ShortifyContent(a.Content));
             ViewBag.Title = "Articles by tag " + tag;
-            ViewBag.Articles = articles;
+            ViewBag.Articles = new ArticleListModel
+            {
+                Articles = articles,
+                Pagination = new PaginationModel
+                {
+                    Action = Url.Action("Tag", "Article", new { tag = tag, page = "" }),
+                    ItemsCount = (int)count,
+                    ItemsPerPage = _articleConfigService.ItemsPerPage,
+                    MaxNumbers = _articleConfigService.MaxNumbers,
+                    StartPage = page
+                }
+            };
             return View("Articles");
         }
 
         [AllowAnonymous]
-        public ActionResult Author(string author)
+        public ActionResult Author(string author, int page = 1)
         {
-            //TODO Pagination need
+            long count = _articleManager.CountByUser(author);
             ViewBag.AllowEdit = User.Identity.IsAuthenticated && (author == User.Identity.Name);
-            List<ArticleModel> articles = _articleManager.GetByUser(author, 0, int.MaxValue);
+            List<ArticleModel> articles = _articleManager.GetByUser(
+                username: author,
+                skip: (page - 1) * _articleConfigService.ItemsPerPage,
+                take: _articleConfigService.ItemsPerPage);
             articles.ForEach(a => a.Content = _articleConfigService.ShortifyContent(a.Content));
-            return View("Partial/ArticleList", articles);
+            return View(
+                viewName: "Partial/ArticleList",
+                model: new ArticleListModel
+            {
+                Articles = articles,
+                Pagination = new PaginationModel
+                {
+                    Action = Url.Action("Public", "User", new { username = author, page = "" }),
+                    ItemsCount = (int)count,
+                    ItemsPerPage = _articleConfigService.ItemsPerPage,
+                    MaxNumbers = _articleConfigService.MaxNumbers,
+                    StartPage = page
+                }
+            });
         }
 
         [AllowAnonymous]
@@ -94,7 +135,7 @@ namespace Blog.WebUI.Controllers
             List<ArticleModel> articles = _articleManager.Search(q);
             articles.ForEach(a => a.Content = _articleConfigService.ShortifyContent(a.Content));
             ViewBag.Title = "Search: " + q;
-            ViewBag.Articles = articles;
+            ViewBag.Articles = new ArticleListModel { Articles = articles };
             return View("Articles");
         }
 

@@ -21,9 +21,15 @@ namespace Blog.Repository.Managers
             return GetOne(Query<ArticleModel>.EQ(a => a.Url, url));
         }
 
-        public List<ArticleModel> GetByUser(string username, int skip, int limit)
+        public List<ArticleModel> GetByUser(string username, int skip, int take)
         {
-            return Get(Query<UserModel>.EQ(u => u.Username, username), skip, limit);
+            return Collection
+                .Find(Query<ArticleModel>.EQ(a => a.Username, username))
+                .SetFields(Fields.Exclude("Comments"))
+                .OrderByDescending(a => a.CreateDate)
+                .Skip(skip)
+                .Take(take)
+                .ToList();
         }        
 
         public List<ArticleModel> GetByTag(string tag, int skip, int take)
@@ -31,7 +37,7 @@ namespace Blog.Repository.Managers
             return Collection
                 .Find(Query<ArticleModel>.EQ(a => a.Tags, tag))
                 .SetFields(Fields.Exclude("Comments"))
-                .OrderBy(a => a.CreateDate)
+                .OrderByDescending(a => a.CreateDate)
                 .Skip(skip)
                 .Take(take)
                 .ToList();
@@ -42,7 +48,7 @@ namespace Blog.Repository.Managers
             return Collection
                 .FindAll()
                 .SetFields(Fields.Exclude("Comments"))
-                .OrderBy(a => a.CreateDate)
+                .OrderByDescending(a => a.CreateDate)
                 .Skip(skip)
                 .Take(take)
                 .ToList();
@@ -52,7 +58,7 @@ namespace Blog.Repository.Managers
         {
             return Collection
                 .FindAll()
-                .OrderBy(a => a.Rating)
+                .OrderByDescending(a => a.Rating)
                 .Skip(skip)
                 .Take(take)
                 .ToList();
@@ -62,7 +68,7 @@ namespace Blog.Repository.Managers
         {
             return Collection
                 .FindAll()
-                .OrderBy(a => a.Viewed)
+                .OrderByDescending(a => a.Viewed)
                 .Skip(skip)
                 .Take(take)
                 .ToList();
@@ -78,7 +84,7 @@ namespace Blog.Repository.Managers
             return result.Response["results"].AsBsonArray
                 .Select(row => row.AsBsonDocument)
                 .Select(item => item.AsBsonDocument)
-                .OrderBy(r => r["score"])
+                .OrderByDescending(r => r["score"])
                 .Select(doc => BsonSerializer.Deserialize<ArticleModel>(doc["obj"].AsBsonDocument))
                 .ToList();
         }

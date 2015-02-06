@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace Blog.WebUI.Code.Services
@@ -12,17 +13,20 @@ namespace Blog.WebUI.Code.Services
         public int CommentLimit { get; private set; }
         public int ShortContentLimit { get; private set; }
         public int AsideLimit { get; private set; }
-        public int PageLimit { get; private set; }
+        public int ItemsPerPage { get; private set; }
+        public int MaxNumbers { get; private set; }
 
         public ArticleConfigService(
             int titleLimit,
-            int pageLimit,
+            int itemsPerPage,
+            int maxNumbers,
             int commentLimit,
             int shortContentLimit,
             int asideLimit)
         {
             TitleLimit = titleLimit;
-            PageLimit = pageLimit;
+            ItemsPerPage = itemsPerPage;
+            MaxNumbers = maxNumbers;
             CommentLimit = commentLimit;
             ShortContentLimit = shortContentLimit;
             AsideLimit = asideLimit;
@@ -34,12 +38,13 @@ namespace Blog.WebUI.Code.Services
             {
                 return "";
             }
-            HtmlDocument doc = new HtmlDocument();
-            doc.LoadHtml(content.Substring(0, ShortContentLimit) + "...");
-            System.IO.StringWriter sw = new System.IO.StringWriter();
-            System.Xml.XmlTextWriter xw = new System.Xml.XmlTextWriter(sw);
-            doc.Save(xw);
-            return sw.ToString();
+            //HtmlDocument doc = new HtmlDocument();
+            //doc.LoadHtml(content.Substring(0, ShortContentLimit) + "...");
+            //System.IO.StringWriter sw = new System.IO.StringWriter();
+            //System.Xml.XmlTextWriter xw = new System.Xml.XmlTextWriter(sw);
+            //doc.Save(xw);
+            //return sw.ToString();
+            return new Regex("<[^>]*>").Replace(content, "").Substring(0, ShortContentLimit) + "...";
         }
     }
 }

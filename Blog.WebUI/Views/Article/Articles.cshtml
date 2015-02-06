@@ -1,6 +1,12 @@
 ﻿@{
     Layout = "~/Views/Shared/Layout.cshtml";
-    List<Blog.Repository.Models.ArticleModel> articles = ViewBag.Articles;
+    Blog.WebUI.Models.ArticleListModel articles = ViewBag.Articles;
+}
+
+@section Header{
+    <script src="~/bower_components/angular/angular.js"></script>
+    <script src="~/bower_components/angular-pagination/angular-pagination.js"></script>
+    <script src="~/Scripts/pagination.js"></script>
 }
 
 @Html.Partial("Partial/ArticleList", articles)

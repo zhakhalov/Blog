@@ -1,36 +1,31 @@
 ﻿@model Blog.WebUI.Models.ArticleListModel
-@{
-    bool isFirst = 1 == Model.CurrentPage;
-    bool isLast = Model.CurrentPage == Model.TotalPages;
-}
 
 @foreach (var a in Model.Articles)
 {
     @Html.Partial("Partial/Article", a)
 }
 
-@if (Model.UsePagination)
+@if (null != Model.Pagination)
 {
-    <div
-         ng-app="pagination" 
-         ng-controller="pageCtrl"
-         ng-init="init('@Url.Action(Model.Action, Model.Controller)', @Model.CurrentPage, @Model.TotalPages)">
+    <div ng-app="paginationApp"
+         ng-controller="paginatonCtrl"
+         ng-init="init('@Model.Pagination.Action', @Model.Pagination.ItemsPerPage, @Model.Pagination.ItemsCount, @Model.Pagination.MaxNumbers, @Model.Pagination.StartPage)">
         <div ng-pagination="onPageChange">
             <ul class="pagination">
                 <li ng-class="{disabled: pagination.isFirst(pagination.currentPage)}" ng-click="pagination.setCurrent(pagination.startPage)">
-                    <a ng-href="{{first}}">First</a>
+                    <a ng-href="{{url + '/' + pagination.startPage}}">First</a>
                 </li>
                 <li ng-class="{disabled: !pagination.inRange(pagination.currentPage - 1)}" ng-click="pagination.setCurrent(pagination.currentPage - 1)">
-                    <a ng-href="{{prev}}">Prev</a>
+                    <a ng-href="{{url + '/' + (pagination.currentPage - 1)}}">Prev</a>
                 </li>
                 <li ng-repeat="page in pagination.pages track by $index" ng-class="{active: pagination.isCurrent(page)}" ng-click="pagination.setCurrent(page)">
-                    <a ng-href="{{page(page)}}">{{page}}</a>
+                    <a ng-href="{{url + '/' + page}}">{{page}}</a>
                 </li>
                 <li ng-class="{disabled: !pagination.inRange(pagination.currentPage + 1)}" ng-click="pagination.setCurrent(pagination.currentPage + 1)">
-                    <a ng-href="{{next}}">Next</a>
+                    <a ng-href="{{url + '/' + (pagination.currentPage + 1).toString()}}">Next</a>
                 </li>
                 <li ng-class="{disabled: pagination.isLast(pagination.currentPage)}" ng-click="pagination.setCurrent(pagination.endPage)">
-                    <a ng-href="{{last}}">Last</a>
+                    <a ng-href="{{url + '/' + pagination.endPage}}">Last</a>
                 </li>
             </ul>
         </div>

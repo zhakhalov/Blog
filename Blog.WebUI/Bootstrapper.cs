@@ -42,7 +42,8 @@ namespace Blog.WebUI
             int summaryLimit = int.Parse(ConfigurationManager.AppSettings["summaryLimit"]);
             // article config
             int titleLimit = int.Parse(ConfigurationManager.AppSettings["titleLimit"]);
-            int pageLimit = int.Parse(ConfigurationManager.AppSettings["pageLimit"]);
+            int itemsPerPage = int.Parse(ConfigurationManager.AppSettings["itemsPerPage"]);
+            int maxNumbers = int.Parse(ConfigurationManager.AppSettings["maxNumbers"]);
             int commentLimit = int.Parse(ConfigurationManager.AppSettings["commentLimit"]);
             int shortContentLimit = int.Parse(ConfigurationManager.AppSettings["shortContentLimit"]);
             int asideLimit = int.Parse(ConfigurationManager.AppSettings["asideLimit"]);
@@ -57,7 +58,8 @@ namespace Blog.WebUI
                 new InjectionParameter(summaryLimit)));
             container.RegisterType<IArticleConfigService, ArticleConfigService>(new InjectionConstructor(
                 new InjectionParameter(titleLimit),
-                new InjectionParameter(pageLimit),
+                new InjectionParameter(itemsPerPage),
+                new InjectionParameter(maxNumbers),
                 new InjectionParameter(commentLimit),
                 new InjectionParameter(shortContentLimit),
                 new InjectionParameter(asideLimit)));

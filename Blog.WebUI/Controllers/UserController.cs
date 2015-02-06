@@ -2,6 +2,7 @@
 using Blog.Repository.Models;
 using Blog.Repository.Repositories;
 using Blog.WebUI.Code.Services;
+using Blog.WebUI.Models;
 using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
@@ -17,25 +18,28 @@ namespace Blog.WebUI.Controllers
         private readonly IUserRepository _userRepository;
         private readonly IArticleManager _articleManager;
         private readonly IUserConfigService _userConfigService;
+        private readonly IArticleConfigService _articleConfigService;
 
         public UserController(
             IUserRepository userRepository,
             IArticleManager articleManager,
-            IUserConfigService userConfigService)
+            IUserConfigService userConfigService,
+            IArticleConfigService articleConfigService)
         {
             _userRepository = userRepository;
             _articleManager = articleManager;
             _userConfigService = userConfigService;
+            _articleConfigService =  articleConfigService;
         }
 
         [AllowAnonymous]
-        public ActionResult Public(string username)
+        public ActionResult Public(string username, int page = 1)
         {
             var user = _userRepository.GetByLogin(username);
             ViewBag.User = user;
+            ViewBag.Page = page;
             ViewBag.AvatarUrl = _userConfigService.ResolveAvatarUrl(
                 string.IsNullOrWhiteSpace(user.AvatarUrl) ? _userConfigService.DefaultAvatar : user.AvatarUrl);
-            ViewBag.Articles = _articleManager.GetByUser(user.Username, 0, int.MaxValue);
             return View("Public");
         }
 

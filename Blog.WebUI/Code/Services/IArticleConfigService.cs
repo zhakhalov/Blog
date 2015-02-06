@@ -12,7 +12,8 @@ namespace Blog.WebUI.Code.Services
         int CommentLimit { get; }
         int ShortContentLimit { get; }
         int AsideLimit { get; }
-        int PageLimit { get; }
+        int ItemsPerPage { get; }                   // angular-pagination property
+        int MaxNumbers { get; }                     // angular-pagination property
         string ShortifyContent(string content);
         
     }

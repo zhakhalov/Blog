@@ -2,7 +2,15 @@
     Layout = "~/Views/Shared/Layout.cshtml";
     string avatarUrl = ViewBag.AvatarUrl;
     Blog.Repository.Models.UserModel user = ViewBag.User;
+    int page = ViewBag.Page;
 }
+
+@section Header{
+    <script src="~/bower_components/angular/angular.js"></script>
+    <script src="~/bower_components/angular-pagination/angular-pagination.js"></script>
+    <script src="~/Scripts/pagination.js"></script>
+}
+
 <div class="panel panel-default">
     <div class="panel-heading text-center">
         <h3 class="panel-title">About author</h3>
@@ -23,6 +31,6 @@
         <h3 class="panel-title">Articles</h3>
     </div>
     <div class="panel-body">
-        @{Html.RenderAction("Author", "Article", new { author = user.Username });}
+        @{Html.RenderAction("Author", "Article", new { author = user.Username, userpage = page });}
     </div>
 </div>

@@ -10,10 +10,6 @@ namespace Blog.WebUI.Models
     {
         public string Title { get; set; }
         public List<ArticleModel> Articles { get; set; }
-        public bool UsePagination { get; set; }
-        public string Action { get; set; }
-        public string Controller { get; set; }
-        public long TotalPages { get; set; }
-        public long CurrentPage { get; set; }
+        public PaginationModel Pagination { get; set; }
     }
 }

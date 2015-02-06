@@ -21,7 +21,7 @@ namespace Blog.WebUI
             routes.MapRoute(
                 name: "All",
                 url: "all/{page}",
-                defaults: new { controller = "Article", action = "All", page = UrlParameter.Optional }
+                defaults: new { controller = "Article", action = "All", page = 1 }
             );
             routes.MapRoute(
                 name: "Search",
@@ -31,12 +31,12 @@ namespace Blog.WebUI
             routes.MapRoute(
                 name: "Tags",
                 url: "tag/{tag}/{page}",
-                defaults: new { controller = "Article", action = "Tag", page = UrlParameter.Optional }
+                defaults: new { controller = "Article", action = "Tag", page = 1 }
             );
             routes.MapRoute(
                 name: "Profile",
                 url: "profile/{username}/{page}",
-                defaults: new { controller = "User", action = "Public", page = UrlParameter.Optional }
+                defaults: new { controller = "User", action = "Public", page = 1 }
             );
             routes.MapRoute(
                 name: "Default",
