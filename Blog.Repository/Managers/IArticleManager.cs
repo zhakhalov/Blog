@@ -16,13 +16,15 @@ namespace Blog.Repository.Managers
         List<ArticleModel> GetNewest(int skip, int take);
         List<ArticleModel> GetTopRated(int skip, int take);
         List<ArticleModel> GetMostViewed(int skip, int take);
+        List<ArticleModel> Search(string search);
+        long CountByUser(string username);
+        long CountByTag(string tag);
+        long Count();
         void AddComment(CommentModel comment, string articleId);
         void AddSubComment(CommentModel comment, string commentId);
-        void ClearComments(string articleId);
         void IncreaseViewed(int count, string articleId);
         void RateArticle(RateModel rate, string articleId);
         void RateComment(RateModel rate, string commentId);
-        bool ExistsTitleOrUrl(string title, string url);
-        List<ArticleModel> Search(string search);
+        bool ExistsTitleOrUrl(string title, string url);        
     }
 }

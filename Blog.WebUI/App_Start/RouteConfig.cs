@@ -19,19 +19,24 @@ namespace Blog.WebUI
                 defaults: new { controller = "Article", action = "Read" }
             );
             routes.MapRoute(
+                name: "All",
+                url: "all/{page}",
+                defaults: new { controller = "Article", action = "All", page = UrlParameter.Optional }
+            );
+            routes.MapRoute(
                 name: "Search",
                 url: "search",
                 defaults: new { controller = "Article", action = "Search" }
             );
             routes.MapRoute(
                 name: "Tags",
-                url: "tag/{tag}",
-                defaults: new { controller = "Article", action = "Tag" }
+                url: "tag/{tag}/{page}",
+                defaults: new { controller = "Article", action = "Tag", page = UrlParameter.Optional }
             );
             routes.MapRoute(
                 name: "Profile",
-                url: "profile/{username}",
-                defaults: new { controller = "User", action = "Public" }
+                url: "profile/{username}/{page}",
+                defaults: new { controller = "User", action = "Public", page = UrlParameter.Optional }
             );
             routes.MapRoute(
                 name: "Default",

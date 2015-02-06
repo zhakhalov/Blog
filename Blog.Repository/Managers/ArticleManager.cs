@@ -24,7 +24,7 @@ namespace Blog.Repository.Managers
         public List<ArticleModel> GetByUser(string username, int skip, int limit)
         {
             return Get(Query<UserModel>.EQ(u => u.Username, username), skip, limit);
-        }
+        }        
 
         public List<ArticleModel> GetByTag(string tag, int skip, int take)
         {
@@ -35,7 +35,7 @@ namespace Blog.Repository.Managers
                 .Skip(skip)
                 .Take(take)
                 .ToList();
-        }
+        }        
 
         public List<ArticleModel> GetNewest(int skip, int take)
         {
@@ -46,7 +46,7 @@ namespace Blog.Repository.Managers
                 .Skip(skip)
                 .Take(take)
                 .ToList();
-        }
+        }        
 
         public List<ArticleModel> GetTopRated(int skip, int take)
         {
@@ -66,6 +66,36 @@ namespace Blog.Repository.Managers
                 .Skip(skip)
                 .Take(take)
                 .ToList();
+        }
+
+        public List<ArticleModel> Search(string search)
+        {
+            CommandResult result = Collection.Database.RunCommand(new CommandDocument
+            {
+                { "text", Collection.Name },
+                { "search", search }
+            });
+            return result.Response["results"].AsBsonArray
+                .Select(row => row.AsBsonDocument)
+                .Select(item => item.AsBsonDocument)
+                .OrderBy(r => r["score"])
+                .Select(doc => BsonSerializer.Deserialize<ArticleModel>(doc["obj"].AsBsonDocument))
+                .ToList();
+        }
+
+        public long CountByUser(string username)
+        {
+            return Collection.Count(Query<ArticleModel>.EQ(a => a.Username, username));
+        }
+
+        public long CountByTag(string tag)
+        {
+            return Collection.Count(Query<ArticleModel>.EQ(a => a.Tags, tag));
+        }
+
+        public long Count()
+        {
+            return Collection.Count();
         }
 
         public void AddComment(CommentModel comment, string articleId)
@@ -114,35 +144,12 @@ namespace Blog.Repository.Managers
                 Update.PushWrapped("Comments.$.Raters", comment));
         }
 
-
-        public void ClearComments(string articleId)
-        {
-            throw new NotImplementedException();
-        }
-
-
         public bool ExistsTitleOrUrl(string title, string url)
         {
             return Collection
                 .Count(Query.Or(
                     Query<ArticleModel>.EQ(a => a.Title, title),
                     Query<ArticleModel>.EQ(a => a.Url, url))) > 0;
-        }
-
-
-        public List<ArticleModel> Search(string search)
-        {
-            CommandResult result = Collection.Database.RunCommand(new CommandDocument
-            {
-                { "text", Collection.Name },
-                { "search", search }
-            });
-            return result.Response["results"].AsBsonArray
-                .Select(row => row.AsBsonDocument)
-                .Select(item => item.AsBsonDocument)
-                .OrderBy(r => r["score"])
-                .Select(doc => BsonSerializer.Deserialize<ArticleModel>(doc["obj"].AsBsonDocument))
-                .ToList();
         }
     }
 }

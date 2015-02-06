@@ -52,15 +52,23 @@ namespace Blog.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            //TODO Pagination needed
-            List<ArticleModel> articles = _articleManager.GetNewest(0, int.MaxValue);
+            return All(0);
+        }
+
+        [AllowAnonymous]
+        public ActionResult All(int page = 1)
+        {
+            long count = _articleManager.Count();
+            List<ArticleModel> articles = _articleManager.GetNewest(
+                page - 1 * _articleConfigService.PageLimit,
+                _articleConfigService.PageLimit);
             articles.ForEach(a => a.Content = _articleConfigService.ShortifyContent(a.Content));
             ViewBag.Articles = articles;
             return View("Articles");
-        }        
+        }
 
         [AllowAnonymous]
-        public ActionResult Tag(string tag)
+        public ActionResult Tag(string tag, int page = 1)
         {
             //TODO Pagination need
             List<ArticleModel> articles = _articleManager.GetByTag(tag, 0, int.MaxValue);
