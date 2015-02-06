@@ -80,6 +80,16 @@ namespace Blog.WebUI.Controllers
             return View("Partial/ArticleList", articles);
         }
 
+        [AllowAnonymous]
+        public ActionResult Search(string q)
+        {
+            List<ArticleModel> articles = _articleManager.Search(q);
+            articles.ForEach(a => a.Content = _articleConfigService.ShortifyContent(a.Content));
+            ViewBag.Title = "Search: " + q;
+            ViewBag.Articles = articles;
+            return View("Articles");
+        }
+
         [Authorize]
         [HttpGet]
         public ActionResult Create()

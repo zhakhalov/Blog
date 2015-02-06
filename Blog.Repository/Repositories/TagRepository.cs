@@ -12,7 +12,8 @@ namespace Blog.Repository.Repositories
 {
     public class TagRepository : Repository<TagModel>, ITagRepository
     {
-        public TagRepository(string connectionString) : base(connectionString, "blog", "tags")
+        public TagRepository(string connectionString)
+            : base(connectionString, "blog", "tags")
         {
             Collection.CreateIndex(new IndexKeysBuilder<TagModel>().Ascending(t => t.Name), IndexOptions.SetUnique(true));
         }

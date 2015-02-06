@@ -1,6 +1,8 @@
 ﻿using Blog.Repository.Models;
 using Blog.Repository.Repositories;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using System;
 using System.Collections.Generic;
@@ -125,6 +127,22 @@ namespace Blog.Repository.Managers
                 .Count(Query.Or(
                     Query<ArticleModel>.EQ(a => a.Title, title),
                     Query<ArticleModel>.EQ(a => a.Url, url))) > 0;
+        }
+
+
+        public List<ArticleModel> Search(string search)
+        {
+            CommandResult result = Collection.Database.RunCommand(new CommandDocument
+            {
+                { "text", Collection.Name },
+                { "search", search }
+            });
+            return result.Response["results"].AsBsonArray
+                .Select(row => row.AsBsonDocument)
+                .Select(item => item.AsBsonDocument)
+                .OrderBy(r => r["score"])
+                .Select(doc => BsonSerializer.Deserialize<ArticleModel>(doc["obj"].AsBsonDocument))
+                .ToList();
         }
     }
 }

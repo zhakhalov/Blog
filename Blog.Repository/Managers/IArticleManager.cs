@@ -23,5 +23,6 @@ namespace Blog.Repository.Managers
         void RateArticle(RateModel rate, string articleId);
         void RateComment(RateModel rate, string commentId);
         bool ExistsTitleOrUrl(string title, string url);
+        List<ArticleModel> Search(string search);
     }
 }

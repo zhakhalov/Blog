@@ -4,9 +4,11 @@
         <h3 class="panel-title">@Model.Title</h3>
     </div>
     <div class="panel-body">
-        @foreach(var a in Model.Articles)
-        {
-            @Html.Partial("Partial/Article", a);
-        }
+        <div class="list-group">
+            @foreach (var a in Model.Articles)
+            {
+                @Html.Partial("Partial/Article", a);
+            }
+        </div>
     </div>
 </section>

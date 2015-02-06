@@ -11,7 +11,12 @@ namespace Blog.Repository.Repositories
 {
     public class ArticleRepository : Repository<ArticleModel>, IArticleRepository
     {
-        public ArticleRepository(string connectionString) : base(connectionString, "blog", "articles") { }
+        public ArticleRepository(string connectionString)
+            : base(connectionString, "blog", "articles")
+        {
+            Collection.CreateIndex(new IndexKeysBuilder<ArticleModel>().Ascending(t => t.Url), IndexOptions.SetUnique(true));
+            Collection.CreateIndex(IndexKeys.TextAll());
+        }
 
         public override void Remove(ArticleModel model)
         {

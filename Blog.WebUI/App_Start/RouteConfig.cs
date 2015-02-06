@@ -19,6 +19,11 @@ namespace Blog.WebUI
                 defaults: new { controller = "Article", action = "Read" }
             );
             routes.MapRoute(
+                name: "Search",
+                url: "search",
+                defaults: new { controller = "Article", action = "Search" }
+            );
+            routes.MapRoute(
                 name: "Tags",
                 url: "tag/{tag}",
                 defaults: new { controller = "Article", action = "Tag" }

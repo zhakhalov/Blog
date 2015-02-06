@@ -596,10 +596,8 @@
     <Content Include="bower_components\rangy\LICENSE" />
     <Content Include="bower_components\rangy\README.md" />
     <None Include="Properties\PublishProfiles\zhakhalov-blog - FTP %282%29.pubxml" />
-    <None Include="Properties\PublishProfiles\zhakhalov-blog - FTP %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\zhakhalov-blog - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\zhakhalov-blog - Web Deploy %282%29.pubxml" />
-    <None Include="Properties\PublishProfiles\zhakhalov-blog - Web Deploy %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\zhakhalov-blog - Web Deploy.pubxml" />
     <Content Include="Views\Aside\Index.cshtml" />
     <Content Include="Views\Aside\Partial\Article.cshtml" />
@@ -620,6 +618,7 @@
     <Content Include="Views\UserMailer\PasswordReset.cshtml" />
     <Content Include="Views\Shared\Partial\TagLabel.cshtml" />
     <Content Include="Views\Article\Partial\ArticleList.cshtml" />
+    <Content Include="Views\Shared\Partial\Search.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

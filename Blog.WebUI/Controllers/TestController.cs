@@ -57,6 +57,12 @@ namespace Blog.WebUI.Controllers
             return View();
         }
 
+        public ActionResult Search(string q)
+        {
+            List<ArticleModel> models = _articleManager.Search(q);
+            return View();
+        }
+
         public ActionResult CreateTags()
         {            
             _tagRepository.InsertRange(new TagModel[]

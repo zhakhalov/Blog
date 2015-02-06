@@ -1,5 +1,7 @@
 ﻿@model Blog.Repository.Models.ArticleModel
 
-<a href="@Url.Action("Read", "Article", new { url = Model.Url })">
-    <h5><strong>@Model.Title</strong></h5>
-</a>
+<div class="list-group-item">
+    <a href="@Url.Action("Read", "Article", new { url = Model.Url })" class="list-group-item-text">
+        @Model.Title
+    </a>
+</div>
