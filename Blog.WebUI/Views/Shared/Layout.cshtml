@@ -25,6 +25,9 @@
                         </button>
                         <a class="navbar-brand" href="@Url.Action("Index", "Article")">Blog</a>
                     </div>
+                    <ul class="nav navbar-nav">
+                        <li><a href="@Url.Action("Index", "Article")">Home</a></li>
+                    </ul>
                     <div class="navbar-collapse collapse" id="navbar-main">
                         @Html.Partial("Partial/Search")
                         @{Html.RenderAction("NavBar", "User");}

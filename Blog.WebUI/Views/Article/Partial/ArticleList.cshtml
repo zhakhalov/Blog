@@ -10,7 +10,7 @@
     <div ng-app="paginationApp"
          ng-controller="paginatonCtrl"
          ng-init="init('@Model.Pagination.Action', @Model.Pagination.ItemsPerPage, @Model.Pagination.ItemsCount, @Model.Pagination.MaxNumbers, @Model.Pagination.StartPage)">
-        <div ng-pagination="onPageChange">
+        <div ng-pagination="onPageChange" class="text-center">
             <ul class="pagination">
                 <li ng-class="{disabled: pagination.isFirst(pagination.currentPage)}" ng-click="pagination.setCurrent(pagination.startPage)">
                     <a ng-href="{{url + '/' + pagination.startPage}}">First</a>
