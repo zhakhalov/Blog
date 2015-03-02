@@ -61,16 +61,12 @@
     <ul>
       <li>Mvc 4</li>
       <li>MongoDB C# Driver</li>
-      <li>Html Agility Pack</li>
     </ul>
   <li>Client</li>
   <ul>
     <li>Bootstrap</li>
     <li>jQuery</li>
     <li>AngularJS</li>
-    <li>TextAngular</li>                
-    <li>Angular File Upload</li>
-    <li>Angular Elastic</li>
-    <li>Angular Pagination</li>            
   </ul>        
 </ul>
+<a href="https://github.com/zhakhalov/Blog/tree/master/screenshots">Screenshots</a>
